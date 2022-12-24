@@ -1,0 +1,137 @@
+:root {
+  --green: #17696A;
+  --gray: #1E212C;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(../../assets/fonts/Lato-Regular.ttf);
+}
+body {
+  font-family: Lato;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+p, h1, figure {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.btn {
+  padding: 0px 40px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 52px;
+  border-radius: 4px;
+  border: 1px solid var(--green);
+  background-color: rgba(117, 190, 218, 0);
+  color: var(--green);
+}
+
+.btn-green {
+  background-color: var(--green);
+  color: #FFFFFF;
+}
+
+.nav-user {
+  background-color: var(--gray);
+  color: #FFFFFF;
+}
+.nav-user figcaption {
+  opacity: 0.6;
+}
+
+.nav-bar {
+  display: flex;
+}
+
+.nav-sales {
+  background-color: var(--green);
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 150%;
+  padding: 8px 0;
+}
+.nav-sales a {
+  color: #FFFFFF;
+}
+
+.btn-group {
+  display: flex;
+  gap: 30px;
+}
+
+.tree-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.tree-category figure {
+  margin: 0;
+}
+.tree-category img {
+  max-width: 350px;
+  width: auto;
+  height: auto;
+  flex: auto;
+}
+.tree-category figcaption {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.card-collection .images {
+  position: relative;
+}
+.card-collection img {
+  width: 285px;
+  height: 320px;
+}
+.card-collection .card-like {
+  position: absolute;
+  max-width: 15.17px;
+  height: auto;
+  padding: 9.5px 8.42px;
+  border-radius: 50px;
+  background-color: #addbf0;
+  right: 16px;
+  bottom: 16px;
+  cursor: pointer;
+}
+.card-collection .card-title {
+  font-weight: 400px;
+  font-size: 18px;
+  line-height: 27px;
+  color: #424551;
+  margin: 16px 0 8px;
+}
+.card-collection .price {
+  font-weight: 700px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #1E212C;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=normalize.css.map */
