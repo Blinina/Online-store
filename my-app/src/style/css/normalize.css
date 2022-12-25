@@ -45,16 +45,54 @@ a:visited {
   color: #FFFFFF;
 }
 
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 5px;
+}
+.nav .logo {
+  margin-right: 30px;
+}
+.nav .nav-bar {
+  display: flex;
+  margin: 0px;
+}
+.nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.nav ul li {
+  margin-right: 30px;
+  list-style-type: none;
+}
+.nav form {
+  margin-right: 30px;
+}
+.nav .nav-account {
+  display: flex;
+  align-items: center;
+}
+.nav .nav-account div:not(:last-child) {
+  margin-right: 30px;
+}
+
 .nav-user {
   background-color: var(--gray);
   color: #FFFFFF;
+  padding: 3%;
+  border-radius: 4px;
+}
+.nav-user figure {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 .nav-user figcaption {
   opacity: 0.6;
-}
-
-.nav-bar {
-  display: flex;
+  font-size: 9px;
 }
 
 .nav-sales {
@@ -94,6 +132,9 @@ a:visited {
   text-align: center;
 }
 
+.card-collection {
+  cursor: pointer;
+}
 .card-collection .images {
   position: relative;
 }
@@ -110,7 +151,6 @@ a:visited {
   background-color: #addbf0;
   right: 16px;
   bottom: 16px;
-  cursor: pointer;
 }
 .card-collection .card-title {
   font-weight: 400px;
@@ -118,6 +158,7 @@ a:visited {
   line-height: 27px;
   color: #424551;
   margin: 16px 0 8px;
+  cursor: pointer;
 }
 .card-collection .price {
   font-weight: 700px;
@@ -130,6 +171,12 @@ a:visited {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
   justify-content: center;
   align-items: center;
 }

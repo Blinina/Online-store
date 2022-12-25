@@ -6,7 +6,8 @@ import {
 import Main from "./components/Main";
 import Nav from "./components/Nav";
 import Collection from "./components/Collection";
-
+import ProductCard from "./components/ProductCard";
+import HomePage from "./components/accountPage/Home";
 export default function App() {
 
   return (
@@ -17,12 +18,23 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/collection" element={<Collection />}>
-                <Route path=":id" element={<Collection />} />
-              </Route>
-              {/* <Route path="*" element={<NotFound />} /> */}
+              <Route path=":id" element={<Collection />} />
+            </Route>
+            <Route path="/product" element={<ProductCard />}>
+              <Route path=":id" element={<ProductCard />} />
+            </Route>
+            <Route path="/home" element={<HomePage />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </main>
       </BrowserRouter>
     </>
   )
 }
+
+// "eslintConfig": {
+//   // "extends": [
+//   //   "react-app",
+//   //   "react-app/jest"
+//   // ]
+// },
