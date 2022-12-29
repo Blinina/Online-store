@@ -1,3 +1,5 @@
+@import "modals";
+
 :root {
     --green: #17696A;
     --gray: #1E212C;
@@ -11,7 +13,7 @@
 }
 
 body {
-    font-family: Lato;
+    font-family: Lato!important;
     margin: 0;
     overflow-x: hidden;
 }
@@ -32,7 +34,7 @@ a {
     text-transform: uppercase;
 }
 
-.btn {
+.M-btn {
     padding: 0px 40px;
     font-weight: 700;
     font-size: 16px;
@@ -89,6 +91,10 @@ a {
     color: #FFFFFF;
     padding: 3%;
     border-radius: 4px;
+    cursor: pointer;
+    &:active{
+        transform: rotate(1.2);
+    }
     figure{
         display: flex;
         gap: 5px;
@@ -116,7 +122,7 @@ a {
 
 }
 
-.btn-group {
+.Mbtn-group {
     display: flex;
     gap: 30px;
 }

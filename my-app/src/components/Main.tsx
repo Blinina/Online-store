@@ -13,9 +13,9 @@ export default function Main() {
         <div>
           <p className="text-upper">New collection</p>
           <h1>Menswear 2020</h1>
-          <div className="btn-group">
-            <button className="btn">Shop sale</button>
-            <button className="btn btn-green">Shop the menswear</button>
+          <div className="Mbtn-group">
+            <button className="M-btn">Shop sale</button>
+            <button className="M-btn btn-green">Shop the menswear</button>
           </div>
         </div>
       </section>

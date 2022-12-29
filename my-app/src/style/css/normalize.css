@@ -1,3 +1,43 @@
+h3 {
+  font-size: 28px;
+}
+
+.mb-3 {
+  margin-bottom: 0.8em !important;
+}
+
+.modal-content {
+  border: 1px solid #E5E8ED !important;
+  box-shadow: 0px 60px 80px -20px rgba(30, 33, 44, 0.16), 0px 26px 24px -10px rgba(30, 33, 44, 0.1), 0px 12px 10px -6px rgba(30, 33, 44, 0.08), 0px 4px 4px -4px rgba(30, 33, 44, 0.05) !important;
+  border-radius: 4px !important;
+  font-size: 14px;
+}
+
+.modal-header {
+  flex-direction: column;
+  padding: 0.8em !important;
+}
+
+.modal-footer {
+  flex-direction: column;
+}
+
+.form-control, .form-control-sm {
+  font-size: 1em !important;
+  border-radius: 4px !important;
+}
+
+.form-decription {
+  text-align: center;
+  color: #787A80;
+}
+
+.go-modal {
+  font-weight: 600;
+  color: var(--green);
+  cursor: pointer;
+}
+
 :root {
   --green: #17696A;
   --gray: #1E212C;
@@ -8,7 +48,7 @@
   src: url(../../assets/fonts/Lato-Regular.ttf);
 }
 body {
-  font-family: Lato;
+  font-family: Lato !important;
   margin: 0;
   overflow-x: hidden;
 }
@@ -29,7 +69,7 @@ a:visited {
   text-transform: uppercase;
 }
 
-.btn {
+.M-btn {
   padding: 0px 40px;
   font-weight: 700;
   font-size: 16px;
@@ -84,6 +124,10 @@ a:visited {
   color: #FFFFFF;
   padding: 3%;
   border-radius: 4px;
+  cursor: pointer;
+}
+.nav-user:active {
+  transform: rotate(1.2);
 }
 .nav-user figure {
   display: flex;
@@ -107,7 +151,7 @@ a:visited {
   color: #FFFFFF;
 }
 
-.btn-group {
+.Mbtn-group {
   display: flex;
   gap: 30px;
 }

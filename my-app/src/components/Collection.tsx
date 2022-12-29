@@ -4,17 +4,20 @@ import like from "../assets/images/Like.png";
 import ProductCard from './ProductCard';
 import axios from 'axios';
 
-type Product = {
-    id: number;
+type Product = { 
+    id: string;
     title: string;
-    description: string;
-    image: string;
     price: number;
+    description: string;
     category: string;
-    rating: {
-        count: number,
-        rate: number
-    }
+    type: string;
+    image: string[];
+    rating: number;
+    newColection: boolean;
+    sales: {
+        sales: boolean;
+        count: number;
+    };
 };
 
 export default function Collection() {
@@ -26,10 +29,11 @@ export default function Collection() {
     const url = `https://fakestoreapi.com/products/category/${CategoryId}'s%20clothing`;
 
     useEffect(() => {
-        fetch(url)
+        fetch(`/${CategoryId}`)
             .then(res => res.json())
             .then(
                 (result) => {
+                    console.log(result)
                     setIsLoaded(true);
                     setItems(result);
                 },
@@ -54,7 +58,7 @@ export default function Collection() {
                 <div className='card-collection' key={el.id} onClick={()=>navigate(`/product/${el.id}`)}>
                     <figure>
                         <div className='images'>
-                            <img src={el.image} alt={el.title} />
+                            <img src={el.image[0]} alt={el.title} />
                             <img src={like} alt="like" className='card-like' />
                         </div>
                         <figcaption>

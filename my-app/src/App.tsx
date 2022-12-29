@@ -8,7 +8,21 @@ import Nav from "./components/Nav";
 import Collection from "./components/Collection";
 import ProductCard from "./components/ProductCard";
 import HomePage from "./components/accountPage/Home";
+import { useEffect, useState } from "react";
 export default function App() {
+
+//   const callBackendAPI = async () => {
+//     const response = await fetch('/women');
+//     const body = await response.json();
+//  console.log(body)
+//     if (response.status !== 200) {
+//       throw Error(body.message) 
+//     }
+//     return body;
+//   };
+//   useEffect(()=>{
+//     callBackendAPI()
+//   }, [])
 
   return (
     <>
