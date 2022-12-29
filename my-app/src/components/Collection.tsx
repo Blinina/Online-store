@@ -63,7 +63,7 @@ export default function Collection() {
                         </div>
                         <figcaption>
                             <p className='card-title'>{buildName(el.title)}</p>
-                            <p className='price'>${el.price}</p>
+                            <p className='price'>${el.sales.sales ? (el.price*100-el.sales.count)/100 : el.price}</p>
                         </figcaption>
                     </figure>
                 </div>

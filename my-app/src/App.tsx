@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 export default function App() {
 
 //   const callBackendAPI = async () => {
-//     const response = await fetch('/women');
+//     const response = await fetch('/express_backend');
 //     const body = await response.json();
 //  console.log(body)
 //     if (response.status !== 200) {

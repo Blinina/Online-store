@@ -16,6 +16,23 @@ export default function SignIn({open, setOpenModal, setOpenSignUP}: ModalProps) 
         setOpenSignUP(true);
         setOpenModal(false);
     }
+    const handleSubmit = async () =>{
+      let user = {
+          'email': 'John12359900',
+          'password': 'Smith1'
+        };
+     let kek = await fetch(`/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(user)
+        });
+     let result = await kek.json();
+     console.log('вход')
+     console.log(result.message);
+
+  }
   
     return (
       <>
@@ -48,7 +65,7 @@ export default function SignIn({open, setOpenModal, setOpenSignUP}: ModalProps) 
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button className='M-btn btn-green' onClick={()=>console.log('kek')}>
+            <button className='M-btn btn-green' onClick={handleSubmit}>
               Sign in
             </button>
             <div><p>Don't have an account? <span className="go-modal" onClick={handleSignUP}>Sign up</span></p></div>

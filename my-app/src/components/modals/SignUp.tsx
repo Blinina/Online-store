@@ -13,6 +13,22 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
         setOpenSignUP(false);
         setOpenModal(true);
     }
+    const handleSubmit = async () =>{
+        let user = {
+            'fullName': 'John1',
+            'email': 'John123599okokhhh',
+            'password': 'Smith1'
+          };
+       let kek = await fetch(`/auth/registration`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(user)
+          });
+       let result = await kek.json();
+       console.log(result.message);
+    }
     return (
         <>
             <Modal show={openSignUP} onHide={() => setOpenSignUP(false)}>
@@ -64,7 +80,7 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className='M-btn btn-green' onClick={() => console.log('kek')}>
+                    <button className='M-btn btn-green' onClick={handleSubmit}>
                         Sign in
                     </button>
                     <div><p>Already have an account? <span className="go-modal" onClick={handleSignIn}> Sign in</span></p></div>
