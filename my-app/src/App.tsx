@@ -9,39 +9,37 @@ import Collection from "./components/Collection";
 import ProductCard from "./components/ProductCard";
 import HomePage from "./components/accountPage/Home";
 import { useEffect, useState } from "react";
+import AuthProvider, { useAuth } from "./context/authContext";
+import Profile from "./components/accountPage/pages/Profile";
+import Bag from "./components/accountPage/pages/Bag";
+import Wishlist from "./components/accountPage/pages/Wishlist";
+
+
 export default function App() {
 
-//   const callBackendAPI = async () => {
-//     const response = await fetch('/express_backend');
-//     const body = await response.json();
-//  console.log(body)
-//     if (response.status !== 200) {
-//       throw Error(body.message) 
-//     }
-//     return body;
-//   };
-//   useEffect(()=>{
-//     callBackendAPI()
-//   }, [])
 
   return (
     <>
-      <BrowserRouter>
-        <Nav />
-        <main>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/collection" element={<Collection />}>
-              <Route path=":id" element={<Collection />} />
-            </Route>
-            <Route path="/product" element={<ProductCard />}>
-              <Route path=":id" element={<ProductCard />} />
-            </Route>
-            <Route path="/home" element={<HomePage />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Nav />
+          <main>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/collection" element={<Collection />}>
+                <Route path=":id" element={<Collection />} />
+              </Route>
+              <Route path="/product" element={<ProductCard />}>
+                <Route path=":id" element={<ProductCard />} />
+              </Route>
+              <Route path="/home" element={<HomePage />} />
+                   
+              {/* <Route path="*" element={<NotFound />} /> */}
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </AuthProvider>
+
     </>
   )
 }

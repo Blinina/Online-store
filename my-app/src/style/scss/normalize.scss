@@ -20,7 +20,10 @@ body {
 p, h1, figure {
     margin: 0;
 }
+li{
+    list-style-type: none;
 
+}
 a {
     text-decoration: none;
 
@@ -70,7 +73,6 @@ a {
         align-items: center;
         li{
             margin-right: 30px;
-            list-style-type: none;
         }
     }
     form{
@@ -202,4 +204,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.pages-container{
+    display: flex;
 }

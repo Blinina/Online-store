@@ -38,6 +38,10 @@ h3 {
   cursor: pointer;
 }
 
+.invalid {
+  color: rgb(228, 6, 6);
+}
+
 :root {
   --green: #17696A;
   --gray: #1E212C;
@@ -55,6 +59,10 @@ body {
 
 p, h1, figure {
   margin: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 a {
@@ -106,7 +114,6 @@ a:visited {
 }
 .nav ul li {
   margin-right: 30px;
-  list-style-type: none;
 }
 .nav form {
   margin-right: 30px;
@@ -223,6 +230,10 @@ a:visited {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.pages-container {
+  display: flex;
 }
 
 /*# sourceMappingURL=normalize.css.map */

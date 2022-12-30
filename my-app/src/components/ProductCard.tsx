@@ -35,7 +35,6 @@ export default function ProductCard() {
                 }
             )
     }, [url]);
-    console.log(item)
     return (
         <>
             <div>

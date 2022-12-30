@@ -4,6 +4,6 @@ const productRouter = require('./productRouter')
 const authRouter = require('./authRouter')
 
 router.use('/auth', authRouter)
-router.use('/', productRouter)
+router.use('/product', productRouter)
 
 module.exports = router

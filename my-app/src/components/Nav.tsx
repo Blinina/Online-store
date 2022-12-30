@@ -7,9 +7,10 @@ import user from "../assets/images/user.png";
 import { useState } from "react";
 import SignIn from "./modals/SignIn";
 import SignUp from "./modals/SignUp";
-
+import { useAuth } from "../context/authContext";
 export default function Nav() {
   const navigate = useNavigate();
+  const auth = useAuth()
   const [openModal, setOpenModal] = useState(false);
   const [openSignUP, setOpenSignUP] = useState(false);
 
@@ -49,14 +50,19 @@ export default function Nav() {
               <img src={shop} alt="shop" />
             </div>
             <div className="nav-user">
+              {auth.getUsername() 
+              ?
+               <figure onClick={() => navigate('/home')}>
+               <img src={user} alt="login/logout" />
+               <figcaption>{auth.getUsername()} {auth.loggedIn.role==='Seller' && <p>Selles</p>}</figcaption>
+             </figure> 
+             :
               <figure onClick={() => setOpenModal(true)}>
                 <img src={user} alt="login/logout" />
                 <figcaption>login/logout</figcaption>
               </figure>
-              {/* <figure onClick={() => navigate('/home')}>
-                <img src={user} alt="login/logout" />
-                <figcaption>login/logout</figcaption>
-              </figure> */}
+              
+              }
             </div>
           </div>
         </div>
