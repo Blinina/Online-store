@@ -234,6 +234,7 @@ a:visited {
 
 .pages-container {
   display: flex;
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=normalize.css.map */
