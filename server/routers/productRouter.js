@@ -2,8 +2,8 @@ const Router = require('express')
 const router = new Router()
 const controller = require('../controller/productController')
 
-router.get('/product', controller.getProduct) //один продукт
-// router.get('/category', controller.login)
+router.get('/category', controller.getCategory) 
+router.get('/:id', controller.getProduct) 
 router.post('/addProduct', controller.addProduct)
 
   

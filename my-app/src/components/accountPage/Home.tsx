@@ -61,15 +61,9 @@ export default function HomePage() {
             </div>
             <div>
                 {
-                    role === 'Seller'
-                        ?
-
-                        <div className="M-btn btn-green"
-                            onClick={() => setPage({ type: 'AddProduct' })}>
-                            Add new product
-                        </div>
-                        :
-                        <div className="M-btn btn-green">Оформить заказ</div>
+                    role !== 'Seller'
+                     &&
+                    <div className="M-btn btn-green">Оформить заказ</div>
                 }
             </div>
         </div>

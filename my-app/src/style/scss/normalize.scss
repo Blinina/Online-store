@@ -46,6 +46,8 @@ a {
     border: 1px solid var(--green);
     background-color: rgba(117, 190, 218, 0.0);
     color: var(--green);
+    cursor: pointer;
+
 }
 
 .btn-green {
@@ -208,4 +210,11 @@ a {
 .pages-container{
     display: flex;
     justify-content: space-between;
+}
+.field-form{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 20px 0;
+
 }

@@ -1,40 +1,39 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type ProductType = {
-    id: number;
     title: string;
-    description: string;
-    image: string;
     price: number;
+    description: string;
     category: string;
-    rating: {
+    type: string;
+    image: string[]
+    rating: number;
+    newColection: boolean;
+    sales: {
+        sales: boolean,
         count: number,
-        rate: number
-    }
+    },
 };
 
 export default function ProductCard() {
     const [item, setItem] = useState<ProductType>();
     const [isLoaded, setIsLoaded] = useState(false);
     const useParamsId = useParams();
-    const CategoryId = useParamsId.id;
-    const url = `https://fakestoreapi.com/products/${CategoryId}`;
+    const productId = useParamsId.id;
 
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    setItem(result);
-                },
-                (error) => {
-                    setIsLoaded(true);
-                    console.log(error)
+        const fn = async () => {
+            const res = await axios.get(`/${productId}`, {
+                params: {
+                    productId
                 }
-            )
-    }, [url]);
+            })
+            setItem(res.data)
+        }
+        fn()
+    }, [productId]); 
     return (
         <>
             <div>
@@ -46,12 +45,12 @@ export default function ProductCard() {
             </div>
             <div className="card">
                 <div>
-                    <img src={item?.image} alt={item?.title} width="250" height="250"/>
+                    <img src={item?.image[0]} alt={item?.title} width="250" height="250"/>
                 </div>
                 <div>
                     <div>
                         <div>${item?.price}</div>
-                        <div>{item?.rating.rate}</div>
+                        <div>{item?.rating}</div>
                     </div>
                     <div>
                         <input type="number" />
