@@ -32,10 +32,7 @@ export default function Nav() {
               <Link to="/collection/men" relative="path"> Men</Link>
             </li>
             <li>
-              <Link to="/kids" relative="path"> Kids</Link>
-            </li>
-            <li>
-              <Link to="/sales" relative="path">Sales</Link>
+              <Link to="/collection/sales" relative="path">Sales</Link>
             </li>
           </ul>
           <form>
@@ -60,14 +57,13 @@ export default function Nav() {
               <figure onClick={() => setOpenModal(true)}>
                 <img src={user} alt="login/logout" />
                 <figcaption>login/logout</figcaption>
-              </figure>
-              
+              </figure>    
               }
             </div>
           </div>
         </div>
       </nav>
-      <div className="nav-sales">Up to 70% Off. <Link to=".." relative="path">Shop our latest sale styles</Link></div>
+      <div className="nav-sales">Up to 70% Off. <Link to="/collection/sales" relative="path">Shop our latest sale styles</Link></div>
       {openModal && <SignIn open={openModal} setOpenModal={setOpenModal} setOpenSignUP={setOpenSignUP} />}
       {openSignUP && <SignUp openSignUP={openSignUP} setOpenSignUP={setOpenSignUP} setOpenModal={setOpenModal} />}
 

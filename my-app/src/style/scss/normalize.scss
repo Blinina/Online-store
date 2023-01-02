@@ -1,9 +1,11 @@
 @import "modals";
+@import "homePages";
+@import "collectionPage";
 
 :root {
-    --green: #17696A;
+    --green: #137577;
     --gray: #1E212C;
-
+    // --green: #17696A;
 }
 
 
@@ -13,17 +15,30 @@
 }
 
 body {
-    font-family: Lato!important;
+    font-family: Lato !important;
     margin: 0;
     overflow-x: hidden;
 }
-p, h1, figure {
+
+.hidden {
+    visibility: hidden;
+}
+
+p,
+h1,
+figure {
     margin: 0;
 }
-li{
+ul{
+    padding: 0;
+    margin: 0;
+}
+
+li {
     list-style-type: none;
 
 }
+
 a {
     text-decoration: none;
 
@@ -49,6 +64,9 @@ a {
     cursor: pointer;
 
 }
+.center{
+    margin: auto;
+}
 
 .btn-green {
     background-color: var(--green);
@@ -61,49 +79,60 @@ a {
     justify-content: space-around;
     align-items: center;
     margin: 10px 5px;
-    .logo{
+
+    .logo {
         margin-right: 30px;
     }
-    .nav-bar{
+
+    .nav-bar {
         display: flex;
         margin: 0px;
     }
-    ul{
+
+    ul {
         margin: 0;
         padding: 0;
         display: flex;
         align-items: center;
-        li{
+
+        li {
             margin-right: 30px;
         }
     }
-    form{
+
+    form {
         margin-right: 30px;
     }
-    .nav-account{
+
+    .nav-account {
         display: flex;
         align-items: center;
-        div:not(:last-child){
+
+        div:not(:last-child) {
             margin-right: 30px;
         }
-       
+
     }
 
 }
+
 .nav-user {
     background-color: var(--gray);
     color: #FFFFFF;
     padding: 3%;
     border-radius: 4px;
     cursor: pointer;
-    &:active{
+
+    &:active {
         transform: rotate(1.2);
     }
-    figure{
+
+    figure {
         display: flex;
         gap: 5px;
         align-items: center;
     }
+
     figcaption {
         opacity: 0.6;
         font-size: 9px;
@@ -129,10 +158,46 @@ a {
 .Mbtn-group {
     display: flex;
     gap: 30px;
+    margin-top: 50px;
 }
 
+.bg {
+    margin: 0;
+    width: 100%;
+    background-image: url(../../assets/images/vogue.jpg);
+    height: 550px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-position: center bottom;
+
+}
+
+.header-container {
+    padding-top: 140px;
+    padding-left: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.main-text {
+    margin: 5px 0 30px;
+    font-weight: 900;
+    font-size: 54px;
+    color: #fffefef1;
+}
+
+#tree-category {
+    position: relative;
+}
 
 .tree-category {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: -100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,65 +221,14 @@ a {
 
 }
 
-.card-collection {
-    cursor: pointer;
-    .images{
-        position: relative;
-    }
-    img {
-        width: 278px;
-        height: 355px;
-    }
-    .card-like{
-        position: absolute;
-        max-width: 15.17px;
-        height: auto;
-        padding: 9.5px 8.42px;
-        border-radius: 50px;
-        background-color: #addbf0;
-        right: 16px;
-        bottom: 16px;        
-    }
-
-    .card-title{
-        font-weight: 400px;
-        font-size: 18px;
-        line-height: 27px;
-        color: #424551;
-        margin: 16px 0 8px;
-        cursor: pointer;
-    }
-    .price {
-        font-weight: 700px;
-        font-size: 20px;
-        line-height: 26px;
-        color: #1E212C;
-    }
-
-   
-}
-
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-}
 ///карточка продукта
 .card {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.pages-container{
-    display: flex;
-    justify-content: space-between;
-}
-.field-form{
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    margin: 20px 0;
 
+.pages-container {
+    display: flex;
+    justify-content: space-between;
 }

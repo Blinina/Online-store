@@ -54,147 +54,152 @@ export default function AddProduct() {
 
     return (
         <div>
-            <Form onSubmit={onSubmit}>
-                <div className='field-form'>
-                    <Form.Group className="mb-3" controlId="title">
-                        <Form.Label>Product name</Form.Label>
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            placeholder="Product name"
-                            autoFocus
-                            {...register("title", { required: true })}
-                        />
-                    </Form.Group>
+            <div>
+                <h2 className='home-title'>Add new product</h2>
+            </div>
+            <div>
+                <Form onSubmit={onSubmit}>
+                    <div className='field-form'>
+                        <Form.Group className="mb-3" controlId="title">
+                            <Form.Label>Product name</Form.Label>
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                placeholder="Product name"
+                                autoFocus
+                                {...register("title", { required: true })}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="price"
+                        >
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control
+                                size="sm"
+                                type="number"
+                                min="0"
+                                {...register("price", { required: true, min: 1 })}
+                            />
+                        </Form.Group>
+                    </div>
+                    <div className='field-form'>
+
+                        <Form.Group
+                            controlId="Category"
+                            className="mb-3">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Select size="sm"
+                                {...register("category", { required: true })} >
+                                <option value="" disabled selected>Select the category</option>
+                                <option>Women</option>
+                                <option>Men</option>
+                                <option>Kids</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group
+                            controlId="type"
+                            className="mb-3">
+                            <Form.Label>Type</Form.Label>
+                            <Form.Select size="sm"
+                                {...register("type", { required: true })} >
+                                <option value="" disabled selected>Select the type </option>
+                                {watch('category') !== 'Men' && <>
+                                    <option>Dresses</option>
+                                    <option>Skirt</option>
+                                </>}
+                                <option>Jacket</option>
+                                <option>Shorts</option>
+                                <option>T-shirt</option>
+
+                            </Form.Select>
+                        </Form.Group>
+                    </div>
+                    <div className='field-form'>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="image1"
+                        >
+                            <Form.Label>image1</Form.Label>
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                {...register("image1", { required: true })}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="image2"
+                        >
+                            <Form.Label>image2</Form.Label>
+                            <Form.Control
+                                size="sm"
+                                type="text"
+                                {...register("image2", { required: true })}
+                            />
+                        </Form.Group>
+                    </div>
                     <Form.Group
                         className="mb-3"
-                        controlId="price"
+                        controlId="rating"
                     >
-                        <Form.Label>Price</Form.Label>
+                        <Form.Label>Rating</Form.Label>
                         <Form.Control
                             size="sm"
                             type="number"
                             min="0"
-                            {...register("price", { required: true, min: 1 })}
+                            max="5"
+                            {...register("rating", { required: true, min: 0, max: 5 })}
                         />
                     </Form.Group>
-                </div>
-                <div className='field-form'>
 
-                    <Form.Group
-                        controlId="Category"
-                        className="mb-3">
-                        <Form.Label>Category</Form.Label>
-                        <Form.Select size="sm"
-                            {...register("category", { required: true })} >
-                            <option value="" disabled selected>Select a clothing category</option>
-                            <option>Women</option>
-                            <option>Men</option>
-                            <option>Kids</option>
-                        </Form.Select>
-                    </Form.Group>
-                    <Form.Group
-                        controlId="type"
-                        className="mb-3">
-                        <Form.Label>Type</Form.Label>
-                        <Form.Select size="sm"
-                            {...register("type", { required: true })} >
-                            <option value="" disabled selected>Select the type of clothing</option>
-                            {watch('category') !== 'Men' && <>
-                                <option>Dresses</option>
-                                <option>Skirt</option>
-                            </>}
-                            <option>Jacket</option>
-                            <option>Shorts</option>
-                            <option>T-shirt</option>
-
-                        </Form.Select>
-                    </Form.Group>
-                </div>
-                <div className='field-form'>
+                    <div className='field-form'>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="sales"
+                        >
+                            <FormCheck id="sales" label="Sales"
+                                {...register("sales.sales")}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="salesCount"
+                        >
+                            <Form.Label>Sales count</Form.Label>
+                            <Form.Control
+                                size="sm"
+                                type="number"
+                                disabled={!watch("sales.sales")}
+                                defaultValue="0"
+                                {...register("sales.count", { min: 0, max: 99 })}
+                            />
+                        </Form.Group>
+                    </div>
                     <Form.Group
                         className="mb-3"
-                        controlId="image1"
+                        controlId="newColection"
                     >
-                        <Form.Label>image1</Form.Label>
-                        <Form.Control
+                        <FormCheck id="newColection" label="New colection"
+
+                            {...register("newColection")}
+                        />
+                    </Form.Group>
+                    <Form.Group
+                        controlId="description"
+                    >
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control as="textarea"
                             size="sm"
-                            type="text"
-                            {...register("image1", { required: true })}
+                            className="mb-3"
+                            {...register("description", { required: true })}
                         />
                     </Form.Group>
-                    <Form.Group
-                        className="mb-3"
-                        controlId="image2"
-                    >
-                        <Form.Label>image2</Form.Label>
-                        <Form.Control
-                            size="sm"
-                            type="text"
-                            {...register("image2", { required: true })}
-                        />
-                    </Form.Group>
-                </div>
-                <Form.Group
-                    className="mb-3"
-                    controlId="rating"
-                >
-                    <Form.Label>Rating</Form.Label>
-                    <Form.Control
-                        size="sm"
-                        type="number"
-                        min="0"
-                        max="5"
-                        {...register("rating", { required: true, min: 0, max: 5 })}
-                    />
-                </Form.Group>
-               
-                <div className='field-form'>
-                    <Form.Group
-                        className="mb-3"
-                        controlId="sales"
-                    >
-                        <FormCheck id="sales" label="Sales"
-                            {...register("sales.sales")}
-                        />
-                    </Form.Group>
-                    <Form.Group
-                        className="mb-3"
-                        controlId="salesCount"
-                    >
-                        <Form.Label>Sales count</Form.Label>
-                        <Form.Control
-                            size="sm"
-                            type="number"
-                            disabled={!watch("sales.sales")}
-                            defaultValue="0"
-                            {...register("sales.count", { min: 0, max: 99 })}
-                        />
-                    </Form.Group>
-                </div>
-                <Form.Group
-                    className="mb-3"
-                    controlId="newColection"
-                >
-                    <FormCheck id="newColection" label="New colection"
-
-                        {...register("newColection")}
-                    />
-                </Form.Group>
-                <Form.Group
-                    controlId="description"
-                >
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea"
-                        size="sm"
-
-                        {...register("description", { required: true })}
-                    />
-                </Form.Group>
-            </Form>
-            <button className='M-btn btn-green' onClick={onSubmit}>
-                Sign in
-            </button>
+                    <button className='M-btn btn-green center' onClick={onSubmit}>
+                        Add product
+                    </button>
+                </Form>
+            </div>
         </div>
     )
 }

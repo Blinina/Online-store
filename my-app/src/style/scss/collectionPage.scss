@@ -1,0 +1,129 @@
+.collection-page{
+    margin: 30px 3% 0;
+    display: flex;
+    gap: 5%;
+
+    
+    
+}
+//ранжирование 
+.sortind{
+    width: 70%;
+    form {
+        div{
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+      
+    }
+    .form-select-sm{
+        width: 140px;
+    }
+    
+}
+.cards {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px 25px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.card-collection {
+    cursor: pointer;
+
+    .images {
+        position: relative;
+    }
+
+    img {
+        width: 278px;
+        height: 355px;
+    }
+    .sales-banner{
+        position: absolute;
+        top:16px;
+        font-size: 10px;
+        font-weight: 900;
+        background-color: #FF4242;
+        color:  hsla(0,0%,100%,.8);
+        max-width: 70%;
+        padding: 5px 7px;
+
+    }
+
+    .new-collection{
+        position: absolute;
+        bottom: 16px;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 900;
+        background-color: rgba(45,45,45,.8);
+        color:  hsla(0,0%,100%,.8);    
+        max-width: 70%;
+        padding: 5px 7px;
+        &:hover{
+            transform: scale(1.05);
+            left: 2px;
+        }
+    }
+    .card-like {
+     
+        width: 18.00px;
+        height: auto;
+       
+    }
+    .container-card-like{
+        padding: 3px 7px 4px;
+        background-color: hsla(0,0%,100%,.8);
+        border-radius: 50px;
+        border-width: 1px solid var(--gray);
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+       
+    }
+    figcaption{
+        padding-left: 16px;
+
+    }
+
+    .card-title {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 27px;
+        color: #424551;
+        margin: 8px 0 0;
+        cursor: pointer;
+
+    }
+
+    .price {
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 26px;
+    }
+    .static-price{ 
+        color: #1E212C;
+    }
+    .sales-price{
+        display: flex;
+        align-items: flex-end;
+        gap: 13px;
+    }
+    .new-price{
+color: #FF4242;
+    }
+    .old-price{
+        font-weight: 400px;
+        font-size: 16px;
+        text-decoration-line: line-through;
+        color: #787A80;
+    }
+
+
+}
+

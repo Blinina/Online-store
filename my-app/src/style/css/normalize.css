@@ -42,8 +42,163 @@ h3 {
   color: rgb(228, 6, 6);
 }
 
+.pages-container {
+  margin: 40px 10% 0;
+  gap: 30px;
+  justify-content: space-evenly;
+}
+.pages-container .menu {
+  border: 1px solid #E5E8ED;
+  box-shadow: 0px 80px 80px -20px rgba(154, 156, 165, 0.08), 0px 30px 24px -10px rgba(154, 156, 165, 0.05), 0px 12px 10px -6px rgba(154, 156, 165, 0.04), 0px 4px 4px -4px rgba(30, 33, 44, 0.03);
+  border-radius: 4px;
+}
+.pages-container .menu-elem {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  line-height: 52px;
+  border: 1px solid #E5E8ED;
+  padding: 0 60px 0 20px;
+  cursor: pointer;
+}
+.pages-container .menu-elem-profile {
+  padding-left: 20px;
+}
+.pages-container .name-profile {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 5px;
+}
+.pages-container .email {
+  color: #787A80;
+}
+.pages-container .home-title {
+  font-weight: 900;
+  font-size: 32px;
+}
+.pages-container form {
+  border: 1px solid #E5E8ED;
+  padding: 10px;
+}
+
+.field-form {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.collection-page {
+  margin: 30px 3% 0;
+  display: flex;
+  gap: 5%;
+}
+
+.sortind {
+  width: 70%;
+}
+.sortind form div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.sortind .form-select-sm {
+  width: 140px;
+}
+
+.cards {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-collection {
+  cursor: pointer;
+}
+.card-collection .images {
+  position: relative;
+}
+.card-collection img {
+  width: 278px;
+  height: 355px;
+}
+.card-collection .sales-banner {
+  position: absolute;
+  top: 16px;
+  font-size: 10px;
+  font-weight: 900;
+  background-color: #FF4242;
+  color: hsla(0deg, 0%, 100%, 0.8);
+  max-width: 70%;
+  padding: 5px 7px;
+}
+.card-collection .new-collection {
+  position: absolute;
+  bottom: 16px;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 900;
+  background-color: rgba(45, 45, 45, 0.8);
+  color: hsla(0deg, 0%, 100%, 0.8);
+  max-width: 70%;
+  padding: 5px 7px;
+}
+.card-collection .new-collection:hover {
+  transform: scale(1.05);
+  left: 2px;
+}
+.card-collection .card-like {
+  width: 18px;
+  height: auto;
+}
+.card-collection .container-card-like {
+  padding: 3px 7px 4px;
+  background-color: hsla(0deg, 0%, 100%, 0.8);
+  border-radius: 50px;
+  border-width: 1px solid var(--gray);
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+.card-collection figcaption {
+  padding-left: 16px;
+}
+.card-collection .card-title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  color: #424551;
+  margin: 8px 0 0;
+  cursor: pointer;
+}
+.card-collection .price {
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 26px;
+}
+.card-collection .static-price {
+  color: #1E212C;
+}
+.card-collection .sales-price {
+  display: flex;
+  align-items: flex-end;
+  gap: 13px;
+}
+.card-collection .new-price {
+  color: #FF4242;
+}
+.card-collection .old-price {
+  font-weight: 400px;
+  font-size: 16px;
+  text-decoration-line: line-through;
+  color: #787A80;
+}
+
 :root {
-  --green: #17696A;
+  --green: #137577;
   --gray: #1E212C;
 }
 
@@ -57,7 +212,18 @@ body {
   overflow-x: hidden;
 }
 
-p, h1, figure {
+.hidden {
+  visibility: hidden;
+}
+
+p,
+h1,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
   margin: 0;
 }
 
@@ -87,6 +253,10 @@ a:visited {
   background-color: rgba(117, 190, 218, 0);
   color: var(--green);
   cursor: pointer;
+}
+
+.center {
+  margin: auto;
 }
 
 .btn-green {
@@ -162,9 +332,44 @@ a:visited {
 .Mbtn-group {
   display: flex;
   gap: 30px;
+  margin-top: 50px;
+}
+
+.bg {
+  margin: 0;
+  width: 100%;
+  background-image: url(../../assets/images/vogue.jpg);
+  height: 550px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-position: center bottom;
+}
+
+.header-container {
+  padding-top: 140px;
+  padding-left: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-text {
+  margin: 5px 0 30px;
+  font-weight: 900;
+  font-size: 54px;
+  color: rgba(255, 254, 254, 0.9450980392);
+}
+
+#tree-category {
+  position: relative;
 }
 
 .tree-category {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  top: -100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,49 +389,6 @@ a:visited {
   text-align: center;
 }
 
-.card-collection {
-  cursor: pointer;
-}
-.card-collection .images {
-  position: relative;
-}
-.card-collection img {
-  width: 278px;
-  height: 355px;
-}
-.card-collection .card-like {
-  position: absolute;
-  max-width: 15.17px;
-  height: auto;
-  padding: 9.5px 8.42px;
-  border-radius: 50px;
-  background-color: #addbf0;
-  right: 16px;
-  bottom: 16px;
-}
-.card-collection .card-title {
-  font-weight: 400px;
-  font-size: 18px;
-  line-height: 27px;
-  color: #424551;
-  margin: 16px 0 8px;
-  cursor: pointer;
-}
-.card-collection .price {
-  font-weight: 700px;
-  font-size: 20px;
-  line-height: 26px;
-  color: #1E212C;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
-}
-
 .card {
   display: flex;
   justify-content: center;
@@ -236,13 +398,6 @@ a:visited {
 .pages-container {
   display: flex;
   justify-content: space-between;
-}
-
-.field-form {
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  margin: 20px 0;
 }
 
 /*# sourceMappingURL=normalize.css.map */

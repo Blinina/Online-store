@@ -1,5 +1,10 @@
 export default function Wishlist (){
     return(
-        <p>Wishlist</p>
+        <div>
+        <div>
+            <h2 className='home-title'></h2>
+        </div>
+        
+        </div>
     )
 }

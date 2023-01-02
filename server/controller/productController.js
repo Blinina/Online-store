@@ -1,10 +1,5 @@
 const Product = require('../models/Product')
 
-// const { validationResult } = require('express-validator')
-const { secret } = require("../config")
-
-
-
 class authController {
     async addProduct(req, res) {
         try {
@@ -26,7 +21,20 @@ class authController {
     async getCategory(req, res) {
         try {
             let { CategoryId } = req.query;
-            const product = await Product.find({ category: CategoryId })
+            let product;
+            console.log(CategoryId)
+            let number
+            if (CategoryId === 'sales') {
+                product = await Product.find({ 'sales.sales' : true })
+                console.log(product)
+            } 
+            if (CategoryId === 'newColection') {
+                product = await Product.find({ 'newColection' : true })
+                console.log(product)
+            }
+            else {
+                product = await Product.find({ 'category': CategoryId })
+            }
             return res.json(product)
         } catch (e) {
             console.log(e)
@@ -36,10 +44,9 @@ class authController {
     async getProduct(req, res) {
         try {
             let { productId } = req.query;
-            const product = await Product.findOne({_id: productId})      
-                  return res.json(product)
+            const product = await Product.findOne({ _id: productId })
+            return res.json(product)
         } catch (e) {
-            console.log(e)
             res.status(400).json({ message: 'r' })
         }
     }

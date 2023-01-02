@@ -1,5 +1,10 @@
 export default function Bag (){
     return(
-        <p>bag</p>
+        
+        <div>
+        <div>
+            <h2 className='home-title'></h2>
+        </div>
+        </div>
     )
 }

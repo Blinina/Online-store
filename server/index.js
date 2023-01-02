@@ -6,7 +6,6 @@ const router = require('./routers/routers')
 
 
 const app = express();
-const PRODUCT = require('./collection/products')
 
 const PORT = 5000;
 app.use(express.json())
@@ -15,12 +14,7 @@ app.use("/", router)
 app.get('/express_backend', (req, res) => { 
     res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' }); 
   });
-  app.get('/women', (req, res) => { 
-    res.status(200).json(PRODUCT.PRODUCT); 
-  });
-  app.get('/men', (req, res) => { 
-    res.status(200).json(men); 
-  });
+
 
 const start = async () => {
     try {
