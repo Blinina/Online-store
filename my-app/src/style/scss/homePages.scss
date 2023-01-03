@@ -16,12 +16,22 @@
         align-items: center;
         line-height: 52px;
         border: 1px solid #E5E8ED;
-        padding: 0 60px 0 20px;
+        padding: 0 20px 0 20px;
         cursor: pointer;
+        word-wrap: break-word;
+        p{ 
+            max-height: 54px;
+            min-width: 90px;
+        }
     }
 
     .menu-elem-profile {
         padding-left: 20px;
+        word-wrap: break-word;
+        p{ 
+            max-height: 54px;
+            min-width: 90px;
+        }
     }
 
     .name-profile {

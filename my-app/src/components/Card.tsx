@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/authContext";
+import { getNewPrice} from "../helpers";
+import like from "../assets/images/Like.png";
+import shop from "../assets/images/shop.png";
+
 
 type ProductType = {
     title: string;
@@ -24,7 +28,7 @@ export default function Card() {
     const useParamsId = useParams();
     const productId = useParamsId.id;
     const auth = useAuth();
-  
+
     const { fullName, email, role, _id } = auth.loggedIn;
 
     useEffect(() => {
@@ -37,12 +41,12 @@ export default function Card() {
             setItem(res.data)
         }
         fn()
-    }, [productId]); 
+    }, [productId]);
 
-    const addToBasket = async () =>{
+    const addToBasket = async () => {
         const data = {
             userId: _id,
-            product: {productId: item, quantity: 1}
+            product: { productId: item, quantity: 1 }
         }
         try {
             let res = await fetch(`/basket/addProduct`, {
@@ -58,33 +62,44 @@ export default function Card() {
             console.log(e)
         }
     }
-
+  
     return (
-        <>
+        <div className="card-1">
             <div>
                 <h2>{item?.title}</h2>
-                <div>
-                    <button>General info</button>
-                    <button>Product details</button>
-                </div>
             </div>
-            <div className="card">
+            <div className="card-product">
                 <div>
-                    <img src={item?.image[0]} alt={item?.title} width="250" height="250"/>
+                    <img src={item?.image[0]} alt={item?.title} className="main-img" />
                 </div>
                 <div>
-                    <div>
-                        <div>${item?.price}</div>
-                        <div>{item?.rating}</div>
+                    <div className="header">
+                        <div>
+                            {item?.sales.sales
+                                ?
+                                <div className='sales-price'>
+                                    <p className='price new-price'>${getNewPrice(item.price, item.sales.count)}</p>
+                                    <p className='old-price'>${item.price}</p>
+                                </div>
+                                :
+                                <p className='price static-price'>${item?.price}</p>
+                            }
+                        </div>
+                        <div> <p>{item?.rating}</p></div>
                     </div>
                     <div>
                         <input type="number" />
-                        <button  className="btn btn-green" onClick={addToBasket}>Add to cart</button>
-                        <button  className="btn">Favourite</button>
+                        <div className="M-btn btn-green" onClick={addToBasket}>
+                            <img src={shop} alt="shop"/>
+                            <p>Add to cart</p>
+                            </div>
+                        <div className="M-btn">
+                        <img src={like} alt="like"/>
+                            <p>Favourite</p></div>
                     </div>
                     <div>Share</div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

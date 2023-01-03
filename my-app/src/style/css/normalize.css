@@ -58,11 +58,21 @@ h3 {
   align-items: center;
   line-height: 52px;
   border: 1px solid #E5E8ED;
-  padding: 0 60px 0 20px;
+  padding: 0 20px 0 20px;
   cursor: pointer;
+  word-wrap: break-word;
+}
+.pages-container .menu-elem p {
+  max-height: 54px;
+  min-width: 90px;
 }
 .pages-container .menu-elem-profile {
   padding-left: 20px;
+  word-wrap: break-word;
+}
+.pages-container .menu-elem-profile p {
+  max-height: 54px;
+  min-width: 90px;
 }
 .pages-container .name-profile {
   font-weight: 700;
@@ -174,31 +184,57 @@ h3 {
   margin: 8px 0 0;
   cursor: pointer;
 }
-.card-collection .price {
+
+.price {
   font-weight: 700;
   font-size: 19px;
   line-height: 26px;
 }
-.card-collection .static-price {
+
+.static-price {
   color: #1E212C;
 }
-.card-collection .sales-price {
+
+.sales-price {
   display: flex;
   align-items: flex-end;
   gap: 13px;
 }
-.card-collection .new-price {
+
+.new-price {
   color: #FF4242;
 }
-.card-collection .old-price {
+
+.old-price {
   font-weight: 400px;
   font-size: 16px;
   text-decoration-line: line-through;
   color: #787A80;
 }
 
+.card-1 {
+  margin: 30px 3% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-1 .card-product {
+  display: flex;
+  gap: 70px;
+  flex-direction: row;
+  margin-top: 50px;
+}
+.card-1 img.main-img {
+  width: 250px;
+}
+.card-1 .header {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
 :root {
-  --green: #137577;
+  --green: #007876;
   --gray: #1E212C;
 }
 
@@ -343,7 +379,7 @@ a:visited {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  background-position: center bottom;
+  background-position: center center;
 }
 
 .header-container {

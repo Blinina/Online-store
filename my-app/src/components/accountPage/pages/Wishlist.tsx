@@ -18,7 +18,7 @@ type Product = {
     };
 };
 
-export default function Wishlist (){
+export default function Wishlist() {
     const auth = useAuth();
     const { _id } = auth.loggedIn;
     const [items, setItems] = useState<Product[]>([]);
@@ -30,21 +30,18 @@ export default function Wishlist (){
                     _id
                 }
             })
-            // const productIdArr = res.data.products;
-            console.log(res.data)
-           
             setItems(res.data)
         }
         fn()
     }, []);
-    return(
+    return (
         <div>
-        <div>
-            <h2 className='home-title'>My wishlist</h2>
-        </div>
-        <Cards items={items}/>
-
-        
+            <div>
+                <h2 className='home-title'>My wishlist</h2>
+            </div>
+            <div>
+                <Cards items={items} />
+            </div>
         </div>
     )
 }

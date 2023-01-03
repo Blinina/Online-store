@@ -2,6 +2,9 @@ import like from "../assets/images/Like.png";
 import { Form } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import blackLike  from "../assets/images/blackLike.png";
+import { useState } from "react";
+import { getNewPrice } from "../helpers";
 
 export interface CardProps {
     [key: string]: any;
@@ -23,16 +26,16 @@ type Product = {
 };
 export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
+    const [liked, setLiked] = useState(false);
     const auth = useAuth();
     const { fullName, email, role, _id } = auth.loggedIn;
+
     const buildName = (str: string) => {
         const arr = str.split(' ').slice(0, 3).join(' ');
         return str.length > 20 ? `${arr}...` : str;
     };
-    const getNewPrice = (price: number, sales: number) => {
-        return (price * (1 - sales / 100)).toFixed(2)
-    }
-    const addLike = async (el:Product )=>{
+ 
+    const addLike = async (el: Product) => {
         const data = {
             userId: _id,
             product: el,
@@ -46,6 +49,7 @@ export default function Cards({ items }: CardProps) {
                 body: JSON.stringify(data)
             });
             let result = await res.json();
+            setLiked(true)
             console.log(result)
         } catch (e) {
             console.log(e)
@@ -68,12 +72,14 @@ export default function Cards({ items }: CardProps) {
                 </Form>
             </div>
             <div className='cards'>
-                {items?.map((el:Product) =>
+                {items?.map((el: Product) =>
                     <div className='card-collection' key={el._id}>
                         <figure>
                             <div className='images'>
                                 <img src={el.image[0]}
                                     onClick={() => navigate(`/product/${el._id}`)}
+                                    onMouseOver={e => (e.currentTarget.src = el.image[1])}
+                                    onMouseOut={e => (e.currentTarget.src = el.image[0])}
                                     alt={el.title} />
                                 {el.sales.sales
                                     &&
@@ -89,7 +95,7 @@ export default function Cards({ items }: CardProps) {
                                         New collection
                                     </div>}
                                 <div className='container-card-like'>
-                                    <img src={like} alt="like"
+                                    <img src={liked ? blackLike : like} alt="like"
                                         onClick={() => addLike(el)}
                                         className='card-like' />
                                 </div>
@@ -106,7 +112,8 @@ export default function Cards({ items }: CardProps) {
                                         </div>
                                         :
                                         <p className='price static-price'>${el.price}</p>
-                                    }</div>
+                                    }
+                                    </div>
                             </figcaption>
                         </figure>
                     </div>
