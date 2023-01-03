@@ -1,8 +1,8 @@
 const Router = require('express')
 const router = new Router()
-const controller = require('../controller/basketController')
+const controller = require('../controller/wishlistController')
 
-router.get('/getMyBasket', controller.getAll) 
+router.get('/getWishlist', controller.getWishlist) 
 router.post('/addProduct', controller.addProduct)
 
   

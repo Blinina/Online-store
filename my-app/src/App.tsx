@@ -6,7 +6,7 @@ import {
 import Main from "./components/Main";
 import Nav from "./components/Nav";
 import Collection from "./components/Collection";
-import ProductCard from "./components/ProductCard";
+import ProductCard from "./components/Card";
 import HomePage from "./components/accountPage/Home";
 import { useEffect, useState } from "react";
 import AuthProvider, { useAuth } from "./context/authContext";
@@ -33,6 +33,10 @@ export default function App() {
                 <Route path=":id" element={<ProductCard />} />
               </Route>
               <Route path="/home" element={<HomePage />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/bag" element={<Bag />} />
+
+
                    
               {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>

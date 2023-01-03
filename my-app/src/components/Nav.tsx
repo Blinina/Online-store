@@ -41,10 +41,11 @@ export default function Nav() {
           </form>
           <div className="nav-account">
             <div>
-              <img src={like} alt="like" />
+            <Link to="/wishlist" relative="path"> <img src={like} alt="like" /></Link>
             </div>
             <div>
-              <img src={shop} alt="shop" />
+            <Link to="/bag" relative="path"><img src={shop} alt="shop" /></Link>
+              
             </div>
             <div className="nav-user">
               {auth.getUsername() 

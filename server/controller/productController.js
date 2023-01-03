@@ -22,7 +22,6 @@ class authController {
         try {
             let { CategoryId } = req.query;
             let product;
-            console.log(CategoryId)
             let number
             if (CategoryId === 'sales') {
                 product = await Product.find({ 'sales.sales' : true })

@@ -1,18 +1,24 @@
 const Basket = require('../models/Basket')
+const Product = require('../models/Product')
 
 class authController {
     async addProduct(req, res) {
         try {
-            // const { title } = req.body;
-            console.log(req)
-            // const candidate = await Product.findOne({ title })
-            // if (candidate) {
-            //     return res.status(400).json({ message: "Товар  с таким названием уже существует" })
-            // }
-            // const newProduct = new Product({ ...req.body })
-            // console.log(newProduct)
-            // await newProduct.save()
-            // res.status(200).json({ message: 'продукт успешно добавлен' })
+            const { userId, product } = req.body;
+            console.log(product.productId)
+            const candidate = await Basket.findOne({ userId })
+            if (candidate) {
+              await Basket.updateOne(
+                    { _id: candidate._id },
+                    { $push: { products: product.productId } }
+                 )
+                 res.status(200).json({ message: 'корзина изменена' })
+
+            }else{
+                const newBasket = new Basket({ ...req.body })
+                await newBasket.save()
+                res.status(200).json({ message: 'продукт успешно добавлен' })
+            }  
         } catch (e) {
             console.log(e)
             res.status(400).json({ message: 'ошибка' })
@@ -21,32 +27,13 @@ class authController {
 
     async getAll(req, res) {
         try {
-            // let { CategoryId } = req.query;
-            // let product;
-            // console.log(CategoryId)
-            // let number
-            // if (CategoryId === 'sales') {
-            //     product = await Product.find({ 'sales.sales' : true })
-            //     console.log(product)
-            // } 
-            // if (CategoryId === 'newColection') {
-            //     product = await Product.find({ 'newColection' : true })
-            //     console.log(product)
-            // }
-            // else {
-            //     product = await Product.find({ 'category': CategoryId })
-            // }
-            // return res.json(product)
-        } catch (e) {
-            console.log(e)
-            res.status(400).json({ message: 'r' })
-        }
-    }
-    async getProduct(req, res) {
-        try {
-            let { productId } = req.query;
-            const product = await Product.findOne({ _id: productId })
-            return res.json(product)
+            let { _id } = req.query;
+            const basket = await Basket.findOne({ userId: _id })
+            // const {products} = basket;
+            // console.log(products)
+            // const productIdArr = products.map(el=>el.productId)
+            // const result = await Product.find({ _id: productIdArr});
+            return res.json(basket)
         } catch (e) {
             res.status(400).json({ message: 'r' })
         }

@@ -18,14 +18,14 @@ type ProductType = {
     },
 };
 
-export default function ProductCard() {
+export default function Card() {
     const [item, setItem] = useState<ProductType>();
     const [isLoaded, setIsLoaded] = useState(false);
     const useParamsId = useParams();
     const productId = useParamsId.id;
     const auth = useAuth();
-    const { fullName, email, role } = auth.loggedIn;
-
+  
+    const { fullName, email, role, _id } = auth.loggedIn;
 
     useEffect(() => {
         const fn = async () => {
@@ -41,8 +41,8 @@ export default function ProductCard() {
 
     const addToBasket = async () =>{
         const data = {
-            userId: email,
-            product: item?.title,
+            userId: _id,
+            product: {productId: item, quantity: 1}
         }
         try {
             let res = await fetch(`/basket/addProduct`, {
