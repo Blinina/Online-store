@@ -43,7 +43,7 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
             if (result.message) {
                 setErrorAuth(result.message)
             } else {
-                auth.logIn(result)
+                auth?.logIn(result)
             }
 
         } catch (e) {

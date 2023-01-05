@@ -1,6 +1,6 @@
 import { Modal, Form, FormCheck } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useAuth } from "../../../context/authContext";
+import { useAuth, typeLoggedIn } from "../../../context/authContext";
 type FormValues = {
     fullName: string;
     email: number;
@@ -9,7 +9,7 @@ type FormValues = {
 export default function Profile() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
     const auth = useAuth();
-    const { fullName, email, role } = auth.loggedIn;
+    const { fullName, email, role } = auth?.loggedIn as typeLoggedIn;
 
     const onSubmit = handleSubmit(async (data) => console.log(data));
     return (

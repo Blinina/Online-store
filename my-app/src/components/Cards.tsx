@@ -2,10 +2,12 @@ import like from "../assets/images/Like.png";
 import { Form } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-import blackLike  from "../assets/images/blackLike.png";
+import blackLike from "../assets/images/blackLike.png";
 import { useState } from "react";
 import { getNewPrice } from "../helpers";
+import { useDispatch, useSelector } from 'react-redux';
 
+import { getLike } from "../store/likeSlice";
 export interface CardProps {
     [key: string]: any;
 };
@@ -26,34 +28,36 @@ type Product = {
 };
 export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
-    const [liked, setLiked] = useState(false);
     const auth = useAuth();
-    const { fullName, email, role, _id } = auth.loggedIn;
+    const dispatch = useDispatch();
 
+    const likeItems = useSelector(getLike).flat();
+    const likeArr = likeItems?.map((item: Product) => item._id);
     const buildName = (str: string) => {
         const arr = str.split(' ').slice(0, 3).join(' ');
         return str.length > 20 ? `${arr}...` : str;
     };
- 
+
+
     const addLike = async (el: Product) => {
         const data = {
-            userId: _id,
+            userId: auth?.loggedIn?._id,
             product: el,
         }
-        try {
-            let res = await fetch(`/wishlist/addProduct`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data)
-            });
-            let result = await res.json();
-            setLiked(true)
-            console.log(result)
-        } catch (e) {
-            console.log(e)
-        }
+        // dispatch(addLikeStore(el))
+        // try {
+        //     let res = await fetch(`/wishlist/addProduct`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json;charset=utf-8'
+        //         },
+        //         body: JSON.stringify(data)
+        //     });
+        //     let result = await res.json();
+        //     console.log(result)
+        // } catch (e) {
+        //     console.log(e)
+        // }
     }
     return (
         <>
@@ -95,7 +99,7 @@ export default function Cards({ items }: CardProps) {
                                         New collection
                                     </div>}
                                 <div className='container-card-like'>
-                                    <img src={liked ? blackLike : like} alt="like"
+                                    <img src={likeArr.includes(el._id) ? blackLike : like} alt="like"
                                         onClick={() => addLike(el)}
                                         className='card-like' />
                                 </div>
@@ -113,7 +117,7 @@ export default function Cards({ items }: CardProps) {
                                         :
                                         <p className='price static-price'>${el.price}</p>
                                     }
-                                    </div>
+                                </div>
                             </figcaption>
                         </figure>
                     </div>

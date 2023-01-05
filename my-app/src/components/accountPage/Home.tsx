@@ -1,4 +1,4 @@
-import { useAuth } from "../../context/authContext"
+import { typeAuthContent, typeLoggedIn, useAuth } from "../../context/authContext"
 import React, { useState } from 'react';
 import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
@@ -13,9 +13,10 @@ import newProduct from "../../assets/images/shop.png";
 
 
 export default function HomePage() {
-    const auth = useAuth();
+    const auth = useAuth() as typeAuthContent;
     const [page, setPage] = useState({ type: 'profile' })
-    const { fullName, email, role } = auth.loggedIn;
+    const { fullName, email, role } = auth.loggedIn as typeLoggedIn;
+    console.log(auth)
 
     const getClass = (variant: string) => {
         return variant === page.type ? 'menu-elem btn-green' : 'menu-elem'

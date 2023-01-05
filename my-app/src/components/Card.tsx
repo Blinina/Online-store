@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from "../context/authContext";
+import { useAuth, typeLoggedIn } from "../context/authContext";
 import { getNewPrice} from "../helpers";
-import like from "../assets/images/Like.png";
-import shop from "../assets/images/shop.png";
+import like from "../assets/images/likeGreen.png";
+import shop from "../assets/images/whiteBag.png";
+import { Form } from "react-bootstrap";
+
 
 
 type ProductType = {
@@ -28,9 +30,10 @@ export default function Card() {
     const useParamsId = useParams();
     const productId = useParamsId.id;
     const auth = useAuth();
+    console.log(item)
 
-    const { fullName, email, role, _id } = auth.loggedIn;
-
+    const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
+   
     useEffect(() => {
         const fn = async () => {
             const res = await axios.get(`/${productId}`, {
@@ -87,15 +90,21 @@ export default function Card() {
                         </div>
                         <div> <p>{item?.rating}</p></div>
                     </div>
-                    <div>
-                        <input type="number" />
-                        <div className="M-btn btn-green" onClick={addToBasket}>
+                    <div className="bag-container">
+                        <Form>
+                        <input type="number" min="1" />
+                        <button type="submit" className="M-btn btn-green" onClick={addToBasket}>
                             <img src={shop} alt="shop"/>
                             <p>Add to cart</p>
-                            </div>
+                            </button>
+                        </Form>
                         <div className="M-btn">
                         <img src={like} alt="like"/>
                             <p>Favourite</p></div>
+                    </div>
+                    <div>
+                        Show 
+                        <details>kek</details>
                     </div>
                     <div>Share</div>
                 </div>

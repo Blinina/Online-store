@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from "react-router-dom";
-import like from "../assets/images/Like.png";
-import { Form } from 'react-bootstrap';
-import ProductCard from './Card';
 import axios from 'axios';
 import { sassFalse } from 'sass';
 import { useAuth } from "../context/authContext";
 import Cards from './Cards';
+import { getData } from '../store/collectionsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 type Product = {
     _id: string;
@@ -27,12 +26,13 @@ type Product = {
 export default function Collection() {
     const [items, setItems] = useState<Product[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const navigate = useNavigate();
     const useParamsId = useParams();
+    const dispatch = useDispatch();
     const CategoryId = useParamsId.id;
     const auth = useAuth();
-    const { fullName, email, role, _id } = auth.loggedIn;
+
     useEffect(() => {
+        // dispatch(getData(CategoryId))
         const fn = async () => {
             const res = await axios.get('/category', {
                 params: {
@@ -42,7 +42,12 @@ export default function Collection() {
             setItems(res.data)
         }
         fn()
+
     }, [CategoryId]);
+    // const dataCollections = useSelector(getCollection);
+    //  setItems(dataCollections)
+    // const pi = useSelector(state=>state.collections.entities)
+    // console.log(pi)
 
 
     return (

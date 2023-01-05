@@ -16,6 +16,7 @@ import Wishlist from "./components/accountPage/pages/Wishlist";
 
 
 export default function App() {
+  localStorage.setItem('root', '1');
 
 
   return (

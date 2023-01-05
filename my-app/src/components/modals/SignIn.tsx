@@ -33,7 +33,7 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
       if (result.message) {
         setErrorAuth(result.message)
       } else {
-        auth.logIn(result)
+        auth?.logIn(result)
       }
     } catch (e) {
       console.log(e)

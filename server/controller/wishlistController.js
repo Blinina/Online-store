@@ -26,7 +26,7 @@ class authController {
 
     async getWishlist(req, res) {
         try {
-            const products = await Wishlist.findOne({ userId: req.query._id });           
+            const products = await Wishlist.findOne({ userId: req.query.payload });           
             const result = await Product.find({ _id: products.products});
             return res.json(result)
         } catch (e) {

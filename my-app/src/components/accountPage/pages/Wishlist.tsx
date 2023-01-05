@@ -1,7 +1,9 @@
-import { useAuth } from "../../../context/authContext";
+import { useAuth, typeLoggedIn } from "../../../context/authContext";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Cards from "../../Cards";
+import { getLike } from "../../../store/likeSlice";
+import {  useSelector } from 'react-redux';
+
 type Product = {
     _id: string;
     title: string;
@@ -20,20 +22,13 @@ type Product = {
 
 export default function Wishlist() {
     const auth = useAuth();
-    const { _id } = auth.loggedIn;
-    const [items, setItems] = useState<Product[]>([]);
+    const { _id } = auth?.loggedIn as typeLoggedIn;
+    // const [items, setItems] = useState<Product[]>([]);
 
-    useEffect(() => {
-        const fn = async () => {
-            const res = await axios.get('/wishlist/getWishlist', {
-                params: {
-                    _id
-                }
-            })
-            setItems(res.data)
-        }
-        fn()
-    }, []);
+    // useEffect(() => {
+        
+    // }, []);
+    const items = useSelector(getLike).flat();
     return (
         <div>
             <div>

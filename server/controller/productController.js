@@ -21,15 +21,13 @@ class authController {
     async getCategory(req, res) {
         try {
             let { CategoryId } = req.query;
+            console.log(req.query)
             let product;
             let number
             if (CategoryId === 'sales') {
                 product = await Product.find({ 'sales.sales' : true })
-                console.log(product)
-            } 
-            if (CategoryId === 'newColection') {
+            } else if (CategoryId === 'newColection') {
                 product = await Product.find({ 'newColection' : true })
-                console.log(product)
             }
             else {
                 product = await Product.find({ 'category': CategoryId })

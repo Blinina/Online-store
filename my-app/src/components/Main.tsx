@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
 import women from "../assets/images/women3.jpg";
 import men from "../assets/images/men7.jpg";
-import vogue from "../assets/images/vogue.jpg";
-import { useRef } from "react";
+
 
 export default function Main() {
-  const elem = useRef();
-//   function changeBgImg(){
-//     console.log(elem)
-//     elem.current.style.backgroundImage = `url('${vogue}')`;
-// }
   return (
     <>
       <section id="header" className="header bg">
-        <div className="bg" ref={elem}>
+        <div className="bg">
           <div className="header-container">
             <p className="text-upper">New collection</p>
             <h1 className="main-text">Menswear 2023</h1>
@@ -41,8 +35,6 @@ export default function Main() {
         <h2>Sales</h2>
 
       </section>
-
-
     </>
   );
 };

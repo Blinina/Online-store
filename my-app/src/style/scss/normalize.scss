@@ -30,7 +30,8 @@ h1,
 figure {
     margin: 0;
 }
-ul{
+
+ul {
     padding: 0;
     margin: 0;
 }
@@ -62,10 +63,12 @@ a {
     border: 1px solid var(--green);
     background-color: rgba(117, 190, 218, 0.0);
     color: var(--green);
+    word-wrap: break-word;
     cursor: pointer;
 
 }
-.center{
+
+.center {
     margin: auto;
 }
 
@@ -109,8 +112,25 @@ a {
         display: flex;
         align-items: center;
 
+        img {
+            height: 18px;
+            width: auto;
+        }
+
         div:not(:last-child) {
             margin-right: 30px;
+        }
+
+        .like-container {
+            display: flex;
+            gap: 7px;
+            align-items: flex-end;
+        }
+
+        .like-count {
+            color: #565966dd;
+            max-height: 20px;
+
         }
 
     }
@@ -118,9 +138,8 @@ a {
 }
 
 .nav-user {
-    background-color: var(--gray);
-    color: #FFFFFF;
-    padding: 3%;
+    background-color: #E9E2E9;
+    padding: 4%;
     border-radius: 4px;
     cursor: pointer;
 
@@ -130,13 +149,13 @@ a {
 
     figure {
         display: flex;
-        gap: 5px;
+        gap: 7px;
         align-items: center;
     }
 
     figcaption {
-        opacity: 0.6;
-        font-size: 9px;
+        opacity: 0.9;
+        font-size: 10px;
 
     }
 }

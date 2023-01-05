@@ -18,5 +18,27 @@
         justify-content: space-between;
         gap: 30px;
     }
+    .bag-container, form{
+        display: flex;
+        gap: 20px;
+    }
+    .bag-container{
+        margin: 30px 0;
+    }
+    input{
+        width: 80px;
+    }
+    .M-btn{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        p{
+            font-size: 14px;
+            word-wrap: break-word;
+            max-height: 52px;
+            
+        }
+    }
+
 
 }
