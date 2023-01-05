@@ -231,16 +231,44 @@ h3 {
   display: flex;
   justify-content: space-between;
   gap: 30px;
+  margin-bottom: 10px;
+}
+.card-1 .draw-rating {
+  color: #FF4242;
+}
+.card-1 .new-collection {
+  text-transform: uppercase;
+  display: inline;
+  font-size: 11px;
+  font-weight: 900;
+  background-color: rgba(45, 45, 45, 0.8);
+  color: rgba(255, 255, 255, 0.925);
+  padding: 5px 7px;
+}
+.card-1 .sales-banner {
+  font-size: 12px;
+  font-weight: 900;
+  background-color: #FF4242;
+  color: rgba(255, 255, 255, 0.925);
+  max-width: 70%;
+  padding: 5px 7px;
+  border-radius: 4px;
 }
 .card-1 .bag-container, .card-1 form {
   display: flex;
   gap: 20px;
 }
 .card-1 .bag-container {
-  margin: 30px 0;
+  margin: 40px 0;
 }
 .card-1 input {
   width: 80px;
+}
+.card-1 text {
+  font-size: 0.8em;
+}
+.card-1 hr {
+  margin: 0.5rem;
 }
 .card-1 .M-btn {
   display: flex;
@@ -250,7 +278,7 @@ h3 {
 .card-1 .M-btn p {
   font-size: 14px;
   word-wrap: break-word;
-  max-height: 52px;
+  max-height: 54px;
 }
 
 :root {

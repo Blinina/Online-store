@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth, typeLoggedIn } from "../context/authContext";
-import { getNewPrice} from "../helpers";
+import { getNewPrice, drawRating } from "../helpers";
 import like from "../assets/images/likeGreen.png";
 import shop from "../assets/images/whiteBag.png";
 import { Form } from "react-bootstrap";
@@ -27,13 +27,14 @@ type ProductType = {
 export default function Card() {
     const [item, setItem] = useState<ProductType>();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [showtext, setShowText] = useState(false);
     const useParamsId = useParams();
     const productId = useParamsId.id;
     const auth = useAuth();
     console.log(item)
 
     const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
-   
+
     useEffect(() => {
         const fn = async () => {
             const res = await axios.get(`/${productId}`, {
@@ -65,7 +66,11 @@ export default function Card() {
             console.log(e)
         }
     }
-  
+    const getNormalText = (text: string) => {
+        const arrStrings = text.split('\n')
+        return arrStrings.map((str: string, i: number) => <p key={`p_${i}`}>{str}</p>)
+    }
+
     return (
         <div className="card-1">
             <div>
@@ -83,30 +88,39 @@ export default function Card() {
                                 <div className='sales-price'>
                                     <p className='price new-price'>${getNewPrice(item.price, item.sales.count)}</p>
                                     <p className='old-price'>${item.price}</p>
+                                    <div className="sales-banner">-{item.sales.count}%</div>
                                 </div>
                                 :
                                 <p className='price static-price'>${item?.price}</p>
                             }
                         </div>
-                        <div> <p>{item?.rating}</p></div>
+                        <div className="draw-rating">{drawRating(item?.rating as number)} <p>{item?.rating}</p></div>
                     </div>
+                    {item?.newColection && <div className="new-collection">New Collection</div>}
                     <div className="bag-container">
                         <Form>
-                        <input type="number" min="1" />
-                        <button type="submit" className="M-btn btn-green" onClick={addToBasket}>
-                            <img src={shop} alt="shop"/>
-                            <p>Add to cart</p>
+                            <Form.Control type="number"
+                                min="1"
+                                defaultValue="1"
+                            />
+                            <button type="submit" className="M-btn btn-green"
+                                onClick={addToBasket}>
+                                <img src={shop} alt="shop" />
+                                <p>Add to cart</p>
                             </button>
                         </Form>
-                        <div className="M-btn">
-                        <img src={like} alt="like"/>
-                            <p>Favourite</p></div>
+                        <div className="M-btn"
+                        >
+                            <img src={like} alt="like" />
+                            <p>Favourite</p>
+                        </div>
                     </div>
                     <div>
-                        Show 
-                        <details>kek</details>
+                        <hr />
+                        <div onClick={() => setShowText(!showtext)}><b>About me</b></div>
+                        <hr />
+                        {showtext && <text>{getNormalText(item?.description as string)}</text>}
                     </div>
-                    <div>Share</div>
                 </div>
             </div>
         </div>
