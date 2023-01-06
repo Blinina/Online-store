@@ -77,9 +77,6 @@ export default function Cards({ items }: CardProps) {
       setProducts(pp)
    }
 
-console.log(products)
-
-
     return (
         <>
             <div className='sortind'>
@@ -90,7 +87,7 @@ console.log(products)
                         <Form.Select size="sm"
                         value={sorting}
                         onChange={(e)=>handleChange(e)}>
-                            <option value="none">none</option>
+                            <option value="" selected disabled>none</option>
                             <option value="Rating">Rating</option>
                             <option value="Price">Price</option>
                         </Form.Select>

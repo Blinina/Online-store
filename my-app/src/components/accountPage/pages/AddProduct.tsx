@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Modal, Form, FormCheck } from 'react-bootstrap';
+import { Form, FormCheck } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import NotifComponent from './modals/NotifComponent';
 type FormValues = {
     title: string;
     price: number;
@@ -17,11 +18,9 @@ type FormValues = {
     },
 };
 
-
 export default function AddProduct() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
-
-
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<FormValues>({});
+    const [showModal, setShowModal] = useState('')
     const onSubmit = handleSubmit(async (data) => {
         const { image1, image2, type, category, ...rest } = data;
         const newDate = {
@@ -30,10 +29,9 @@ export default function AddProduct() {
             image: [image1, image2],
             ...rest,
         };
-
         console.log(newDate)
         try {
-            let res = await fetch(`/product/addProduct`, {
+            let res = await fetch(`/addProduct`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -41,7 +39,9 @@ export default function AddProduct() {
                 body: JSON.stringify(newDate)
             });
             let result = await res.json();
-            console.log(result)
+            console.log(result);
+            setShowModal(result.message)
+            reset();
         } catch (e) {
             console.log(e)
         }
@@ -50,7 +50,7 @@ export default function AddProduct() {
     return (
         <div>
             <div>
-                <h2 className='home-title'>Add new product</h2>
+                <h2 className='home-title' onClick={() => setShowModal('kek')}>Add new product</h2>
             </div>
             <div>
                 <Form onSubmit={onSubmit}>
@@ -61,9 +61,17 @@ export default function AddProduct() {
                                 size="sm"
                                 type="text"
                                 placeholder="Product name"
+                                className={errors?.title && 'is-invalid'}
                                 autoFocus
-                                {...register("title", { required: true })}
+                                {...register("title", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is required'
+                                    },
+                                })}
                             />
+                            {errors.title && <span className="danger">{errors.title.message}</span>}
+
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -75,9 +83,20 @@ export default function AddProduct() {
                                 size="sm"
                                 type="number"
                                 min="0"
+                                className={errors?.price && 'is-invalid'}
                                 placeholder="Product price"
-                                {...register("price", { required: true, min: 1 })}
+                                {...register("price", {
+                                    required: {
+                                        value: true,
+                                        message: 'Price is required'
+                                    }, min: {
+                                        value: 1,
+                                        message: 'Field cannot be negative'
+                                    }
+                                })}
                             />
+                            {errors.price && <span className="danger">{errors.price.message}</span>}
+
                         </Form.Group>
                     </div>
                     <div className='field-form'>
@@ -86,19 +105,36 @@ export default function AddProduct() {
                             className="mb-3">
                             <Form.Label>Category</Form.Label>
                             <Form.Select size="sm"
-                                {...register("category", { required: true })} >
+                                className={errors?.category && 'is-invalid'}
+
+                                {...register("category", {
+                                    required: {
+                                        value: true,
+                                        message: 'Category is required'
+                                    }
+                                })} >
                                 <option value="" disabled selected>Select the category</option>
                                 <option>Women</option>
                                 <option>Men</option>
                                 <option>Kids</option>
                             </Form.Select>
+                            {errors.category && <span className="danger">{errors.category.message}</span>}
+
                         </Form.Group>
                         <Form.Group
                             controlId="type"
                             className="mb-3">
                             <Form.Label>Type</Form.Label>
                             <Form.Select size="sm"
-                                {...register("type", { required: true })} >
+                                className={errors?.type && 'is-invalid'}
+                                {...register("type",
+                                    {
+                                        required: {
+                                            value: true,
+                                            message: 'Type is required'
+                                        }
+                                    }
+                                )} >
                                 <option value="" disabled selected>Select the type </option>
                                 {watch('category') !== 'Men' && <>
                                     <option>Dresses</option>
@@ -109,6 +145,8 @@ export default function AddProduct() {
                                 <option>T-shirt</option>
 
                             </Form.Select>
+                            {errors.type && <span className="danger">{errors.type.message}</span>}
+
                         </Form.Group>
                     </div>
                     <div className='field-form'>
@@ -121,9 +159,18 @@ export default function AddProduct() {
                                 size="sm"
                                 type="text"
                                 placeholder="First image`s URL"
+                                className={errors?.image1 && 'is-invalid'}
 
-                                {...register("image1", { required: true })}
+
+                                {...register("image1", {
+                                    required: {
+                                        value: true,
+                                        message: 'First Image is required'
+                                    }
+                                })}
                             />
+                            {errors.image1 && <span className="danger">{errors.image1.message}</span>}
+
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -134,8 +181,16 @@ export default function AddProduct() {
                                 size="sm"
                                 type="text"
                                 placeholder="Second image`s URL"
-                                {...register("image2", { required: true })}
+                                className={errors?.image2 && 'is-invalid'}
+
+                                {...register("image2", {
+                                    required: {
+                                        value: true,
+                                        message: 'Second Image is required'
+                                    }
+                                })}
                             />
+                            {errors.image2 && <span className="danger">{errors.image2.message}</span>}
                         </Form.Group>
                     </div>
                     <Form.Group
@@ -148,11 +203,23 @@ export default function AddProduct() {
                             type="number"
                             min="0"
                             max="5"
+                            className={errors?.rating && 'is-invalid'}
                             placeholder="LOL :) come up with"
-                            {...register("rating", { required: true, min: 0, max: 5 })}
+                            {...register("rating", {
+                                required: {
+                                    value: true,
+                                    message: 'Rating is required'
+                                }, min: {
+                                    value: 1,
+                                    message: 'Rating cannot be less than 1'
+                                }, max: {
+                                    value: 5,
+                                    message: 'Rating cannot be greater than 99'
+                                }
+                            })}
                         />
+                        {errors.rating && <span className="danger">{errors.rating.message}</span>}
                     </Form.Group>
-
                     <div className='field-form'>
                         <Form.Group
                             className="mb-3"
@@ -171,9 +238,20 @@ export default function AddProduct() {
                                 size="sm"
                                 type="number"
                                 disabled={!watch("sales.sales")}
+                                className={errors?.sales?.count && 'is-invalid'}
                                 defaultValue="0"
-                                {...register("sales.count", { min: 0, max: 99 })}
+                                {...register("sales.count", {
+                                    min: {
+                                        value: 1,
+                                        message: 'Sales count cannot be less than 1'
+                                    }, max: {
+                                        value: 99,
+                                        message: 'Sales count cannot be greater than 99'
+                                    }
+                                })}
                             />
+                            {errors?.sales?.count && <span className="danger">{errors?.sales?.count.message}</span>}
+
                         </Form.Group>
                     </div>
                     <Form.Group
@@ -186,19 +264,27 @@ export default function AddProduct() {
                     </Form.Group>
                     <Form.Group
                         controlId="description"
+                        className="mb-3"
                     >
                         <Form.Label>Description</Form.Label>
                         <Form.Control as="textarea"
+                            className={errors?.description && 'is-invalid'}
                             size="sm"
-                            className="mb-3"
-                            {...register("description", { required: true })}
+                            {...register("description", {
+                                required: {
+                                    value: true,
+                                    message: 'Description is required'
+                                },
+                            })}
                         />
+                        {errors.description && <span className="danger">{errors.description.message}</span>}
                     </Form.Group>
                     <button className='M-btn btn-green center' onClick={onSubmit}>
                         Add product
                     </button>
                 </Form>
             </div>
+            {!!showModal && <NotifComponent show={showModal} setShowModal={setShowModal} />}
         </div>
     )
 }
