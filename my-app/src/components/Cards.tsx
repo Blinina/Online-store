@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import blackLike from "../assets/images/blackLike.png";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { getNewPrice } from "../helpers";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -30,14 +30,20 @@ export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
     const auth = useAuth();
     const dispatch = useDispatch();
+    const [products, setProducts] = useState(items);
+
+    const [sorting, setSorting] = useState('none');
+    useEffect(()=>{
+        setProducts(items)
+    }, [items])
 
     const likeItems = useSelector(getLike).flat();
     const likeArr = likeItems?.map((item: Product) => item._id);
+     
     const buildName = (str: string) => {
         const arr = str.split(' ').slice(0, 3).join(' ');
         return str.length > 20 ? `${arr}...` : str;
     };
-
 
     const addLike = async (el: Product) => {
         const data = {
@@ -59,6 +65,21 @@ export default function Cards({ items }: CardProps) {
         //     console.log(e)
         // }
     }
+    const pp = {
+        Rating: (elem: Product[]) => elem.sort((a:Product,b: Product)=>b.rating-a.rating),
+        Price: (elem: Product[]) => elem.sort((a:Product,b: Product)=>b.price-a.price),
+    }
+   const handleChange = (e: ChangeEvent<HTMLSelectElement>) =>{
+    const {value } = e.target;
+    setSorting(value)
+    let pp;
+      value === 'Rating' ? pp = items.sort((a:Product,b: Product)=>b.rating-a.rating) : pp = items.sort((a:Product,b: Product)=>b.price-a.price);
+      setProducts(pp)
+   }
+
+console.log(products)
+
+
     return (
         <>
             <div className='sortind'>
@@ -66,17 +87,19 @@ export default function Cards({ items }: CardProps) {
                     <Form.Group
                         controlId="sortind">
                         <Form.Label>Sort by</Form.Label>
-                        <Form.Select size="sm">
-                            <option>none</option>
-                            <option>raiting</option>
-                            <option>price</option>
+                        <Form.Select size="sm"
+                        value={sorting}
+                        onChange={(e)=>handleChange(e)}>
+                            <option value="none">none</option>
+                            <option value="Rating">Rating</option>
+                            <option value="Price">Price</option>
                         </Form.Select>
                         <button type='submit' className='hidden'></button>
                     </Form.Group>
                 </Form>
             </div>
             <div className='cards'>
-                {items?.map((el: Product) =>
+                {products?.map((el: Product) =>
                     <div className='card-collection' key={el._id}>
                         <figure>
                             <div className='images'>

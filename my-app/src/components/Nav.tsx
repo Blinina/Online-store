@@ -64,7 +64,7 @@ export default function Nav() {
                 ?
                 <figure onClick={() => navigate('/home')}>
                   <img src={user} alt="login/logout" />
-                  <figcaption>{auth?.getUsername()} {auth?.loggedIn?.role === 'Seller' && <p>{auth?.loggedIn?.role}</p>}</figcaption>
+                  <figcaption><b>{auth?.getUsername()}</b>{auth?.loggedIn?.role === 'Seller' && <p>{auth?.loggedIn?.role}</p>}</figcaption>
                 </figure>
                 :
                 <figure onClick={() => setOpenModal(true)}>
@@ -76,7 +76,7 @@ export default function Nav() {
           </div>
         </div>
       </nav>
-      <div className="nav-sales">Up to 70% Off. <Link to="/collection/sales" relative="path">Shop our latest sale styles</Link></div>
+      <div className="nav-sales">Up to 70% Off. <Link to="/collection/sales" relative="path"><b> Shop our latest sale styles</b></Link></div>
       {openModal && <SignIn open={openModal} setOpenModal={setOpenModal} setOpenSignUP={setOpenSignUP} />}
       {openSignUP && <SignUp openSignUP={openSignUP} setOpenSignUP={setOpenSignUP} setOpenModal={setOpenModal} />}
     </div>

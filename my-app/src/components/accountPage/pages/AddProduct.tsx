@@ -24,15 +24,10 @@ export default function AddProduct() {
 
     const onSubmit = handleSubmit(async (data) => {
         const { image1, image2, type, category, ...rest } = data;
-        // const newSalesCount = sales.sales ? sales.count : 0;
         const newDate = {
             type: type.toLowerCase(),
             category: category.toLowerCase(),
             image: [image1, image2],
-            // sales: {
-            //     sales,
-            //     const: newSalesCount,
-            // },
             ...rest,
         };
 
@@ -61,7 +56,7 @@ export default function AddProduct() {
                 <Form onSubmit={onSubmit}>
                     <div className='field-form'>
                         <Form.Group className="mb-3" controlId="title">
-                            <Form.Label>Product name</Form.Label>
+                            <Form.Label>Name</Form.Label>
                             <Form.Control
                                 size="sm"
                                 type="text"
@@ -73,18 +68,19 @@ export default function AddProduct() {
                         <Form.Group
                             className="mb-3"
                             controlId="price"
+
                         >
                             <Form.Label>Price</Form.Label>
                             <Form.Control
                                 size="sm"
                                 type="number"
                                 min="0"
+                                placeholder="Product price"
                                 {...register("price", { required: true, min: 1 })}
                             />
                         </Form.Group>
                     </div>
                     <div className='field-form'>
-
                         <Form.Group
                             controlId="Category"
                             className="mb-3">
@@ -120,10 +116,12 @@ export default function AddProduct() {
                             className="mb-3"
                             controlId="image1"
                         >
-                            <Form.Label>image1</Form.Label>
+                            <Form.Label>First Image</Form.Label>
                             <Form.Control
                                 size="sm"
                                 type="text"
+                                placeholder="First image`s URL"
+
                                 {...register("image1", { required: true })}
                             />
                         </Form.Group>
@@ -131,10 +129,11 @@ export default function AddProduct() {
                             className="mb-3"
                             controlId="image2"
                         >
-                            <Form.Label>image2</Form.Label>
+                            <Form.Label>Second Image</Form.Label>
                             <Form.Control
                                 size="sm"
                                 type="text"
+                                placeholder="Second image`s URL"
                                 {...register("image2", { required: true })}
                             />
                         </Form.Group>
@@ -149,6 +148,7 @@ export default function AddProduct() {
                             type="number"
                             min="0"
                             max="5"
+                            placeholder="LOL :) come up with"
                             {...register("rating", { required: true, min: 0, max: 5 })}
                         />
                     </Form.Group>
@@ -181,7 +181,6 @@ export default function AddProduct() {
                         controlId="newColection"
                     >
                         <FormCheck id="newColection" label="New colection"
-
                             {...register("newColection")}
                         />
                     </Form.Group>
