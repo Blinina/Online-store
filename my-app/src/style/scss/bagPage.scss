@@ -1,0 +1,41 @@
+table{
+  
+    p{
+        font-weight: 400;
+        font-size: 14px;
+    }
+    tr{
+        background-color: #F4F5F6;
+    --bs-table-accent-bg:  #F4F5F6;
+    }
+    
+   
+}
+.bag-container{
+    display: flex;
+    gap:5%;
+    margin: 30px 10% 0;
+    font-size: 14px;
+
+    .M-btn{
+        line-height: 30px;
+        font-size: 14px;
+    }
+}
+
+
+.bag-img{
+    width: 80px;
+    height: auto;
+}
+.bag-name{
+    display: flex;
+    gap: 10%;
+    cursor: pointer;
+}
+.result-card{
+    border: 1px solid #E5E8ED;
+    padding: 10px 25px;
+    line-height: 30px;
+    max-height: 200px;
+}

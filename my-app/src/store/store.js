@@ -11,13 +11,14 @@ import {
 import storage from "redux-persist/lib/storage";
 import collectionReduser from './collectionsSlice';
 import likeReduser from './likeSlice';
-
+import basketReduser from './basketSlice';
 const persistConfig = {
   key: "root",
   storage
 };
 const rootReducers = combineReducers({
   like: likeReduser,
+  basket: basketReduser,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 

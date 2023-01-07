@@ -10,7 +10,7 @@ import SignUp from "./modals/SignUp";
 import { useAuth } from "../context/authContext";
 import { getDataLike, getLike } from "../store/likeSlice";
 import { useDispatch, useSelector } from 'react-redux';
-
+import { getDataBasket, getBasket} from "../store/basketSlice";
 export default function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,11 +20,14 @@ export default function Nav() {
   useEffect(() => {
     // if(auth?.loggedIn){
     dispatch(getDataLike(auth?.loggedIn?._id))
+    dispatch(getDataBasket(auth?.loggedIn?._id))
+
     // }else{
     //   dispatch(getDataLike(localStorage.getItem('root')))
     // }
   }, [])
   const likeCount = useSelector(getLike).flat().length;
+  const basketCount = useSelector(getBasket).flat().length;
   return (
     <div>
       <nav className="nav">
@@ -46,29 +49,27 @@ export default function Nav() {
               <Link to="/collection/sales" relative="path">Sales</Link>
             </li>
           </ul>
-          <form>
-            <input name="search" />
-            <button type="submit"></button>
-          </form>
           <div className="nav-account">
             <div className="like-container" onClick={() => navigate("/wishlist")}>
               <img src={like} alt="like" />
               <div className="like-count">{likeCount}</div>
             </div>
             <div>
-              <Link to="/bag" relative="path"><img src={shop} alt="shop" /></Link>
-
+            <div className="like-container" onClick={() => navigate("/bag")}>
+                <img src={shop} alt="shop" />
+                <div className="basket-count">{basketCount}</div>
+            </div>
             </div>
             <div className="nav-user">
               {auth?.getUsername()
                 ?
                 <figure onClick={() => navigate('/home')}>
-                  <img src={user} alt="login/logout" />
+                  <img src={user} alt="user" />
                   <figcaption><b>{auth?.getUsername()}</b>{auth?.loggedIn?.role === 'Seller' && <p>{auth?.loggedIn?.role}</p>}</figcaption>
                 </figure>
                 :
                 <figure onClick={() => setOpenModal(true)}>
-                  <img src={user} alt="login/logout" />
+                  <img src={user} alt="user" />
                   <figcaption>login/logout</figcaption>
                 </figure>
               }

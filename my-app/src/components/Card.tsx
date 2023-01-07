@@ -2,12 +2,16 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth, typeLoggedIn } from "../context/authContext";
-import { getNewPrice, drawRating } from "../helpers";
+import { getNewPrice, drawRating, getNormalText } from "../helpers";
 import like from "../assets/images/likeGreen.png";
 import shop from "../assets/images/whiteBag.png";
 import next from "../assets/images/next.png";
 import prev from "../assets/images/prev.png";
 import { Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { addProductToBasket, getBasket } from "../store/basketSlice";
+import store from "../store/store";
 
 
 
@@ -25,7 +29,9 @@ type ProductType = {
         count: number,
     },
 };
-
+type FormValues = {
+    quantityValue: number;
+};
 export default function Card() {
     const [item, setItem] = useState<ProductType>();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -36,7 +42,9 @@ export default function Card() {
     const auth = useAuth();
 
     const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
-    console.log(imgNum)
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
+
+
     useEffect(() => {
         const fn = async () => {
             const res = await axios.get(`/${productId}`, {
@@ -48,30 +56,31 @@ export default function Card() {
         }
         fn()
     }, [productId]);
-
-    const addToBasket = async () => {
-        const data = {
+    const addToBasket = handleSubmit(async (data) => {
+        const newData = {
             userId: _id,
-            product: { productId: item, quantity: 1 }
+            product: { product: item, quantity: data.quantityValue }
         }
+        addProductToBasket(newData)
+        console.log(store.getState())
         try {
             let res = await fetch(`/basket/addProduct`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(newData)
             });
             let result = await res.json();
             console.log(result)
         } catch (e) {
             console.log(e)
         }
-    }
-    const getNormalText = (text: string) => {
-        const arrStrings = text.split('\n')
-        return arrStrings.map((str: string, i: number) => <p key={`p_${i}`}>{str}</p>)
-    }
+    })
+    const basket = useSelector(getBasket).flat();
+    // console.log(basket)
+    const isProductinBasket = () => basket[0] && basket?.find((el)=>el.product._id===productId);
+    const ProductinBasket = isProductinBasket()
 
     return (
         <div className="card-1">
@@ -113,10 +122,11 @@ export default function Card() {
                     </div>
                     {item?.newColection && <div className="new-collection">New Collection</div>}
                     <div className="bag-container">
-                        <Form>
+                        <Form onSubmit={addToBasket}>
                             <Form.Control type="number"
-                                min="1"
-                                defaultValue="1"
+                                className={errors?.quantityValue && 'is-invalid'}
+                                defaultValue='1'
+                                {...register("quantityValue", { min: 1 })}
                             />
                             <button type="submit"
                                 className="M-btn btn-green"
@@ -132,10 +142,11 @@ export default function Card() {
                         </div>
                     </div>
                     <div>
+                        {ProductinBasket && <p className="count-bag">There are {ProductinBasket.quantity} such items in your bag</p>}
                         <hr />
-                        <div 
-                        className="about"
-                        onClick={() => setShowText(!showtext)}><b>About me</b></div>
+                        <div
+                            className="about"
+                            onClick={() => setShowText(!showtext)}><b>About me</b></div>
                         <hr />
                         {showtext && <text>{getNormalText(item?.description as string)}</text>}
                     </div>

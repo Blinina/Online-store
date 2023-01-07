@@ -9,10 +9,12 @@ import profile from "../../assets/images/blackUser.png";
 import singOut from "../../assets/images/sing out.png";
 import bag from "../../assets/images/bagMenu.png";
 import newProduct from "../../assets/images/shop.png";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function HomePage() {
+    const navigate = useNavigate();
     const auth = useAuth() as typeAuthContent;
     const [page, setPage] = useState({ type: 'profile' })
     const { fullName, email, role } = auth.loggedIn as typeLoggedIn;
@@ -21,6 +23,10 @@ export default function HomePage() {
     const getClass = (variant: string) => {
         return variant === page.type ? 'menu-elem btn-green' : 'menu-elem'
     };
+    const handleLogout = () =>{
+        navigate('/')
+        auth.logOut();
+    }
 
     return (
         <div className="pages-container">
@@ -65,7 +71,7 @@ export default function HomePage() {
                                 Wishlist</div>
                         </li>
                         <li>
-                            <div className="menu-elem invalid" onClick={() => auth.logOut()}>
+                            <div className="menu-elem invalid" onClick={handleLogout}>
                                 <img src={singOut} alt="sing Out" />
                                 <p>Sign out</p></div>
                         </li>

@@ -322,6 +322,14 @@ h3 {
   font-weight: 500;
   color: #787A80;
 }
+.card-1 .count-bag {
+  text-align: end;
+  font-size: 13px;
+  background-color: rgba(30, 230, 163, 0.502);
+  padding: 5px 7px;
+  display: inline;
+  margin-left: 25vw;
+}
 .card-1 .bag-container,
 .card-1 form {
   display: flex;
@@ -351,6 +359,44 @@ h3 {
   font-size: 14px;
   word-wrap: break-word;
   max-height: 54px;
+}
+
+table p {
+  font-weight: 400;
+  font-size: 14px;
+}
+table tr {
+  background-color: #F4F5F6;
+  --bs-table-accent-bg: #F4F5F6;
+}
+
+.bag-container {
+  display: flex;
+  gap: 5%;
+  margin: 30px 10% 0;
+  font-size: 14px;
+}
+.bag-container .M-btn {
+  line-height: 30px;
+  font-size: 14px;
+}
+
+.bag-img {
+  width: 80px;
+  height: auto;
+}
+
+.bag-name {
+  display: flex;
+  gap: 10%;
+  cursor: pointer;
+}
+
+.result-card {
+  border: 1px solid #E5E8ED;
+  padding: 10px 25px;
+  line-height: 30px;
+  max-height: 200px;
 }
 
 :root {
@@ -411,6 +457,9 @@ a:visited {
   word-wrap: break-word;
   cursor: pointer;
 }
+.M-btn:hover {
+  transform: scale(1.05);
+}
 
 .center {
   margin: auto;
@@ -465,10 +514,18 @@ a:visited {
   display: flex;
   gap: 7px;
   align-items: flex-end;
+  cursor: pointer;
 }
 .nav .nav-account .like-count {
   color: rgba(86, 89, 102, 0.8666666667);
-  max-height: 20px;
+  line-height: 16px;
+}
+.nav .nav-account .basket-count {
+  background-color: #08b76b;
+  padding: 2px 3px 4px;
+  line-height: 14px;
+  border-radius: 4px;
+  color: #FFFFFF;
 }
 
 .nav-user {
@@ -563,7 +620,6 @@ a:visited {
   max-width: 350px;
   width: auto;
   height: auto;
-  flex: auto;
 }
 .tree-category figcaption {
   margin-top: 16px;
@@ -579,6 +635,22 @@ a:visited {
 .pages-container {
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 750px) {
+  p, div, li, a, .M-btn {
+    font-size: 14px;
+  }
+  .M-btn {
+    line-height: 35px;
+    padding: 0 25px;
+  }
+  .tree-category img {
+    width: 40vw;
+  }
+  .bg {
+    background-position: right center;
+  }
 }
 
 /*# sourceMappingURL=normalize.css.map */

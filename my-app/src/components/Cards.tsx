@@ -31,15 +31,14 @@ export default function Cards({ items }: CardProps) {
     const auth = useAuth();
     const dispatch = useDispatch();
     const [products, setProducts] = useState(items);
-
     const [sorting, setSorting] = useState('none');
-    useEffect(()=>{
+    useEffect(() => {
         setProducts(items)
     }, [items])
 
     const likeItems = useSelector(getLike).flat();
     const likeArr = likeItems?.map((item: Product) => item._id);
-     
+
     const buildName = (str: string) => {
         const arr = str.split(' ').slice(0, 3).join(' ');
         return str.length > 20 ? `${arr}...` : str;
@@ -66,16 +65,16 @@ export default function Cards({ items }: CardProps) {
         // }
     }
     const pp = {
-        Rating: (elem: Product[]) => elem.sort((a:Product,b: Product)=>b.rating-a.rating),
-        Price: (elem: Product[]) => elem.sort((a:Product,b: Product)=>b.price-a.price),
+        Rating: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
+        Price: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
     }
-   const handleChange = (e: ChangeEvent<HTMLSelectElement>) =>{
-    const {value } = e.target;
-    setSorting(value)
-    let pp;
-      value === 'Rating' ? pp = items.sort((a:Product,b: Product)=>b.rating-a.rating) : pp = items.sort((a:Product,b: Product)=>b.price-a.price);
-      setProducts(pp)
-   }
+    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setSorting(value)
+        let pp;
+        value === 'Rating' ? pp = items.sort((a: Product, b: Product) => b.rating - a.rating) : pp = items.sort((a: Product, b: Product) => b.price - a.price);
+        setProducts(pp)
+    }
 
     return (
         <>
@@ -85,9 +84,9 @@ export default function Cards({ items }: CardProps) {
                         controlId="sortind">
                         <Form.Label>Sort by</Form.Label>
                         <Form.Select size="sm"
-                        value={sorting}
-                        onChange={(e)=>handleChange(e)}>
-                            <option value="" selected disabled>none</option>
+                            value={sorting}
+                            onChange={(e) => handleChange(e)}>
+                            <option value="" disabled>none</option>
                             <option value="Rating">Rating</option>
                             <option value="Price">Price</option>
                         </Form.Select>

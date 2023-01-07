@@ -14,9 +14,7 @@ export const getDataLike = createAsyncThunk('like/getDataLike', async (payload) 
 
 const likeAdapter = createEntityAdapter();
 
-const initialState = {
-  ...likeAdapter.getInitialState(),
-};
+const initialState = likeAdapter.getInitialState();
 
 const likeSlice = createSlice({
   name: 'like',
@@ -52,7 +50,6 @@ const likeSlice = createSlice({
 export const selectors = likeAdapter.getSelectors((state) => state.like);
 export const getLike = (state) => selectors.selectAll(state);
 export const getLikeId = (state) => selectors.selectIds(state);
-console.log(getLikeId)
 // export const getLoading = ((state) => state.channels.isLoading);
 // export const getActiveChannel = (state) => state.channels.id;
 

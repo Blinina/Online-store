@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import women from "../assets/images/women3.jpg";
 import men from "../assets/images/men7.jpg";
 
-
 export default function Main() {
   return (
     <>
@@ -12,10 +11,10 @@ export default function Main() {
             <p className="text-upper">New collection</p>
             <h1 className="main-text">Wear 2023</h1>
             <Link to="/collection/newColection" relative="path">
-              <button 
-              className="M-btn btn-green">Shop now</button>    
-              </Link>
-        </div>
+              <button
+                className="M-btn btn-green">Shop now</button>
+            </Link>
+          </div>
         </div>
       </section>
       <section id="tree-category">
@@ -33,10 +32,6 @@ export default function Main() {
             </Link>
           </figure>
         </div>
-      </section>
-      <section className="sales">
-        <h2>Sales</h2>
-
       </section>
     </>
   );

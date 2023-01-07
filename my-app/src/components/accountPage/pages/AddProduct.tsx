@@ -71,12 +71,10 @@ export default function AddProduct() {
                                 })}
                             />
                             {errors.title && <span className="danger">{errors.title.message}</span>}
-
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
                             controlId="price"
-
                         >
                             <Form.Label>Price</Form.Label>
                             <Form.Control
@@ -96,7 +94,6 @@ export default function AddProduct() {
                                 })}
                             />
                             {errors.price && <span className="danger">{errors.price.message}</span>}
-
                         </Form.Group>
                     </div>
                     <div className='field-form'>
@@ -106,7 +103,6 @@ export default function AddProduct() {
                             <Form.Label>Category</Form.Label>
                             <Form.Select size="sm"
                                 className={errors?.category && 'is-invalid'}
-
                                 {...register("category", {
                                     required: {
                                         value: true,
@@ -119,7 +115,6 @@ export default function AddProduct() {
                                 <option>Kids</option>
                             </Form.Select>
                             {errors.category && <span className="danger">{errors.category.message}</span>}
-
                         </Form.Group>
                         <Form.Group
                             controlId="type"
@@ -143,10 +138,8 @@ export default function AddProduct() {
                                 <option>Jacket</option>
                                 <option>Shorts</option>
                                 <option>T-shirt</option>
-
                             </Form.Select>
                             {errors.type && <span className="danger">{errors.type.message}</span>}
-
                         </Form.Group>
                     </div>
                     <div className='field-form'>
@@ -160,8 +153,6 @@ export default function AddProduct() {
                                 type="text"
                                 placeholder="First image`s URL"
                                 className={errors?.image1 && 'is-invalid'}
-
-
                                 {...register("image1", {
                                     required: {
                                         value: true,
@@ -170,7 +161,6 @@ export default function AddProduct() {
                                 })}
                             />
                             {errors.image1 && <span className="danger">{errors.image1.message}</span>}
-
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -182,7 +172,6 @@ export default function AddProduct() {
                                 type="text"
                                 placeholder="Second image`s URL"
                                 className={errors?.image2 && 'is-invalid'}
-
                                 {...register("image2", {
                                     required: {
                                         value: true,
@@ -251,7 +240,6 @@ export default function AddProduct() {
                                 })}
                             />
                             {errors?.sales?.count && <span className="danger">{errors?.sales?.count.message}</span>}
-
                         </Form.Group>
                     </div>
                     <Form.Group
