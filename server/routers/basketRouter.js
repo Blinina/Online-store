@@ -4,6 +4,7 @@ const controller = require('../controller/basketController')
 
 router.get('/getMyBasket', controller.getAll) 
 router.post('/addProduct', controller.addProduct)
+router.post('/deleteProduct', controller.deleteProduct)
 
   
 

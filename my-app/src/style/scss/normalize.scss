@@ -92,7 +92,7 @@ a {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 10px 5px;
+    margin: 10px 10px;
 
     .logo {
         margin-right: 30px;
@@ -108,58 +108,52 @@ a {
         padding: 0;
         display: flex;
         align-items: center;
+        gap: 30px;
 
-        li {
-            margin-right: 30px;
-        }
     }
 
     form {
         margin-right: 30px;
     }
 
-    .nav-account {
+    img {
+        height: 18px;
+        width: auto;
+    }
+
+    .like-container {
         display: flex;
-        align-items: center;
+        gap: 7px;
+        align-items: flex-end;
+        cursor: pointer;
+    }
 
-        img {
-            height: 18px;
-            width: auto;
-        }
+    .like-count {
+        line-height: 14px;
+        background-color: #f97676a2;
+        padding: 2px 3px 4px;
+        border-radius: 4px;
+        color: #FFFFFF;
 
-        div:not(:last-child) {
-            margin-right: 30px;
-        }
+    }
 
-        .like-container {
-            display: flex;
-            gap: 7px;
-            align-items: flex-end;
-            cursor: pointer;
-        }
-
-        .like-count {
-            color: #565966dd;
-            line-height: 16px;
-
-        }
-
-        .basket-count {
-            background-color: #08b76b;
-            padding: 2px 3px 4px;
-            line-height: 14px;
-            border-radius: 4px;
-            color: #FFFFFF;
-        }
-
+    .basket-count {
+        background-color: #08b76b;
+        padding: 2px 3px 4px;
+        line-height: 14px;
+        border-radius: 4px;
+        color: #FFFFFF;
     }
 
 }
 
+// }
+
 .nav-user {
-    background-color: #E9E2E9;
-    padding: 4%;
+    padding: 1.5%;
+    margin-right: 10px;
     border-radius: 4px;
+    background-color: #E9E2E9;
     cursor: pointer;
 
     &:active {
@@ -174,7 +168,11 @@ a {
 
     figcaption {
         opacity: 0.9;
-        font-size: 10px;
+
+        p {
+            font-size: 12px !important;
+
+        }
 
     }
 }
@@ -272,7 +270,6 @@ a {
 
 }
 
-///карточка продукта
 .card {
     display: flex;
     justify-content: center;
@@ -285,21 +282,42 @@ a {
 }
 
 @media screen and (max-width: 750px) {
-    p, div, li, a, .M-btn {
+
+    p,
+    div,
+    li,
+    a,
+    .M-btn {
         font-size: 14px;
     }
-    .M-btn{
+
+    .M-btn {
         line-height: 35px;
         padding: 0 25px;
 
     }
-    .tree-category{
+
+    .tree-category {
         img {
-           width: 40vw;
+            width: 40vw;
         }
     }
+
     .bg {
         background-position: right center;
-    
+    }
+
+    .nav {
+        ul{
+            gap: 4vw;
+        }
+       
+    }
+
+}
+@media screen and (max-width: 450px) {
+    img {
+        height: 16px;
+        width: auto;
     }
 }

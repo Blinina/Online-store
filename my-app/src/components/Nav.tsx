@@ -10,7 +10,7 @@ import SignUp from "./modals/SignUp";
 import { useAuth } from "../context/authContext";
 import { getDataLike, getLike } from "../store/likeSlice";
 import { useDispatch, useSelector } from 'react-redux';
-import { getDataBasket, getBasket} from "../store/basketSlice";
+import { getDataBasket, getBasket } from "../store/basketSlice";
 export default function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ export default function Nav() {
         <div className="logo">
           <Link to="/" relative="path">
             <img src={logo} alt="creater" />
-            <img src={logoX} alt="createrX" />
           </Link>
         </div>
         <div className="nav-bar">
@@ -48,17 +47,15 @@ export default function Nav() {
             <li>
               <Link to="/collection/sales" relative="path">Sales</Link>
             </li>
-          </ul>
-          <div className="nav-account">
+          
+          {/* <div className="nav-account"> */}
             <div className="like-container" onClick={() => navigate("/wishlist")}>
               <img src={like} alt="like" />
               <div className="like-count">{likeCount}</div>
             </div>
-            <div>
             <div className="like-container" onClick={() => navigate("/bag")}>
-                <img src={shop} alt="shop" />
-                <div className="basket-count">{basketCount}</div>
-            </div>
+              <img src={shop} alt="shop" />
+              <div className="basket-count">{basketCount}</div>
             </div>
             <div className="nav-user">
               {auth?.getUsername()
@@ -74,7 +71,8 @@ export default function Nav() {
                 </figure>
               }
             </div>
-          </div>
+            </ul>
+          {/* </div> */}
         </div>
       </nav>
       <div className="nav-sales">Up to 70% Off. <Link to="/collection/sales" relative="path"><b> Shop our latest sale styles</b></Link></div>
