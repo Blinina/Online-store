@@ -61,7 +61,7 @@ export default function Card() {
             userId: _id,
             product: { product: item, quantity: data.quantityValue }
         }
-        addProductToBasket(newData)
+        addProductToBasket({id: productId, product: item, quantity: data.quantityValue })
         console.log(store.getState())
         try {
             let res = await fetch(`/basket/addProduct`, {

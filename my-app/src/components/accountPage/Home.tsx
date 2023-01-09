@@ -10,6 +10,7 @@ import singOut from "../../assets/images/sing out.png";
 import bag from "../../assets/images/bagMenu.png";
 import newProduct from "../../assets/images/shop.png";
 import { useNavigate } from "react-router-dom";
+import store from "../../store/store";
 
 
 
@@ -18,8 +19,8 @@ export default function HomePage() {
     const auth = useAuth() as typeAuthContent;
     const [page, setPage] = useState({ type: 'profile' })
     const { fullName, email, role } = auth.loggedIn as typeLoggedIn;
-    console.log(auth)
-
+    // console.log(auth)
+    console.log(store.getState())
     const getClass = (variant: string) => {
         return variant === page.type ? 'menu-elem btn-green' : 'menu-elem'
     };

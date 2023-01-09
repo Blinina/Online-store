@@ -9,7 +9,6 @@ import {
   REGISTER
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import collectionReduser from './collectionsSlice';
 import likeReduser from './likeSlice';
 import basketReduser from './basketSlice';
 const persistConfig = {

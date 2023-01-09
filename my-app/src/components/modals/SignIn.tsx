@@ -33,19 +33,18 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
       if (result.message) {
         setErrorAuth(result.message)
       } else {
-        auth?.logIn(result)
+        auth?.logIn(result);
+        setOpenModal(false);
       }
     } catch (e) {
       console.log(e)
     }
   });
 
-
   const handleSignUP = () => {
     setOpenSignUP(true);
     setOpenModal(false);
   }
-
 
   return (
     <>
@@ -63,10 +62,16 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
                 size="sm"
                 type="email"
                 placeholder="Your working email"
-                isInvalid={errorAuth}
+                className={(errorAuth || errors.email) && 'is-invalid'}
                 autoFocus
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: 'Email is required'
+                  },
+                })}
               />
+              {errors.email && <span className="danger">{errors.email.message}</span>}
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -76,9 +81,15 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
               <Form.Control
                 size="sm"
                 type="password"
-                isInvalid={errorAuth}
-                {...register("password", { required: true })}
+                className={(errorAuth || errors.password) && 'is-invalid'}
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: 'Password is required'
+                  },
+                })}
               />
+              {errors.password && <span className="danger">{errors.password.message}</span>}
             </Form.Group>
             <Form.Group
               controlId="role"

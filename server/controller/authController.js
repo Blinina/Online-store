@@ -35,11 +35,11 @@ class authController {
             const user = await User.findOne({email, role})
             console.log(user)
             if (!user) {
-                return res.status(400).json({message: `Пользователь ${email} и ролью ${role} не найден`})
+                return res.status(400).json({message: `User with email address ${email} and role ${role} does not exist`})
             }
             const validPassword = bcrypt.compareSync(password, user.password)
             if (!validPassword) {
-                return res.status(400).json({message: `Введен неверный пароль`})
+                return res.status(400).json({message: `The entered password is incorrect`})
             }
             const token = generateAccessToken(user._id, user.role)
             res.status(200).json({token, ...user._doc});

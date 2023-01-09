@@ -11,6 +11,7 @@ import { useAuth } from "../context/authContext";
 import { getDataLike, getLike } from "../store/likeSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataBasket, getBasket } from "../store/basketSlice";
+
 export default function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,14 +19,13 @@ export default function Nav() {
   const [openModal, setOpenModal] = useState(false);
   const [openSignUP, setOpenSignUP] = useState(false);
   useEffect(() => {
-    // if(auth?.loggedIn){
+    if(auth?.loggedIn){
     dispatch(getDataLike(auth?.loggedIn?._id))
     dispatch(getDataBasket(auth?.loggedIn?._id))
-
-    // }else{
-    //   dispatch(getDataLike(localStorage.getItem('root')))
-    // }
-  }, [])
+    }else{
+      dispatch(getDataLike(localStorage.getItem('root')))
+    }
+  }, [auth?.loggedIn])
   const likeCount = useSelector(getLike).flat().length;
   const basketCount = useSelector(getBasket).flat().length;
   return (
@@ -46,9 +46,7 @@ export default function Nav() {
             </li>
             <li>
               <Link to="/collection/sales" relative="path">Sales</Link>
-            </li>
-          
-          {/* <div className="nav-account"> */}
+            </li>          
             <div className="like-container" onClick={() => navigate("/wishlist")}>
               <img src={like} alt="like" />
               <div className="like-count">{likeCount}</div>
@@ -72,7 +70,6 @@ export default function Nav() {
               }
             </div>
             </ul>
-          {/* </div> */}
         </div>
       </nav>
       <div className="nav-sales">Up to 70% Off. <Link to="/collection/sales" relative="path"><b> Shop our latest sale styles</b></Link></div>

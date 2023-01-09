@@ -445,6 +445,29 @@ a:visited {
   text-transform: uppercase;
 }
 
+@keyframes shake {
+  0%, 50%, 100% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    -o-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+  }
+  20%, 40% {
+    transform: rotate(3deg);
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+  }
+}
 .M-btn {
   padding: 0px 40px;
   font-weight: 700;
@@ -494,9 +517,6 @@ a:visited {
   align-items: center;
   gap: 30px;
 }
-.nav form {
-  margin-right: 30px;
-}
 .nav img {
   height: 18px;
   width: auto;
@@ -507,7 +527,7 @@ a:visited {
   align-items: flex-end;
   cursor: pointer;
 }
-.nav .like-count {
+.nav .like-count, .nav .basket-count {
   line-height: 14px;
   background-color: rgba(249, 118, 118, 0.6352941176);
   padding: 2px 3px 4px;
@@ -516,10 +536,6 @@ a:visited {
 }
 .nav .basket-count {
   background-color: #08b76b;
-  padding: 3px 3px 4px;
-  line-height: 14px;
-  border-radius: 4px;
-  color: #FFFFFF;
 }
 
 .nav-user {
@@ -617,6 +633,11 @@ a:visited {
   max-width: 350px;
   width: auto;
   height: auto;
+}
+.tree-category img:hover {
+  transform: scale(1.05);
+  animation: shake 2s;
+  animation-iteration-count: infinite;
 }
 .tree-category figcaption {
   margin-top: 16px;

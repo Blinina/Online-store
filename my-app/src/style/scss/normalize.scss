@@ -55,7 +55,29 @@ a {
 .text-upper {
     text-transform: uppercase;
 }
-
+@keyframes shake {
+    0%, 50%, 100% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+      }
+      10%, 30% {
+        transform: rotate(-3deg);
+        -webkit-transform:  rotate(-3deg);
+        -moz-transform:  rotate(-3deg);
+        -o-transform:  rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+      }
+      20%, 40% {
+        transform: rotate(3deg);
+        -webkit-transform: rotate(3deg);
+        -moz-transform:rotate(3deg);
+        -o-transform:rotate(3deg);
+        -ms-transform: rotate(3deg);
+      }
+  }
 .M-btn {
     padding: 0px 40px;
     font-weight: 700;
@@ -111,14 +133,12 @@ a {
         gap: 30px;
 
     }
-
-    form {
-        margin-right: 30px;
-    }
-
+ 
     img {
         height: 18px;
         width: auto;
+          
+    
     }
 
     .like-container {
@@ -128,7 +148,7 @@ a {
         cursor: pointer;
     }
 
-    .like-count {
+    .like-count, .basket-count {
         line-height: 14px;
         background-color: #f97676a2;
         padding: 2px 3px 4px;
@@ -139,10 +159,6 @@ a {
 
     .basket-count {
         background-color: #08b76b;
-        padding: 2px 3px 4px;
-        line-height: 14px;
-        border-radius: 4px;
-        color: #FFFFFF;
     }
 
 }
@@ -168,10 +184,8 @@ a {
 
     figcaption {
         opacity: 0.9;
-
         p {
             font-size: 12px !important;
-
         }
 
     }
@@ -207,7 +221,6 @@ a {
     background-size: cover;
     position: relative;
     background-position: center center;
-
 }
 
 .header-container {
@@ -261,6 +274,11 @@ a {
         max-width: 350px;
         width: auto;
         height: auto;
+        &:hover {
+            transform: scale(1.05);
+            animation: shake 2s;         
+            animation-iteration-count: infinite;
+          }
     }
 
     figcaption {

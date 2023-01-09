@@ -5,8 +5,8 @@ import Cards from "../../Cards";
 import { getNewPrice } from "../../../helpers";
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { getBasket } from "../../../store/basketSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteProductToBasket, getBasket } from "../../../store/basketSlice";
 
 
 type Product = {
@@ -33,6 +33,7 @@ type BagType = {
 export default function Bag() {
     const navigate = useNavigate();
     const auth = useAuth();
+    const dispath = useDispatch();
     const { _id } = auth?.loggedIn as typeLoggedIn;
     const items = useSelector(getBasket).flat();
 
@@ -52,16 +53,18 @@ export default function Bag() {
 
     const handleDelete = async (el: BagType) => {
         console.log(el)
-        try {
-            const res = await axios.post('/basket/deleteProduct', {            
-                    userId: _id, 
-                    product: el._id             
-            });
-            console.log(res.data)
-        } catch (e) {
-            console.log(e)
+        // deleteProductToBasket({id: el.product._id })
+        dispath(deleteProductToBasket())
 
-        };
+        // try {
+        //     const res = await axios.post('/basket/deleteProduct', {            
+        //             userId: _id, 
+        //             product: el._id             
+        //     });
+        //     console.log(res.data)
+        // } catch (e) {
+        //     console.log(e)
+        // };
     }
 
     return (

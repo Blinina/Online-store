@@ -2,6 +2,7 @@ import { Modal, Form } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useForm, Resolver } from 'react-hook-form';
 import { useAuth } from '../../context/authContext';
+import { watch } from 'fs';
 
 
 // регистрация
@@ -20,7 +21,7 @@ type FormValues = {
 };
 
 export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: ModalProps) {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
     const [errorAuth, setErrorAuth] = useState();
 
     const auth = useAuth();
@@ -43,9 +44,9 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
             if (result.message) {
                 setErrorAuth(result.message)
             } else {
-                auth?.logIn(result)
+                auth?.logIn(result);
+                setOpenSignUP(false);
             }
-
         } catch (e) {
             console.log(e)
         }
@@ -62,21 +63,34 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
                 <Modal.Body>
                     <Form onSubmit={onSubmit}>
                         <Form.Group className="mb-3" controlId="fullName">
-                            <Form.Label>Full Name</Form.Label>
+                            <Form.Label>Name</Form.Label>
                             <Form.Control size="sm"
                                 type="text"
-                                placeholder="Your full name"
-                                {...register("fullName", { required: true })}
-                                autoFocus />
+                                placeholder="Your name"
+                                className={(errorAuth || errors.fullName) && 'is-invalid'}
+                                autoFocus
+                                {...register("fullName", {
+                                    required: {
+                                        value: true,
+                                        message: 'Name is required'
+                                    },
+                                })} />
+                            {errors.fullName && <span className="danger">{errors.fullName.message}</span>}
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control size="sm"
                                 type="email"
                                 placeholder="Your working email"
-                                {...register("email", { required: true })}
+                                className={(errorAuth || errors.email) && 'is-invalid'}
+                                {...register("email", {
+                                    required: {
+                                        value: true,
+                                        message: 'Email is required'
+                                    },
+                                })}
                             />
+                            {errors.email && <span className="danger">{errors.email.message}</span>}
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -84,8 +98,15 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
                             <Form.Label>Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                {...register("password", { required: true })}
+                                className={(errorAuth || errors.password) && 'is-invalid'}
+                                {...register("password", {
+                                    required: {
+                                        value: true,
+                                        message: 'Password is required'
+                                    },
+                                })}
                             />
+                            {errors.password && <span className="danger">{errors.password.message}</span>}
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -93,15 +114,25 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                {...register("conformPassword", { required: true })}
+                                className={(errorAuth || errors.conformPassword) && 'is-invalid'}
+                                {...register("conformPassword", {
+                                    required: {
+                                        value: true,
+                                        message: 'Confirm Password is required'
+                                    },
+                                    validate: {
+                                        value: v => v === watch('password') || 'Password mismatch',
+                                    }
+                                })}
                             />
+                            {errors.conformPassword && <span className="danger">{errors.conformPassword.message}</span>}
                         </Form.Group>
                         <Form.Group
                             controlId="role"
                             className="mb-3">
                             <Form.Label>You role</Form.Label>
                             <Form.Select size="sm"
-                                {...register("role", { required: true })} >
+                                {...register("role")} >
                                 <option>Customer</option>
                                 <option>Seller</option>
                             </Form.Select>

@@ -20,14 +20,15 @@ const basketSlice = createSlice({
   name: 'basket',
   initialState,
   reducers: {
-    addProductToBasket: basketAdapter.addOne
+    addProductToBasket: basketAdapter.addOne,
+    deleteProductToBasket: basketAdapter.removeAll,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getDataBasket.fulfilled, (state, action) => {
         const {payload} = action;
-        const dataBasket = {basket: payload}
-        basketAdapter.setAll(state, dataBasket)
+        console.log(payload)
+        basketAdapter.setAll(state, payload?.map(v=>({id: v.product._id, product: v.product, quantity: v.quantity})))
         state.isLoading = false;
         state.loadingError = null;
       })
@@ -51,6 +52,6 @@ export const getBasket = (state) => selectors.selectAll(state);
 // export const getActiveChannel = (state) => state.channels.id;
 
 export const {
-  addProductToBasket
+  addProductToBasket, deleteProductToBasket
 } = basketSlice.actions;
 export default basketSlice.reducer;
