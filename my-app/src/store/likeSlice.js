@@ -20,16 +20,17 @@ const likeSlice = createSlice({
   name: 'like',
   initialState,
   reducers: {
-    // addLikeStore: likeAdapter.addOne
+    addLikeStore: likeAdapter.addOne,
+    deleteLikeStore: (state, { payload }) => {
+  console.log(payload)
+      likeAdapter.removeOne(state, payload.id)
+    },
+    deleteAllLikeStore: likeAdapter.removeAll,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDataLike.fulfilled, (state, action) => {
-        // console.log(action.payload);
-
-        const {payload} = action;
-        const dataLike = {likes: payload}
-        likeAdapter.setAll(state,  dataLike)
+      .addCase(getDataLike.fulfilled, (state, {payload}) => {
+        likeAdapter.setAll(state,  payload?.map(v=>({id: v._id, product: v})))
         state.isLoading = false;
         state.loadingError = null;
       })
@@ -49,11 +50,10 @@ const likeSlice = createSlice({
 
 export const selectors = likeAdapter.getSelectors((state) => state.like);
 export const getLike = (state) => selectors.selectAll(state);
-export const getLikeId = (state) => selectors.selectIds(state);
 // export const getLoading = ((state) => state.channels.isLoading);
 // export const getActiveChannel = (state) => state.channels.id;
 
-// export const {
-//     addLikeStore
-// } = likeSlice.actions;
+export const {
+    addLikeStore, deleteLikeStore, deleteAllLikeStore
+} = likeSlice.actions;
 export default likeSlice.reducer;

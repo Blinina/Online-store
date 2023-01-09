@@ -1,34 +1,24 @@
 import like from "../assets/images/Like.png";
 import { Form } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { typeLoggedIn, useAuth } from "../context/authContext";
 import blackLike from "../assets/images/blackLike.png";
 import { ChangeEvent, useEffect, useState } from "react";
 import { getNewPrice } from "../helpers";
 import { useDispatch, useSelector } from 'react-redux';
+import { addLikeStore, deleteLikeStore, getLike } from "../store/likeSlice";
+import { addLikeAPI, deleteLikeAPI } from "../http/likeAPI";
+import { Product } from "../TSType";
 
-import { getLike } from "../store/likeSlice";
 export interface CardProps {
     [key: string]: any;
 };
-type Product = {
-    _id: string;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    type: string;
-    image: string[];
-    rating: number;
-    newColection: boolean;
-    sales: {
-        sales: boolean;
-        count: number;
-    };
-};
+
 export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
     const auth = useAuth();
+    const { _id } = auth?.loggedIn as typeLoggedIn;
+
     const dispatch = useDispatch();
     const [products, setProducts] = useState(items);
     const [sorting, setSorting] = useState('none');
@@ -36,8 +26,9 @@ export default function Cards({ items }: CardProps) {
         setProducts(items)
     }, [items])
 
-    const likeItems = useSelector(getLike).flat();
-    const likeArr = likeItems?.map((item: Product) => item._id);
+    const likeItems = useSelector(getLike);
+    const likeArr = likeItems?.map(({ id }) => id);
+
 
     const buildName = (str: string) => {
         const arr = str.split(' ').slice(0, 3).join(' ');
@@ -45,29 +36,18 @@ export default function Cards({ items }: CardProps) {
     };
 
     const addLike = async (el: Product) => {
-        const data = {
-            userId: auth?.loggedIn?._id,
-            product: el,
-        }
-        // dispatch(addLikeStore(el))
-        // try {
-        //     let res = await fetch(`/wishlist/addProduct`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json;charset=utf-8'
-        //         },
-        //         body: JSON.stringify(data)
-        //     });
-        //     let result = await res.json();
-        //     console.log(result)
-        // } catch (e) {
-        //     console.log(e)
-        // }
+        dispatch(addLikeStore({ id: el._id, product: el }));
+        auth?.loggedIn && addLikeAPI(_id, el._id);
+    };
+
+    const deleteLike = async (el: Product) => {
+        dispatch(deleteLikeStore({id: el._id}));
+        auth?.loggedIn && deleteLikeAPI(_id, el._id);
     }
-    const pp = {
-        Rating: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
-        Price: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
-    }
+    // const pp = {
+    //     Rating: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
+    //     Price: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
+    // }
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
         setSorting(value)
@@ -119,7 +99,7 @@ export default function Cards({ items }: CardProps) {
                                     </div>}
                                 <div className='container-card-like'>
                                     <img src={likeArr.includes(el._id) ? blackLike : like} alt="like"
-                                        onClick={() => addLike(el)}
+                                        onClick={() => likeArr.includes(el._id) ? deleteLike(el) : addLike(el)}
                                         className='card-like' />
                                 </div>
 

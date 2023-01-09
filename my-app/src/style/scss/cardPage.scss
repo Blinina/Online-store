@@ -96,7 +96,9 @@
     .bag-container,
     form {
         display: flex;
+        flex-wrap: wrap;
         gap: 20px;
+        
     }
 
     .bag-container {

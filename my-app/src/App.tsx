@@ -1,7 +1,7 @@
 import {
   BrowserRouter,
   Route,
-  Routes,
+  Routes, Navigate, useLocation, Outlet,
 } from "react-router-dom";
 import Main from "./components/Main";
 import Nav from "./components/Nav";
@@ -9,15 +9,17 @@ import Collection from "./components/Collection";
 import ProductCard from "./components/Card";
 import HomePage from "./components/accountPage/Home";
 import { useEffect, useState } from "react";
-import AuthProvider, { useAuth } from "./context/authContext";
-import Profile from "./components/accountPage/pages/Profile";
-import Bag from "./components/accountPage/pages/Bag";
-import Wishlist from "./components/accountPage/pages/Wishlist";
+import AuthProvider, { typeLoggedIn, useAuth } from "./context/authContext";
+
 
 
 export default function App() {
   localStorage.setItem('root', '1');
 
+  function LoggedInRouter() {
+    const auth = useAuth();
+    return auth?.loggedIn ? <Navigate to="/" /> : <Outlet />;
+  }
 
   return (
     <>
@@ -33,12 +35,9 @@ export default function App() {
               <Route path="/product" element={<ProductCard />}>
                 <Route path=":id" element={<ProductCard />} />
               </Route>
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/bag" element={<Bag />} />
-
-
-                   
+              <Route path="/home" element={<LoggedInRouter />} >
+                <Route path="" element={<HomePage />} />
+              </Route>
               {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>
           </main>

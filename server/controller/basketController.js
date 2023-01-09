@@ -25,8 +25,6 @@ class authController {
                     )
                     res.status(200).json({ message: 'корзина изменена' })
                 }
-
-
             } else {
                 const newBasket = new Basket({ userId: userId, products: product })
                 await newBasket.save()
@@ -45,7 +43,7 @@ class authController {
             const candidate = await Basket.findOne({ userId })
             await Basket.updateOne(
                 { _id: candidate._id },
-                { $pull: { products: { _id: product } } }
+                { $pull: { products: { product: product } } }
             )
             res.status(200).json({ message: 'элемент удален' })
         } catch (e) {
@@ -55,6 +53,7 @@ class authController {
 
     async getAll(req, res) {
         try {
+            console.log(req)
             let { payload } = req.query;
             const basket = await Basket.findOne({ userId: payload })
             return res.json(basket.products)

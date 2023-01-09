@@ -4,6 +4,7 @@
 export const getNewPrice = (price: number, sales: number) => {
     return (price * (1 - sales / 100)).toFixed(2)
 }
+
 export const getNormalText = (text: string) => {
     const arrStrings = text.split('\n')
     return arrStrings.map((str: string, i: number) => <p key={`p_${i}`}>{str}</p>)

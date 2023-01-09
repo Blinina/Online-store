@@ -4,31 +4,30 @@ import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
 import Bag from "./pages/Bag";
 import AddProduct from "./pages/AddProduct";
-import like from "../../assets/images/Like.png";
+import wishlist from "../../assets/images/Like.png";
 import profile from "../../assets/images/blackUser.png";
 import singOut from "../../assets/images/sing out.png";
 import bag from "../../assets/images/bagMenu.png";
 import newProduct from "../../assets/images/shop.png";
 import { useNavigate } from "react-router-dom";
-import store from "../../store/store";
-
-
 
 export default function HomePage() {
     const navigate = useNavigate();
     const auth = useAuth() as typeAuthContent;
     const [page, setPage] = useState({ type: 'profile' })
     const { fullName, email, role } = auth.loggedIn as typeLoggedIn;
-    // console.log(auth)
-    console.log(store.getState())
     const getClass = (variant: string) => {
         return variant === page.type ? 'menu-elem btn-green' : 'menu-elem'
     };
-    const handleLogout = () =>{
+    const handleLogout = () => {
         navigate('/')
         auth.logOut();
     }
-
+    const navArr = [
+        { name: 'profile', img: profile },
+        { name: 'bag', img: bag },
+        { name: 'wishlist', img: wishlist },
+    ];
     return (
         <div className="pages-container">
             <div>
@@ -40,37 +39,28 @@ export default function HomePage() {
                                 <p className="email">{auth.loggedIn && email}</p>
                             </div>
                         </li>
-                        <li>
-                            <div className={getClass('profile')}
-                                onClick={() => setPage({ type: 'profile' })}>
-                                {page.type !== 'profile' && <img src={profile} alt="profile" />}
-                                <p>My profile</p>
-                                </div>
-                        </li>
-                        {
-                            role === 'Seller'
-                            &&
-                            <li>
-                                <div className={getClass('AddProduct')}
-                                    onClick={() => setPage({ type: 'AddProduct' })}>
-                                    {page.type !== 'AddProduct' && <img src={newProduct} alt="newProduct" />}
-                                    <p>Add product</p>
-                                </div>
-                            </li>
-                        }
-                        <li>
-                            <div className={getClass('bag')}
-                                onClick={() => setPage({ type: 'bag' })}>
-                                {page.type !== 'bag' && <img src={bag} alt="bag" />}
-                                <p>My Bag</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div className={getClass('wishlist')}
-                                onClick={() => setPage({ type: 'wishlist' })}>
-                                {page.type !== 'wishlist' && <img src={like} alt="like" />}
-                                Wishlist</div>
-                        </li>
+                        {navArr.map(({ name, img }, index) =>
+                            <>
+                                <li>
+                                    <div className={getClass(name)}
+                                        onClick={() => setPage({ type: name })}>
+                                        {page.type !== name && <img src={img} alt={name} />}
+                                        <p>My {name}</p>
+                                    </div>
+                                </li>
+                                {
+                                   (index===0 && role === 'Seller')
+                                    &&
+                                    <li>
+                                        <div className={getClass('AddProduct')}
+                                            onClick={() => setPage({ type: 'AddProduct' })}>
+                                            {page.type !== 'AddProduct' && <img src={newProduct} alt="newProduct" />}
+                                            <p>Add product</p>
+                                        </div>
+                                    </li>
+                                }
+                            </>
+                        )}
                         <li>
                             <div className="menu-elem invalid" onClick={handleLogout}>
                                 <img src={singOut} alt="sing Out" />

@@ -77,23 +77,6 @@
         }
     }
 
-    .card-like {
-
-        width: 18.00px;
-        height: auto;
-
-    }
-
-    .container-card-like {
-        padding: 3px 7px 4px;
-        background-color: hsla(0, 0%, 100%, .8);
-        border-radius: 50px;
-        border-width: 1px solid var(--gray);
-        position: absolute;
-        right: 16px;
-        bottom: 16px;
-
-    }
 
     figcaption {
         padding-left: 16px;
@@ -155,18 +138,21 @@
         font-size: 14px;
         line-height: 30px;
     }
+
     .M-btn {
-       margin-top: 10px;
+        margin-top: 10px;
     }
-    .invalid{
+
+    .invalid {
         font-size: 12px;
         text-align: end;
         cursor: pointer;
     }
 
     hr {
-        margin:  0.5em 0 ;
+        margin: 0.5em 0;
     }
+
     .form-check {
         margin-bottom: 0.2rem;
     }
@@ -175,4 +161,33 @@
 
 .text-center {
     text-align: center;
+}
+
+.card-like {
+
+    width: 18.00px !important;
+    height: auto !important;
+    &:hover{
+        transform: scale(1.06);
+    }
+
+}
+
+.container-card-like {
+    padding: 3px 7px 4px;
+    background-color: hsla(0, 0%, 100%, .8);
+    border-radius: 50px;
+    border-width: 1px solid var(--gray);
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    cursor: pointer;
+}
+
+.like-one-product {
+    position: static !important;
+    background-color: rgba(186, 211, 211, 0.685);
+    padding: 5.5px 8px 7px;
+
+
 }

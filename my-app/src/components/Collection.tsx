@@ -5,22 +5,8 @@ import Cards from './Cards';
 
 import { useForm } from 'react-hook-form';
 import { Form, FormCheck } from 'react-bootstrap';
+import { Product } from '../TSType';
 
-type Product = {
-    _id: string;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    type: string;
-    image: string[];
-    rating: number;
-    newColection: boolean;
-    sales: {
-        sales: boolean;
-        count: number;
-    };
-};
 type FormType = {
     "men"?: boolean;
     "women"?: boolean;

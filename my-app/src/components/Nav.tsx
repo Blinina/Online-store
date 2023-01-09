@@ -16,16 +16,15 @@ export default function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useAuth();
+  console.log(auth)
   const [openModal, setOpenModal] = useState(false);
   const [openSignUP, setOpenSignUP] = useState(false);
   useEffect(() => {
     if(auth?.loggedIn){
     dispatch(getDataLike(auth?.loggedIn?._id))
     dispatch(getDataBasket(auth?.loggedIn?._id))
-    }else{
-      dispatch(getDataLike(localStorage.getItem('root')))
     }
-  }, [auth?.loggedIn])
+  }, [auth?.loggedIn, dispatch ,localStorage.getItem])
   const likeCount = useSelector(getLike).flat().length;
   const basketCount = useSelector(getBasket).flat().length;
   return (

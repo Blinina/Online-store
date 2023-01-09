@@ -3,47 +3,39 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth, typeLoggedIn } from "../context/authContext";
 import { getNewPrice, drawRating, getNormalText } from "../helpers";
-import like from "../assets/images/likeGreen.png";
+import like from "../assets/images/Like.png";
 import shop from "../assets/images/whiteBag.png";
 import next from "../assets/images/next.png";
 import prev from "../assets/images/prev.png";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { addProductToBasket, getBasket } from "../store/basketSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToBasket, getBasket, updateProductToBasket } from "../store/basketSlice";
 import store from "../store/store";
+import { addLikeStore, deleteLikeStore, getLike } from "../store/likeSlice";
+import blackLike from "../assets/images/blackLike.png";
+import { addToBasketAPI } from "../http/basketAPI";
+import { addLikeAPI, deleteLikeAPI } from "../http/likeAPI";
+import { Product } from "../TSType";
 
-
-
-type ProductType = {
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    type: string;
-    image: string[]
-    rating: number;
-    newColection: boolean;
-    sales: {
-        sales: boolean,
-        count: number,
-    },
-};
 type FormValues = {
     quantityValue: number;
 };
 export default function Card() {
-    const [item, setItem] = useState<ProductType>();
+    const [item, setItem] = useState<Product>();
     const [isLoaded, setIsLoaded] = useState(false);
     const [showtext, setShowText] = useState(false);
     const [imgNum, setImgNum] = useState(0);
     const useParamsId = useParams();
     const productId = useParamsId.id;
     const auth = useAuth();
-
-    const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
-
+    const dispatch = useDispatch();
+    const basket = useSelector(getBasket);
+    const isProductinBasket = () => basket[0] && basket?.find((el) => el.product._id === productId);
+    const ProductinBasket = isProductinBasket();
+    const likeItems = useSelector(getLike);
+    const likeArr = likeItems?.map(({ id }) => id);
+    const { _id } = auth?.loggedIn as typeLoggedIn;
 
     useEffect(() => {
         const fn = async () => {
@@ -56,31 +48,28 @@ export default function Card() {
         }
         fn()
     }, [productId]);
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
+
     const addToBasket = handleSubmit(async (data) => {
-        const newData = {
-            userId: _id,
-            product: { product: item, quantity: data.quantityValue }
-        }
-        addProductToBasket({id: productId, product: item, quantity: data.quantityValue })
-        console.log(store.getState())
-        try {
-            let res = await fetch(`/basket/addProduct`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(newData)
-            });
-            let result = await res.json();
-            console.log(result)
-        } catch (e) {
-            console.log(e)
-        }
-    })
-    const basket = useSelector(getBasket).flat();
-    // console.log(basket)
-    const isProductinBasket = () => basket[0] && basket?.find((el)=>el.product._id===productId);
-    const ProductinBasket = isProductinBasket()
+        ProductinBasket
+            ?
+            dispatch(updateProductToBasket({ id: productId, quantity: data.quantityValue }))
+            :
+            dispatch(addProductToBasket({ id: productId, product: item, quantity: data.quantityValue }));
+
+            auth?.loggedIn && addToBasketAPI(_id, item as Product, data.quantityValue);
+    });
+
+    const addLike = async (el: Product) => {
+            dispatch(addLikeStore({ id: el._id, product: el }));
+            auth?.loggedIn && addLikeAPI(_id, el._id);
+        };
+        
+    const deleteLike = async (el: Product) => {
+        dispatch(deleteLikeStore({ id: el._id }));
+        auth?.loggedIn &&  deleteLikeAPI(_id, el._id);
+    };
 
     return (
         <div className="card-1">
@@ -126,6 +115,7 @@ export default function Card() {
                             <Form.Control type="number"
                                 className={errors?.quantityValue && 'is-invalid'}
                                 defaultValue='1'
+                                min='1'
                                 {...register("quantityValue", { min: 1 })}
                             />
                             <button type="submit"
@@ -135,10 +125,10 @@ export default function Card() {
                                 <p>Add to cart</p>
                             </button>
                         </Form>
-                        <div className="M-btn"
-                        >
-                            <img src={like} alt="like" />
-                            <p>Favourite</p>
+                        <div className='container-card-like like-one-product'>
+                            <img src={likeArr.includes(item?._id) ? blackLike : like} alt="like"
+                                onClick={() => likeArr.includes(item?._id) ? deleteLike(item as Product) : addLike(item as Product)}
+                                className='card-like' />
                         </div>
                     </div>
                     <div>

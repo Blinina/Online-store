@@ -4,6 +4,7 @@ const controller = require('../controller/wishlistController')
 
 router.get('/getWishlist', controller.getWishlist) 
 router.post('/addProduct', controller.addProduct)
+router.post('/deleteProduct', controller.deleteProduct)
 
   
 

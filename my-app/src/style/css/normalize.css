@@ -165,19 +165,6 @@ h3 {
   transform: scale(1.05);
   left: 2px;
 }
-.card-collection .card-like {
-  width: 18px;
-  height: auto;
-}
-.card-collection .container-card-like {
-  padding: 3px 7px 4px;
-  background-color: hsla(0deg, 0%, 100%, 0.8);
-  border-radius: 50px;
-  border-width: 1px solid var(--gray);
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-}
 .card-collection figcaption {
   padding-left: 16px;
 }
@@ -248,6 +235,31 @@ h3 {
 
 .text-center {
   text-align: center;
+}
+
+.card-like {
+  width: 18px !important;
+  height: auto !important;
+}
+.card-like:hover {
+  transform: scale(1.06);
+}
+
+.container-card-like {
+  padding: 3px 7px 4px;
+  background-color: hsla(0deg, 0%, 100%, 0.8);
+  border-radius: 50px;
+  border-width: 1px solid var(--gray);
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  cursor: pointer;
+}
+
+.like-one-product {
+  position: static !important;
+  background-color: rgba(186, 211, 211, 0.685);
+  padding: 5.5px 8px 7px;
 }
 
 .card-1 {
@@ -333,6 +345,7 @@ h3 {
 .card-1 .bag-container,
 .card-1 form {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .card-1 .bag-container {
