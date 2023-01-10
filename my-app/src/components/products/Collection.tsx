@@ -5,7 +5,7 @@ import Cards from './Cards';
 
 import { useForm } from 'react-hook-form';
 import { Form, FormCheck } from 'react-bootstrap';
-import { Product } from '../TSType';
+import { Product } from '../../TSType';
 
 type FormType = {
     "men"?: boolean;
@@ -179,7 +179,7 @@ export default function Collection() {
                     </button>
                 </Form>
             </div>
-            <div >
+            <div className='rating-cards-container'>
                 {
                     items
                         ?

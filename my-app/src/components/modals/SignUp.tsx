@@ -1,15 +1,14 @@
 import { Modal, Form } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
-import { useForm, Resolver } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/authContext';
-import { watch } from 'fs';
+import { EMAIL_REGEXP } from '../../helpers';
+import { closeModal } from '../../store/modalSlice';
+import { useDispatch } from 'react-redux';
 
-
-// регистрация
 type ModalProps = {
     openSignUP: boolean,
     setOpenSignUP: (value: boolean) => void,
-    setOpenModal: (value: boolean) => void;
 };
 
 type FormValues = {
@@ -20,27 +19,27 @@ type FormValues = {
     role: string;
 };
 
-export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: ModalProps) {
+export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
     const [errorAuth, setErrorAuth] = useState();
-
     const auth = useAuth();
+    const dispatch = useDispatch();
 
     const handleSignIn = () => {
         setOpenSignUP(false);
-        setOpenModal(true);
-    }
+        dispatch(closeModal());
+    };
+    
     const onSubmit = handleSubmit(async (data) => {
         try {
-            console.log(data)
-            const response = await fetch(`/auth/registration`, {
+            const res = await fetch(`/user/registration`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify(data)
             });
-            let result = await response.json();
+            let result = await res.json();
             if (result.message) {
                 setErrorAuth(result.message)
             } else {
@@ -88,6 +87,9 @@ export default function SignUp({ openSignUP, setOpenSignUP, setOpenModal }: Moda
                                         value: true,
                                         message: 'Email is required'
                                     },
+                                    validate: {
+                                        value: v => EMAIL_REGEXP.test(v) || 'Invalid e-mail'
+                                    }
                                 })}
                             />
                             {errors.email && <span className="danger">{errors.email.message}</span>}

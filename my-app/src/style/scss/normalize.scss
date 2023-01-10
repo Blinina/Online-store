@@ -26,6 +26,9 @@ body {
 .hidden {
     visibility: hidden;
 }
+.none{
+    display: none;
+}
 
 p,
 h1,
@@ -305,7 +308,8 @@ a {
     div,
     li,
     a,
-    .M-btn {
+    .M-btn, 
+    label {
         font-size: 14px;
     }
 

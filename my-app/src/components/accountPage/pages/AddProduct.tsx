@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Form, FormCheck } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -29,18 +30,12 @@ export default function AddProduct() {
             image: [image1, image2],
             ...rest,
         };
-        console.log(newDate)
         try {
-            let res = await fetch(`/addProduct`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(newDate)
+            let res = await axios.post(`/addProduct`, {
+                newDate 
             });
-            let result = await res.json();
-            console.log(result);
-            setShowModal(result.message)
+            console.log(res.data)
+            setShowModal(res.data)
             reset();
         } catch (e) {
             console.log(e)

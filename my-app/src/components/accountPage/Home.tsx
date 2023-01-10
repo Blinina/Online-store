@@ -2,7 +2,7 @@ import { typeAuthContent, typeLoggedIn, useAuth } from "../../context/authContex
 import React, { useState } from 'react';
 import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
-import Bag from "./pages/Bag";
+import Bag from "./bagComponents/Bag";
 import AddProduct from "./pages/AddProduct";
 import wishlist from "../../assets/images/Like.png";
 import profile from "../../assets/images/blackUser.png";
@@ -10,18 +10,24 @@ import singOut from "../../assets/images/sing out.png";
 import bag from "../../assets/images/bagMenu.png";
 import newProduct from "../../assets/images/shop.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteAllLikeStore } from "../../store/likeSlice";
+import { deleteAllProductToBasket } from "../../store/basketSlice";
 
 export default function HomePage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const auth = useAuth() as typeAuthContent;
-    const [page, setPage] = useState({ type: 'profile' })
+    const [page, setPage] = useState({ type: 'profile' });
     const { fullName, email, role } = auth.loggedIn as typeLoggedIn;
     const getClass = (variant: string) => {
         return variant === page.type ? 'menu-elem btn-green' : 'menu-elem'
     };
     const handleLogout = () => {
-        navigate('/')
+        navigate('/');
         auth.logOut();
+        dispatch(deleteAllLikeStore());
+        dispatch(deleteAllProductToBasket());
     }
     const navArr = [
         { name: 'profile', img: profile },
@@ -41,7 +47,7 @@ export default function HomePage() {
                         </li>
                         {navArr.map(({ name, img }, index) =>
                             <>
-                                <li>
+                                <li key={name}>
                                     <div className={getClass(name)}
                                         onClick={() => setPage({ type: name })}>
                                         {page.type !== name && <img src={img} alt={name} />}
@@ -51,7 +57,7 @@ export default function HomePage() {
                                 {
                                    (index===0 && role === 'Seller')
                                     &&
-                                    <li>
+                                    <li key='AddProduct'>
                                         <div className={getClass('AddProduct')}
                                             onClick={() => setPage({ type: 'AddProduct' })}>
                                             {page.type !== 'AddProduct' && <img src={newProduct} alt="newProduct" />}
@@ -74,13 +80,6 @@ export default function HomePage() {
                 {page.type === 'bag' && <Bag />}
                 {page.type === 'wishlist' && <Wishlist />}
                 {page.type === 'AddProduct' && <AddProduct />}
-            </div>
-            <div>
-                {
-                    role !== 'Seller'
-                    &&
-                    <div className="M-btn btn-green">Оформить заказ</div>
-                }
             </div>
         </div>
     )

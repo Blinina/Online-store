@@ -45,7 +45,7 @@ h3 {
 .pages-container {
   margin: 40px 10% 0;
   gap: 30px;
-  justify-content: space-evenly;
+  justify-content: start;
 }
 .pages-container .menu {
   border: 1px solid #E5E8ED;
@@ -85,6 +85,7 @@ h3 {
 .pages-container .home-title {
   font-weight: 900;
   font-size: 32px;
+  text-align: center;
 }
 .pages-container form {
   border: 1px solid #E5E8ED;
@@ -109,16 +110,22 @@ h3 {
   gap: 5%;
 }
 
-.sortind {
-  width: 70%;
+.rating-cards-container {
+  display: flex;
+  flex-direction: column;
 }
+
 .sortind form div {
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: center;
+}
+.sortind .form-label {
+  margin: 0;
 }
 .sortind .form-select-sm {
-  width: 140px;
+  width: 100px;
 }
 
 .cards {
@@ -137,8 +144,8 @@ h3 {
   position: relative;
 }
 .card-collection img {
-  width: 278px;
-  height: 355px;
+  width: 230px;
+  height: 300px;
 }
 .card-collection .sales-banner {
   position: absolute;
@@ -262,6 +269,25 @@ h3 {
   padding: 5.5px 8px 7px;
 }
 
+@media screen and (max-width: 1035px) {
+  .card-collection .card-like {
+    width: 15px !important;
+    height: auto !important;
+  }
+}
+@media screen and (max-width: 700px) {
+  .collection-page {
+    flex-direction: column;
+  }
+  .collection-page .card-collection img {
+    width: 170px;
+    height: 220px;
+  }
+  .cards {
+    justify-content: center;
+    gap: 50px 15px;
+  }
+}
 .card-1 {
   margin: 30px 10% 30px;
   display: flex;
@@ -374,6 +400,14 @@ h3 {
   max-height: 54px;
 }
 
+@media screen and (max-width: 700px) {
+  .card-1 {
+    flex-direction: column;
+  }
+  .card-1 .header {
+    flex-direction: column-reverse;
+  }
+}
 table p {
   font-weight: 400;
   font-size: 14px;
@@ -386,22 +420,26 @@ table tr {
 .bag-container {
   display: flex;
   gap: 5%;
-  margin: 30px 10% 0;
+  justify-content: center;
   font-size: 14px;
 }
 .bag-container .M-btn {
+  margin-top: 20px;
   line-height: 30px;
   font-size: 14px;
+  text-align: center;
+  padding: 0 15px;
 }
 
 .bag-img {
   width: 80px;
-  height: auto;
+  height: 110px;
 }
 
 .bag-name {
   display: flex;
   gap: 10%;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -429,6 +467,10 @@ body {
 
 .hidden {
   visibility: hidden;
+}
+
+.none {
+  display: none;
 }
 
 p,
@@ -673,7 +715,8 @@ a:visited {
   div,
   li,
   a,
-  .M-btn {
+  .M-btn,
+  label {
     font-size: 14px;
   }
   .M-btn {

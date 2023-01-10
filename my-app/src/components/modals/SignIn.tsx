@@ -3,11 +3,10 @@ import { Modal, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth } from '../../context/authContext';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../store/modalSlice';
 
-//вход
 type ModalProps = {
-  open: boolean,
-  setOpenModal: (value: boolean) => void;
   setOpenSignUP: (value: boolean) => void,
 }
 type FormValues = {
@@ -16,13 +15,14 @@ type FormValues = {
   role: string;
 };
 
-export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps) {
+export default function SignIn({ setOpenSignUP }: ModalProps) {
   const auth = useAuth();
+  const dispatch = useDispatch()
   const [errorAuth, setErrorAuth] = useState();
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
   const onSubmit = handleSubmit(async (data) => {
     try {
-      let res = await fetch(`/auth/login`, {
+      let res = await fetch(`/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -34,7 +34,7 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
         setErrorAuth(result.message)
       } else {
         auth?.logIn(result);
-        setOpenModal(false);
+        dispatch(closeModal())
       }
     } catch (e) {
       console.log(e)
@@ -43,14 +43,15 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
 
   const handleSignUP = () => {
     setOpenSignUP(true);
-    setOpenModal(false);
-  }
-
+    dispatch(closeModal())
+  };
+  
+  const sliceOpen = useSelector(store=>store.modal.show);
   return (
     <>
-      <Modal show={open} onHide={() => setOpenModal(false)}>
+      <Modal show={sliceOpen} onHide={()=> dispatch(closeModal())}>
         <Modal.Header>
-          <button type="button" className="btn-close" aria-label="Close" onClick={() => setOpenModal(false)}></button>
+          <button type="button" className="btn-close" aria-label="Close" onClick={()=> dispatch(closeModal())}></button>
           <div><h3>Sign in</h3></div>
           <div><p className='form-decription'>Sign in to your account using email and password provided during registration.</p></div>
         </Modal.Header>
@@ -114,5 +115,4 @@ export default function SignIn({ open, setOpenModal, setOpenSignUP }: ModalProps
     </>
   );
 }
-
 

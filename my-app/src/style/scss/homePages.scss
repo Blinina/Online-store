@@ -1,7 +1,7 @@
 .pages-container {
     margin: 40px 10% 0;
     gap: 30px;
-    justify-content: space-evenly;
+    justify-content: start;
 
     .menu {
         border: 1px solid #E5E8ED;
@@ -47,6 +47,7 @@
 .home-title{
     font-weight: 900;
     font-size: 32px;
+    text-align: center;
 }
 form{
     border: 1px solid #E5E8ED;

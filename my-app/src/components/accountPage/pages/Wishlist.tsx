@@ -1,8 +1,6 @@
-import { useAuth, typeLoggedIn } from "../../../context/authContext";
-import { useEffect, useState } from 'react';
-import Cards from "../../Cards";
-import { deleteAllLikeStore, getLike } from "../../../store/likeSlice";
-import { useDispatch, useSelector } from 'react-redux';
+import { getLike } from "../../../store/likeSlice";
+import { useSelector } from 'react-redux';
+import Cards from "../../products/Cards";
 
 export default function Wishlist() {
     const getLikes = useSelector(getLike);

@@ -1,22 +1,21 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth, typeLoggedIn } from "../context/authContext";
-import { getNewPrice, drawRating, getNormalText } from "../helpers";
-import like from "../assets/images/Like.png";
-import shop from "../assets/images/whiteBag.png";
-import next from "../assets/images/next.png";
-import prev from "../assets/images/prev.png";
+import { useAuth, typeLoggedIn } from "../../context/authContext";
+import { getNewPrice, drawRating, getNormalText } from "../../helpers";
+import like from "../../assets/images/Like.png";
+import shop from "../../assets/images/whiteBag.png";
+import next from "../../assets/images/next.png";
+import prev from "../../assets/images/prev.png";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToBasket, getBasket, updateProductToBasket } from "../store/basketSlice";
-import store from "../store/store";
-import { addLikeStore, deleteLikeStore, getLike } from "../store/likeSlice";
-import blackLike from "../assets/images/blackLike.png";
-import { addToBasketAPI } from "../http/basketAPI";
-import { addLikeAPI, deleteLikeAPI } from "../http/likeAPI";
-import { Product } from "../TSType";
+import { addProductToBasket, getBasket, updateProductToBasket } from "../../store/basketSlice";
+import { addLikeStore, deleteLikeStore, getLike } from "../../store/likeSlice";
+import blackLike from "../../assets/images/blackLike.png";
+import { Product } from "../../TSType";
+import { addToBasketAPI } from "../../http/basketAPI";
+import { addLikeAPI, deleteLikeAPI } from "../../http/likeAPI";
 
 type FormValues = {
     quantityValue: number;
@@ -35,7 +34,6 @@ export default function Card() {
     const ProductinBasket = isProductinBasket();
     const likeItems = useSelector(getLike);
     const likeArr = likeItems?.map(({ id }) => id);
-    const { _id } = auth?.loggedIn as typeLoggedIn;
 
     useEffect(() => {
         const fn = async () => {
@@ -58,17 +56,17 @@ export default function Card() {
             :
             dispatch(addProductToBasket({ id: productId, product: item, quantity: data.quantityValue }));
 
-            auth?.loggedIn && addToBasketAPI(_id, item as Product, data.quantityValue);
+            auth?.loggedIn && addToBasketAPI(auth?.loggedIn._id, item as Product, data.quantityValue);
     });
 
     const addLike = async (el: Product) => {
             dispatch(addLikeStore({ id: el._id, product: el }));
-            auth?.loggedIn && addLikeAPI(_id, el._id);
+            auth?.loggedIn && addLikeAPI(auth?.loggedIn._id, el._id);
         };
         
     const deleteLike = async (el: Product) => {
         dispatch(deleteLikeStore({ id: el._id }));
-        auth?.loggedIn &&  deleteLikeAPI(_id, el._id);
+        auth?.loggedIn &&  deleteLikeAPI(auth?.loggedIn._id, el._id);
     };
 
     return (

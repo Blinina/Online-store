@@ -1,5 +1,5 @@
 import {
-  createContext, useContext, useState,
+  createContext, SetStateAction, useContext, useState,
 } from 'react';
 
 export type typeLoggedIn = {
@@ -24,15 +24,16 @@ export default function AuthProvider({ children }: any) {
   const userLoggin: any = JSON.parse(localStorage.getItem('user') || '{}');
   const [loggedIn, setLoggedIn] = useState<typeLoggedIn | null>(userLoggin !== '{}' ? { ...userLoggin } : null);
 
-  const logIn = (data: any) => {
+  const logIn = (data: SetStateAction<typeLoggedIn | null>) => {
     localStorage.setItem('user', JSON.stringify(data));
-    setLoggedIn({ ...data });
+    setLoggedIn({ ...data as typeLoggedIn });
   };
 
   const logOut = () => {
     localStorage.removeItem('user');
     setLoggedIn(null);
   };
+
 
   const getUsername = () => {
     if (userLoggin) {

@@ -1,5 +1,4 @@
-const Basket = require('../models/Basket')
-const Product = require('../models/Product')
+const Basket = require('./Basket');
 
 class authController {
     async addProduct(req, res) {
@@ -38,8 +37,6 @@ class authController {
     async deleteProduct(req, res) {
         try {
             const { userId, product } = req.body;
-            console.log(product)
-
             const candidate = await Basket.findOne({ userId })
             await Basket.updateOne(
                 { _id: candidate._id },
@@ -53,10 +50,15 @@ class authController {
 
     async getAll(req, res) {
         try {
-            console.log(req)
             let { payload } = req.query;
             const basket = await Basket.findOne({ userId: payload })
-            return res.json(basket.products)
+            if(basket){
+                return res.json(basket.products)
+            }else{
+                const newBasket = new Basket({ userId: payload})
+                await newBasket.save()
+               return res.json([])
+            }
         } catch (e) {
             res.status(400).json({ message: 'r' })
         }

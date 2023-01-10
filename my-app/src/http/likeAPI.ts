@@ -1,23 +1,8 @@
 import axios from "axios";
-type Product = {
-    _id: string;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    type: string;
-    image: string[];
-    rating: number;
-    newColection: boolean;
-    sales: {
-        sales: boolean;
-        count: number;
-    };
-};
 
 export const addLikeAPI = async (user: string, productID: string) => {
     try {
-        const res = await axios.post('/wishlist/addProduct', {
+        const res = await axios.post('/like/addProduct', {
             userId: user,
             product: productID,
         });
@@ -30,7 +15,7 @@ export const addLikeAPI = async (user: string, productID: string) => {
 
 export const deleteLikeAPI = async (user: string, productID: string) => {
     try {
-        const res = await axios.post('/wishlist/deleteProduct', {
+        const res = await axios.post('/like/deleteProduct', {
             userId: user,
             product: productID,
         });

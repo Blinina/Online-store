@@ -11,14 +11,19 @@ import {
 import storage from "redux-persist/lib/storage";
 import likeReduser from './likeSlice';
 import basketReduser from './basketSlice';
+import modalReduser from './modalSlice';
+
 const persistConfig = {
   key: "root",
   storage
 };
+
 const rootReducers = combineReducers({
   like: likeReduser,
   basket: basketReduser,
+  modal: modalReduser,
 });
+
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 const store = configureStore({
@@ -30,6 +35,7 @@ const store = configureStore({
       }
     })
 });
+
 export const persistor = persistStore(store);
 export default store;
 

@@ -1,4 +1,4 @@
-const Product = require('../models/Product')
+const Product = require('./Product')
 
 class authController {
     async addProduct(req, res) {
@@ -21,13 +21,11 @@ class authController {
     async getCategory(req, res) {
         try {
             let { CategoryId } = req.query;
-            console.log(req.query)
             let product;
-            let number
             if (CategoryId === 'sales') {
-                product = await Product.find({ 'sales.sales' : true })
+                product = await Product.find({ 'sales.sales': true })
             } else if (CategoryId === 'newColection') {
-                product = await Product.find({ 'newColection' : true })
+                product = await Product.find({ 'newColection': true })
             }
             else {
                 product = await Product.find({ 'category': CategoryId })
@@ -47,7 +45,6 @@ class authController {
             res.status(400).json({ message: 'r' })
         }
     }
-
 }
 
 module.exports = new authController()

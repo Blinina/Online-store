@@ -9,6 +9,7 @@ export const getDataBasket = createAsyncThunk('/basket/getMyBasket', async (payl
         payload
     }
 });
+console.log(res.data)
   return res.data;
 });
 
@@ -29,6 +30,7 @@ const basketSlice = createSlice({
       console.log(payload)
       basketAdapter.removeOne(state, payload.id)
         },
+    deleteAllProductToBasket: basketAdapter.removeAll,
   },
   extraReducers: (builder) => {
     builder
@@ -59,6 +61,6 @@ export const getBasket = (state) => selectors.selectAll(state);
 // export const getActiveChannel = (state) => state.channels.id;
 
 export const {
-  addProductToBasket, deleteProductToBasket, updateProductToBasket
+  addProductToBasket, deleteProductToBasket, updateProductToBasket, deleteAllProductToBasket
 } = basketSlice.actions;
 export default basketSlice.reducer;

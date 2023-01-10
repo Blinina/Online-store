@@ -1,17 +1,39 @@
-import { Modal, Form, FormCheck } from 'react-bootstrap';
+import axios from 'axios';
+import { useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useAuth, typeLoggedIn } from "../../../context/authContext";
+import { EMAIL_REGEXP } from '../../../helpers';
+
 type FormValues = {
     fullName: string;
-    email: number;
+    email: string;
 }
 
 export default function Profile() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
+    const [errorData, setErrorData] = useState('')
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
     const auth = useAuth();
-    const { fullName, email, role } = auth?.loggedIn as typeLoggedIn;
+    const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
 
-    const onSubmit = handleSubmit(async (data) => console.log(data));
+    const onSubmit = handleSubmit(async (data) => {
+        if (data.fullName === fullName && data.email === email) {
+            setErrorData('You have not changed the data');
+            return;
+        }
+        try {
+            let res = await axios.post(`/user/updateUser`, {
+                userId: _id,
+                fullName: data.fullName,
+                email: data.email,
+            });
+            const { message, ...rest } = res.data;
+            auth?.logIn(rest);
+
+        } catch (e) {
+            console.log(e)
+        }
+    });
     return (
         <div>
             <div>
@@ -42,9 +64,15 @@ export default function Profile() {
                                 size="sm"
                                 type="email"
                                 defaultValue={email}
-                                {...register("email")}
+                                {...register("email", {
+                                    validate: {
+                                        value: v => EMAIL_REGEXP.test(v) || 'Invalid e-mail'
+                                    }
+                                })}
                             />
+                            {errors.email && <span className="danger">{errors.email.message}</span>}
                         </Form.Group>
+                        {errorData && <span className="danger">{errorData}</span>}
                     </div>
                     <button className='M-btn btn-green center' onClick={onSubmit}>
                         Edit profile

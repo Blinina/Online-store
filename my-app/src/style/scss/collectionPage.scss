@@ -6,22 +6,28 @@
 
 
 }
+.rating-cards-container{
+    display: flex;
+    flex-direction: column;
+}
 
 //ранжирование 
 .sortind {
-    width: 70%;
 
     form {
         div {
             display: flex;
             gap: 12px;
             align-items: center;
+            justify-content: center;
         }
 
     }
-
+    .form-label{
+        margin: 0;
+    }
     .form-select-sm {
-        width: 140px;
+        width: 100px;
     }
 
 }
@@ -44,8 +50,8 @@
     }
 
     img {
-        width: 278px;
-        height: 355px;
+        width: 230px;
+        height: 300px;
     }
 
     .sales-banner {
@@ -164,7 +170,6 @@
 }
 
 .card-like {
-
     width: 18.00px !important;
     height: auto !important;
     &:hover{
@@ -189,5 +194,33 @@
     background-color: rgba(186, 211, 211, 0.685);
     padding: 5.5px 8px 7px;
 
+}
+@media screen and (max-width: 1035px) {
+    .card-collection {
 
+        // img {
+        //     width: 180px;
+        //     height: 300px;
+        // }
+        .card-like {
+            width: 15.00px !important;
+            height: auto !important;
+    }
+}
+}
+@media screen and (max-width: 700px) {
+    .collection-page{
+        flex-direction: column;
+        .card-collection img {
+            width: 170px;
+            height: 220px;
+        }
+    }
+    .cards{
+        justify-content: center;
+        gap: 50px 15px;
+    }
+}
+@media screen and (max-width: 500px) {
+  
 }

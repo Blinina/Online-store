@@ -1,27 +1,37 @@
-import like from "../assets/images/Like.png";
+import like from "../../assets/images/Like.png";
+import blackLike from "../../assets/images/blackLike.png";
 import { Form } from 'react-bootstrap';
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { typeLoggedIn, useAuth } from "../context/authContext";
-import blackLike from "../assets/images/blackLike.png";
+import { useNavigate } from "react-router-dom";
+import { typeLoggedIn, useAuth } from "../../context/authContext";
 import { ChangeEvent, useEffect, useState } from "react";
-import { getNewPrice } from "../helpers";
+import { buildName, getNewPrice } from "../../helpers";
 import { useDispatch, useSelector } from 'react-redux';
-import { addLikeStore, deleteLikeStore, getLike } from "../store/likeSlice";
-import { addLikeAPI, deleteLikeAPI } from "../http/likeAPI";
-import { Product } from "../TSType";
+import { addLikeStore, deleteLikeStore, getLike } from "../../store/likeSlice";
+import { addLikeAPI, deleteLikeAPI } from "../../http/likeAPI";
+import { Product } from "../../TSType";
 
 export interface CardProps {
     [key: string]: any;
 };
 
+interface sortingType {
+    [key: string]: (elem: Product[]) => Product[];
+};
+
+const sortingVariant: sortingType = {
+    'none': (elem: Product[]) => elem,
+    'Rating': (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
+    'Price': (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
+}
+
 export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
     const auth = useAuth();
-    const { _id } = auth?.loggedIn as typeLoggedIn;
 
     const dispatch = useDispatch();
     const [products, setProducts] = useState(items);
     const [sorting, setSorting] = useState('none');
+
     useEffect(() => {
         setProducts(items)
     }, [items])
@@ -29,31 +39,22 @@ export default function Cards({ items }: CardProps) {
     const likeItems = useSelector(getLike);
     const likeArr = likeItems?.map(({ id }) => id);
 
-
-    const buildName = (str: string) => {
-        const arr = str.split(' ').slice(0, 3).join(' ');
-        return str.length > 20 ? `${arr}...` : str;
-    };
-
     const addLike = async (el: Product) => {
         dispatch(addLikeStore({ id: el._id, product: el }));
-        auth?.loggedIn && addLikeAPI(_id, el._id);
+        auth?.loggedIn && addLikeAPI(auth?.loggedIn._id, el._id);
     };
 
     const deleteLike = async (el: Product) => {
-        dispatch(deleteLikeStore({id: el._id}));
-        auth?.loggedIn && deleteLikeAPI(_id, el._id);
-    }
-    // const pp = {
-    //     Rating: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
-    //     Price: (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
-    // }
+        dispatch(deleteLikeStore({ id: el._id }));
+        auth?.loggedIn && deleteLikeAPI(auth?.loggedIn._id, el._id);
+    };
+
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
+        console.log(value)
         setSorting(value)
-        let pp;
-        value === 'Rating' ? pp = items.sort((a: Product, b: Product) => b.rating - a.rating) : pp = items.sort((a: Product, b: Product) => b.price - a.price);
-        setProducts(pp)
+        const result = sortingVariant[value as string](items);
+        setProducts(result)
     }
 
     return (
@@ -66,11 +67,11 @@ export default function Cards({ items }: CardProps) {
                         <Form.Select size="sm"
                             value={sorting}
                             onChange={(e) => handleChange(e)}>
-                            <option value="" disabled>none</option>
+                            <option value="none" disabled >none</option>
                             <option value="Rating">Rating</option>
                             <option value="Price">Price</option>
                         </Form.Select>
-                        <button type='submit' className='hidden'></button>
+                        <button type='submit' className='none'></button>
                     </Form.Group>
                 </Form>
             </div>
@@ -102,7 +103,6 @@ export default function Cards({ items }: CardProps) {
                                         onClick={() => likeArr.includes(el._id) ? deleteLike(el) : addLike(el)}
                                         className='card-like' />
                                 </div>
-
                             </div>
                             <figcaption onClick={() => navigate(`/product/${el._id}`)}>
                                 <p className='card-title'>{buildName(el.title)}</p>

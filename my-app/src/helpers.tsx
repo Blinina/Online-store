@@ -1,6 +1,5 @@
-// export const getNewPrice = (price, sales) => {
-//     return (price * (1 - sales / 100)).toFixed(2)
-// };
+export const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
 export const getNewPrice = (price: number, sales: number) => {
     return (price * (1 - sales / 100)).toFixed(2)
 }
@@ -27,4 +26,8 @@ export const drawRating = (num: number) => {
         .map((el) => String(el));
     const value = max[0];
     return objStars[value];
+};
+export const buildName = (str: string) => {
+    const arr = str.split(' ').slice(0, 3).join(' ');
+    return arr.length > 20 ? `${str.split(' ').slice(0, 2).join(' ')}...` : `${arr}...`;
 };

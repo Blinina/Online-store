@@ -1,14 +1,12 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import routes from '../routes/routes';
-/* eslint-disable no-param-reassign */
 
 export const getDataLike = createAsyncThunk('like/getDataLike', async (payload) => {
-  const res = await axios.get('/wishlist/getWishlist', {
+  const res = await axios.get('/like/getLike', {
     params: {
-        payload
+      payload
     }
-});
+  });
   return res.data;
 });
 
@@ -22,15 +20,14 @@ const likeSlice = createSlice({
   reducers: {
     addLikeStore: likeAdapter.addOne,
     deleteLikeStore: (state, { payload }) => {
-  console.log(payload)
       likeAdapter.removeOne(state, payload.id)
     },
     deleteAllLikeStore: likeAdapter.removeAll,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDataLike.fulfilled, (state, {payload}) => {
-        likeAdapter.setAll(state,  payload?.map(v=>({id: v._id, product: v})))
+      .addCase(getDataLike.fulfilled, (state, { payload }) => {
+        likeAdapter.setAll(state, payload?.map(v => ({ id: v._id, product: v })))
         state.isLoading = false;
         state.loadingError = null;
       })
@@ -47,13 +44,12 @@ const likeSlice = createSlice({
   },
 });
 
-
 export const selectors = likeAdapter.getSelectors((state) => state.like);
 export const getLike = (state) => selectors.selectAll(state);
 // export const getLoading = ((state) => state.channels.isLoading);
 // export const getActiveChannel = (state) => state.channels.id;
 
 export const {
-    addLikeStore, deleteLikeStore, deleteAllLikeStore
+  addLikeStore, deleteLikeStore, deleteAllLikeStore
 } = likeSlice.actions;
 export default likeSlice.reducer;
