@@ -1,95 +1,96 @@
-table{
-  
-    p{
-        font-weight: 400;
-        font-size: 14px;
-    }
-    tr{
-        background-color: #F4F5F6;
-    --bs-table-accent-bg:  #F4F5F6;
-    }
-    
-   
-}
-.bag-container{
-    display: flex;
-    gap:5%;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-size: 14px;
+table {
+	p {
+		font-weight: 400;
+		font-size: 14px;
+	}
 
-    .M-btn{
-        margin-top: 20px;
-        line-height: 30px;
-        font-size: 14px;
-        text-align: center;
-        padding: 0 15px;
-    }
-}
-th{
-    div{
-        margin-top: 20px;
-    }
+	tr {
+		background-color: #f4f5f6;
+
+		--bs-table-accent-bg: #f4f5f6;
+	}
 }
 
-.bag-img{
-    width: 80px;
-    height: 110px;
+.bag-container {
+	display: flex;
+	gap: 5%;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: 14px;
+
+	.M-btn {
+		margin-top: 20px;
+		line-height: 30px;
+		font-size: 14px;
+		text-align: center;
+		padding: 0 15px;
+	}
 }
-.bag-name{
-    margin-top: 0!important;
-    display: flex;
-    gap: 10%;
-    align-items: center;
-    cursor: pointer;
+
+th {
+	div {
+		margin-top: 20px;
+	}
 }
-.result-card{
-    border: 1px solid #E5E8ED;
-    padding: 10px 25px;
-    line-height: 30px;
-    max-height: 200px;
+
+.bag-img {
+	width: 80px;
+	height: 110px;
 }
+
+.bag-name {
+	margin-top: 0 !important;
+	display: flex;
+	gap: 10%;
+	align-items: center;
+	cursor: pointer;
+}
+
+.result-card {
+	border: 1px solid #e5e8ed;
+	padding: 10px 25px;
+	line-height: 30px;
+	max-height: 200px;
+}
+
 @media screen and (max-width: 950px) {
-    .result-card{
-        padding: 10px 15px;
-
-    }
+	.result-card {
+		padding: 10px 15px;
+	}
 }
 
 @media screen and (max-width: 650px) {
-    // .bag-container{
-    //     flex-direction: column;
-    // }
-    .bag-img{
-        width: 5vw;
-        height: 8vw;
-    }
-    .mb-30{
-        margin: 30px 5%;
-    }
+	.bag-img {
+		width: 5vw;
+		height: 8vw;
+	}
 
+	.mb-30 {
+		margin: 30px 5%;
+	}
 }
-@media screen and (max-width: 435px) {
-    .mb-30{
-        margin: 30px 3%;
-    }
-    .bag-img{
-        display: none;
-    }
-    th{
-        font-size: 12px!important;
 
-    }
-    .M-btn {
-        margin-top: 10px;
-        line-height: 20px!important;
-        font-size: 12px!important;
-        text-align: center;
-        padding: 0 10px!important;
-    }
-    th{
-        div{
-            margin-top: 10px;
-        }
-    }
+@media screen and (max-width: 435px) {
+	.mb-30 {
+		margin: 30px 3%;
+	}
+
+	.bag-img {
+		display: none;
+	}
+
+	.M-btn {
+		margin-top: 10px;
+		line-height: 20px !important;
+		font-size: 12px !important;
+		text-align: center;
+		padding: 0 10px !important;
+	}
+
+	th {
+		div {
+			margin-top: 10px;
+			font-size: 12px !important;
+		}
+	}
 }

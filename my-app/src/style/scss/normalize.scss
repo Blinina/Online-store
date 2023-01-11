@@ -3,342 +3,135 @@
 @import "collectionPage";
 @import "cardPage";
 @import "bagPage";
-@import "castom.scss";
+@import "castom";
+@import "nav";
+@import "mainPage";
 
 :root {
-    --green: #007876;
-    --gray: #1E212C;
-    --light-green:  #13c59baf;
+	--green: #007876;
+	--gray: #1e212c;
+	--light-green: #13c59baf;
 }
 
 @font-face {
-    font-family: Lato;
-    src: url(../../assets/fonts/Lato-Regular.ttf);
+	font-family: Lato;
+	src: url(../../assets/fonts/Lato-Regular.ttf);
 }
 
 body {
-    font-family: Lato !important;
-    margin: 0;
-    overflow-x: hidden;
+	font-family: Lato !important;
+	margin: 0;
+	overflow-x: hidden;
 }
 
 .hidden {
-    visibility: hidden;
+	visibility: hidden;
 }
-.none{
-    display: none;
+
+.none {
+	display: none;
 }
 
 p,
 h1,
 figure {
-    margin: 0;
+	margin: 0;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 li {
-    list-style-type: none;
-
+	list-style-type: none;
 }
 
 a {
-    text-decoration: none!important;
-    &:visited, &:active, &:hover {
-        text-decoration: none;
-        color: inherit;
-    }
+	text-decoration: none;
+
+	&:visited,
+	&:active,
+	&:hover {
+		text-decoration: none;
+		color: inherit;
+	}
 }
+
 .mb-30 {
-    margin-top: 30px;
+	margin-top: 30px;
 }
+
 .text-upper {
-    text-transform: uppercase;
+	text-transform: uppercase;
 }
-.text-center{
-    text-align: center;
+
+.text-center {
+	text-align: center;
 }
-@keyframes shake {
-    0%, 50%, 100% {
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-      }
-      10%, 30% {
-        transform: rotate(-3deg);
-        -webkit-transform:  rotate(-3deg);
-        -moz-transform:  rotate(-3deg);
-        -o-transform:  rotate(-3deg);
-        -ms-transform: rotate(-3deg);
-      }
-      20%, 40% {
-        transform: rotate(3deg);
-        -webkit-transform: rotate(3deg);
-        -moz-transform:rotate(3deg);
-        -o-transform:rotate(3deg);
-        -ms-transform: rotate(3deg);
-      }
-  }
+
 .M-btn {
-    padding: 0px 40px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 52px;
-    border-radius: 4px;
-    border: 1px solid var(--green);
-    background-color: rgba(117, 190, 218, 0.0);
-    color: var(--green);
-    word-wrap: break-word;
-    cursor: pointer;
+	padding: 0 40px;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 52px;
+	border-radius: 4px;
+	border: 1px solid var(--green);
+	background-color: rgb(117 190 218 / 0%);
+	color: var(--green);
+	word-wrap: break-word;
+	cursor: pointer;
 
-    &:hover {
-        transform: scale(1.05);
-    }
-
+	&:hover {
+		transform: scale(1.05);
+	}
 }
 
 .center {
-    margin: auto;
+	margin: auto;
 }
 
 .btn-green {
-    background-color: var(--green);
-    color: #FFFFFF;
+	background-color: var(--green);
+	color: #fff;
 }
 
 .relative {
-    position: relative;
+	position: relative;
 }
 
-
-.nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px 10px;
-
-    .logo {
-        margin-right: 30px;
-    }
-
-    .nav-bar {
-        display: flex;
-        margin: 0px;
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        gap: 30px;
-
-    }
- 
-    img {
-        height: 18px;
-        width: auto;
-          &:hover{
-            transform: scale(1.1);
-          }
-    }
-
-    .like-container {
-        display: flex;
-        gap: 7px;
-        align-items: flex-end;
-        cursor: pointer;
-    }
-
-    .like-count, .basket-count {
-        line-height: 14px;
-        background-color: #f97676a2;
-        padding: 2px 3px 4px;
-        border-radius: 4px;
-        color: #FFFFFF;
-
-    }
-
-    .basket-count {
-        background-color: #08b76b;
-    }
-
+.loading {
+	margin: auto;
 }
 
-.loading{
-    margin: auto;
-}
-.mt-100{
-    margin-top: 100px;
-}
-
-.nav-user {
-    padding: 1.5%;
-    margin-right: 10px;
-    border-radius: 4px;
-    background-color: #E9E2E9;
-    cursor: pointer;
-
-    &:hover {
-        transform: scale(1.1);
-    }
-
-    figure {
-        display: flex;
-        gap: 7px;
-        align-items: center;
-        margin: 0;
-    }
-
-    figcaption {
-        opacity: 0.9;
-        p {
-            font-size: 12px !important;
-        }
-
-    }
-}
-
-
-.nav-sales {
-    background-color: var(--green);
-    text-align: center;
-    color: #FFFFFF;
-    font-size: 12px;
-    line-height: 150%;
-    padding: 8px 0;
-
-    a {
-        color: #FFFFFF;
-    }
-
+.mt-100 {
+	margin-top: 100px;
 }
 
 .Mbtn-group {
-    display: flex;
-    gap: 20px;
-    margin-top: 50px;
-}
-
-.bg {
-    margin: 0;
-    width: 100%;
-    background-image: url(../../assets/images/vogue.jpg);
-    height: 550px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    background-position: center center;
-}
-
-.header-container {
-    padding-top: 140px;
-    padding-left: 10vw;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .M-btn {
-        &:hover {
-            transform: scale(1.05);
-            background-color: #161d36;
-            border-color: #161d36;
-        }
-
-        &:active {
-            background-color: #161d36;
-        }
-
-    }
-
-}
-
-.main-text {
-    margin: 5px 0 30px;
-    font-weight: 900;
-    font-size: 54px;
-    color: #fffefef1;
-}
-
-#tree-category {
-    position: relative;
-}
-
-.tree-category {
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    top: -100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-
-    figure {
-        margin: 0;
-    }
-
-    img {
-        max-width: 350px;
-        width: auto;
-        height: auto;
-        &:hover {
-            transform: scale(1.05);
-            animation: shake 2s;         
-            animation-iteration-count: infinite;
-          }
-    }
-
-    figcaption {
-        margin-top: 16px;
-        text-align: center;
-    }
-
+	display: flex;
+	gap: 20px;
+	margin-top: 50px;
 }
 
 .card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media screen and (max-width: 750px) {
+	p,
+	div,
+	li,
+	a,
+	.M-btn,
+	label {
+		font-size: 14px;
+	}
 
-    p,
-    div,
-    li,
-    a,
-    .M-btn, 
-    label {
-        font-size: 14px;
-    }
-
-    .M-btn {
-        line-height: 35px;
-        padding: 0 25px;
-
-    }
-
-    .tree-category {
-        img {
-            width: 40vw;
-        }
-    }
-
-    .bg {
-        background-position: right center;
-    }
-
-    .nav {
-        ul{
-            gap: 4vw;
-        }
-       
-    }
-
+	.M-btn {
+		line-height: 35px;
+		padding: 0 25px;
+	}
 }

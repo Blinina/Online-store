@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './style/css/normalize.css'
 import 'react-toastify/dist/ReactToastify.css';
-
 import store, { persistor } from './store/store';
 import { PersistGate } from "redux-persist/integration/react";
 

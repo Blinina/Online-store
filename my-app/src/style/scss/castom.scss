@@ -1,17 +1,16 @@
-.form-check-input:checked {
-    background-color: var(--light-green);
-    border-color: var(--light-green);
-}
-
 .form-control,
 .form-control-sm,
 .form-check-input,
 .form-select,
- .form-select-sm {
-    &:focus {
-        border-radius: 4px;
-        border-color: var(--light-green);
-        box-shadow: var(--light-green) 0px 1px 0px, rgba(101, 240, 226, 0.653) 0px 0px 8px;
-    }
+.form-select-sm {
+	&:focus {
+		border-radius: 4px;
+		border-color: var(--light-green);
+		box-shadow: var(--light-green) 0 1px 0, rgb(101 240 226 / 65.3%) 0 0 8px;
+	}
+}
 
+.form-check-input:checked {
+	background-color: var(--light-green);
+	border-color: var(--light-green);
 }

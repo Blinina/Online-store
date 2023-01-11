@@ -84,7 +84,7 @@ export default function Card() {
                         <h2>{item?.title}</h2>
                     </div>
                     <div className="card-product">
-                        <div className="relative">
+                        <div className="mh-image">
                             <div
                                 className="image-nav next"
                                 onClick={() => imgNum ? setImgNum(0) : setImgNum(1)}>

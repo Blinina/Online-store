@@ -1,4 +1,4 @@
-import { typeLoggedIn, useAuth } from "../../../context/authContext";
+import { useAuth } from "../../../context/authContext";
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -55,7 +55,7 @@ export default function Bag() {
             return setopenOrderModal({ user: true, text: 'Sorry,  this is a study project. 😁' })
         }
         setopenOrderModal({ user: false, text: 'To place an order please login' })
-    }
+    };
 
     return (
         <div className={pathname === '/bag' ? ' bag-container mb-30' : 'bag-container'}>

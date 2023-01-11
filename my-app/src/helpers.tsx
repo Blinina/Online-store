@@ -31,3 +31,6 @@ export const buildName = (str: string) => {
     const arr = str.split(' ').slice(0, 3).join(' ');
     return arr.length > 20 ? `${str.split(' ').slice(0, 2).join(' ')}...` : `${arr}...`;
 };
+
+
+// npx stylelint src/style/scss/normalize.scss --fix .

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import Cards from './Cards';
-
 import { useForm } from 'react-hook-form';
 import { Form, FormCheck } from 'react-bootstrap';
 import { Product } from '../../TSType';

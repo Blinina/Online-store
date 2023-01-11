@@ -1,28 +1,30 @@
 import like from "../../assets/images/Like.png";
 import blackLike from "../../assets/images/blackLike.png";
-import { Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { typeLoggedIn, useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { ChangeEvent, useEffect, useState } from "react";
 import { buildName, getNewPrice } from "../../helpers";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { addLikeStore, deleteLikeStore, getLike } from "../../store/likeSlice";
 import { addLikeAPI, deleteLikeAPI } from "../../http/likeAPI";
 import { Product } from "../../TSType";
 
 export interface CardProps {
     [key: string]: any;
-};
+}
 
 interface sortingType {
     [key: string]: (elem: Product[]) => Product[];
-};
+}
 
 const sortingVariant: sortingType = {
-    'none': (elem: Product[]) => elem,
-    'Rating': (elem: Product[]) => elem.sort((a: Product, b: Product) => b.rating - a.rating),
-    'Price': (elem: Product[]) => elem.sort((a: Product, b: Product) => b.price - a.price),
-}
+    none: (elem: Product[]) => elem,
+    Rating: (elem: Product[]) =>
+        elem.sort((a: Product, b: Product) => b.rating - a.rating),
+    Price: (elem: Product[]) =>
+        elem.sort((a: Product, b: Product) => b.price - a.price),
+};
 
 export default function Cards({ items }: CardProps) {
     const navigate = useNavigate();
@@ -30,11 +32,11 @@ export default function Cards({ items }: CardProps) {
 
     const dispatch = useDispatch();
     const [products, setProducts] = useState(items);
-    const [sorting, setSorting] = useState('none');
+    const [sorting, setSorting] = useState("none");
 
     useEffect(() => {
-        setProducts(items)
-    }, [items])
+        setProducts(items);
+    }, [items]);
 
     const likeItems = useSelector(getLike);
     const likeArr = likeItems?.map(({ id }) => id);
@@ -51,77 +53,86 @@ export default function Cards({ items }: CardProps) {
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
-        console.log(value)
-        setSorting(value)
+        console.log(value);
+        setSorting(value);
         const result = sortingVariant[value as string](items);
-        setProducts(result)
-    }
+        setProducts(result);
+    };
 
     return (
         <>
-            <div className='sortind'>
+            <div className="sortind">
                 <Form>
-                    <Form.Group
-                        controlId="sortind">
+                    <Form.Group controlId="sortind">
                         <Form.Label>Sort by</Form.Label>
-                        <Form.Select size="sm"
+                        <Form.Select
+                            size="sm"
                             value={sorting}
-                            onChange={(e) => handleChange(e)}>
-                            <option value="none" disabled >none</option>
+                            onChange={(e) => handleChange(e)}
+                        >
+                            <option value="none" disabled>
+                                none
+                            </option>
                             <option value="Rating">Rating</option>
                             <option value="Price">Price</option>
                         </Form.Select>
-                        <button type='submit' className='none'></button>
+                        <button type="submit" className="none"></button>
                     </Form.Group>
                 </Form>
             </div>
-            <div className='cards'>
-                {products?.map((el: Product) =>
-                    <div className='card-collection' key={el._id}>
+            <div className="cards">
+                {products?.map((el: Product) => (
+                    <div className="card-collection" key={el._id}>
                         <figure>
-                            <div className='images'>
-                                <img src={el.image[0]}
+                            <div className="images">
+                                <img
+                                    src={el.image[0]}
                                     onClick={() => navigate(`/product/${el._id}`)}
-                                    onMouseOver={e => (e.currentTarget.src = el.image[1])}
-                                    onMouseOut={e => (e.currentTarget.src = el.image[0])}
-                                    alt={el.title} />
-                                {el.sales.sales
-                                    &&
-                                    <div className="sales-banner"
-                                    >
-                                        {el.sales.count} %
-                                    </div>}
-                                {el.newColection
-                                    &&
-                                    <div className="new-collection"
-                                        onClick={() => navigate('/collection/newColection')}
+                                    onMouseOver={(e) => (e.currentTarget.src = el.image[1])}
+                                    onMouseOut={(e) => (e.currentTarget.src = el.image[0])}
+                                    alt={el.title}
+                                />
+                                {el.sales.sales && (
+                                    <div className="sales-banner">{el.sales.count} %</div>
+                                )}
+                                {el.newColection && (
+                                    <div
+                                        className="new-collection"
+                                        onClick={() => navigate("/collection/newColection")}
                                     >
                                         New collection
-                                    </div>}
-                                <div className='container-card-like'>
-                                    <img src={likeArr.includes(el._id) ? blackLike : like} alt="like"
-                                        onClick={() => likeArr.includes(el._id) ? deleteLike(el) : addLike(el)}
-                                        className='card-like' />
+                                    </div>
+                                )}
+                                <div className="container-card-like">
+                                    <img
+                                        src={likeArr.includes(el._id) ? blackLike : like}
+                                        alt="like"
+                                        onClick={() =>
+                                            likeArr.includes(el._id) ? deleteLike(el) : addLike(el)
+                                        }
+                                        className="card-like"
+                                    />
                                 </div>
                             </div>
                             <figcaption onClick={() => navigate(`/product/${el._id}`)}>
-                                <p className='card-title'>{buildName(el.title)}</p>
+                                <p className="card-title">{buildName(el.title)}</p>
                                 <div>
-                                    {el.sales.sales
-                                        ?
-                                        <div className='sales-price'>
-                                            <p className='price new-price'>${getNewPrice(el.price, el.sales.count)}</p>
-                                            <p className='old-price'>${el.price}</p>
+                                    {el.sales.sales ? (
+                                        <div className="sales-price">
+                                            <p className="price new-price">
+                                                ${getNewPrice(el.price, el.sales.count)}
+                                            </p>
+                                            <p className="old-price">${el.price}</p>
                                         </div>
-                                        :
-                                        <p className='price static-price'>${el.price}</p>
-                                    }
+                                    ) : (
+                                        <p className="price static-price">${el.price}</p>
+                                    )}
                                 </div>
                             </figcaption>
                         </figure>
                     </div>
-                )}
+                ))}
             </div>
         </>
-    )
+    );
 }
