@@ -75,7 +75,7 @@ export default function HomePage() {
                     </ul>
                 </div>
             </div>
-            <div>
+            <div className="profile-cards">
                 {page.type === 'profile' && <Profile />}
                 {page.type === 'bag' && <Bag />}
                 {page.type === 'wishlist' && <Wishlist />}

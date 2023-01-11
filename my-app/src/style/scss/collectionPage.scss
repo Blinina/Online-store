@@ -6,9 +6,11 @@
 
 
 }
-.rating-cards-container{
+
+.rating-cards-container {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 //ранжирование 
@@ -23,9 +25,11 @@
         }
 
     }
-    .form-label{
+
+    .form-label {
         margin: 0;
     }
+
     .form-select-sm {
         width: 100px;
     }
@@ -37,8 +41,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 60px 25px;
-
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -172,7 +175,8 @@
 .card-like {
     width: 18.00px !important;
     height: auto !important;
-    &:hover{
+
+    &:hover {
         transform: scale(1.06);
     }
 
@@ -195,32 +199,117 @@
     padding: 5.5px 8px 7px;
 
 }
+
 @media screen and (max-width: 1035px) {
     .card-collection {
-
-        // img {
-        //     width: 180px;
-        //     height: 300px;
-        // }
         .card-like {
             width: 15.00px !important;
             height: auto !important;
-    }
-}
-}
-@media screen and (max-width: 700px) {
-    .collection-page{
-        flex-direction: column;
-        .card-collection img {
-            width: 170px;
-            height: 220px;
         }
     }
-    .cards{
+}
+
+@media screen and (max-width: 700px) {
+    .card-collection img {
+        width: 190px;
+        height: 240px;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .rating-cards-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5%;
+    }
+
+    .main-chack {
+        max-height: 30px;
+    }
+
+    .collection-page {
+        flex-direction: column;
+    }
+
+    .card-collection img {
+        width: 170px;
+        height: 220px;
+    }
+
+
+    .cards {
         justify-content: center;
         gap: 50px 15px;
     }
+
+    .filter-form {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .M-btn {
+            padding: 0 17.5px;
+            margin: 0;
+            max-height: 32px;
+        }
+    }
+
+    .filer-card {
+        padding: 10px 15px;
+        line-height: 20px;
+    }
+
+    .filter-form-check {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    label {
+        word-wrap: normal;
+        min-width: 50px;
+        font-size: 12px;
+    }
+
+    hr {
+        display: none;
+    }
 }
-@media screen and (max-width: 500px) {
-  
+
+@media screen and (max-width: 380px) {
+    .cards {
+        justify-content: flex-start;
+        gap: 50px 15px;
+    }
+
+    .filter-form-check {
+        flex-wrap: wrap;
+        gap: 7px;
+    }
+
+    .card-collection {
+        .images {
+            width: 150px !important;
+        }
+
+        img {
+            width: 150px !important;
+            height: 200px !important;
+        }
+    }
+
+    .card-title {
+        font-size: 12px !important;
+    }
+
+    .container-card-like {
+        right: 7.5px;
+    }
+
+    .new-collection {
+        padding: 5px 2px;
+    }
 }

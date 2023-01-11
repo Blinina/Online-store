@@ -32,7 +32,6 @@ const likeSlice = createSlice({
         state.loadingError = null;
       })
       .addCase(getDataLike.pending, (state) => {
-        console.log(`загрузка: ${state.isLoading}`);
         state.isLoading = true;
         state.loadingError = null;
       })
@@ -46,8 +45,6 @@ const likeSlice = createSlice({
 
 export const selectors = likeAdapter.getSelectors((state) => state.like);
 export const getLike = (state) => selectors.selectAll(state);
-// export const getLoading = ((state) => state.channels.isLoading);
-// export const getActiveChannel = (state) => state.channels.id;
 
 export const {
   addLikeStore, deleteLikeStore, deleteAllLikeStore

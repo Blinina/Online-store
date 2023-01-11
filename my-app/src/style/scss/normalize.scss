@@ -3,14 +3,13 @@
 @import "collectionPage";
 @import "cardPage";
 @import "bagPage";
-
+@import "castom.scss";
 
 :root {
     --green: #007876;
     --gray: #1E212C;
-    // --green: #17696A;
+    --light-green:  #13c59baf;
 }
-
 
 @font-face {
     font-family: Lato;
@@ -47,16 +46,20 @@ li {
 }
 
 a {
-    text-decoration: none;
-
-    &:visited {
+    text-decoration: none!important;
+    &:visited, &:active, &:hover {
         text-decoration: none;
         color: inherit;
     }
 }
-
+.mb-30 {
+    margin-top: 30px;
+}
 .text-upper {
     text-transform: uppercase;
+}
+.text-center{
+    text-align: center;
 }
 @keyframes shake {
     0%, 50%, 100% {
@@ -140,8 +143,9 @@ a {
     img {
         height: 18px;
         width: auto;
-          
-    
+          &:hover{
+            transform: scale(1.1);
+          }
     }
 
     .like-container {
@@ -166,7 +170,12 @@ a {
 
 }
 
-// }
+.loading{
+    margin: auto;
+}
+.mt-100{
+    margin-top: 100px;
+}
 
 .nav-user {
     padding: 1.5%;
@@ -175,14 +184,15 @@ a {
     background-color: #E9E2E9;
     cursor: pointer;
 
-    &:active {
-        transform: rotate(1.2);
+    &:hover {
+        transform: scale(1.1);
     }
 
     figure {
         display: flex;
         gap: 7px;
         align-items: center;
+        margin: 0;
     }
 
     figcaption {
@@ -297,11 +307,6 @@ a {
     align-items: center;
 }
 
-.pages-container {
-    display: flex;
-    justify-content: space-between;
-}
-
 @media screen and (max-width: 750px) {
 
     p,
@@ -336,10 +341,4 @@ a {
        
     }
 
-}
-@media screen and (max-width: 450px) {
-    img {
-        height: 16px;
-        width: auto;
-    }
 }

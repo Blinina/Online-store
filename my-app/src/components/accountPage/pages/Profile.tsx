@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useAuth, typeLoggedIn } from "../../../context/authContext";
+import { useToastify } from '../../../context/toastContext';
 import { EMAIL_REGEXP } from '../../../helpers';
 
 type FormValues = {
@@ -14,8 +15,8 @@ export default function Profile() {
     const [errorData, setErrorData] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({});
     const auth = useAuth();
+    const { successToast, errorToast } = useToastify();
     const { fullName, email, role, _id } = auth?.loggedIn as typeLoggedIn;
-
     const onSubmit = handleSubmit(async (data) => {
         if (data.fullName === fullName && data.email === email) {
             setErrorData('You have not changed the data');
@@ -27,9 +28,12 @@ export default function Profile() {
                 fullName: data.fullName,
                 email: data.email,
             });
+            if (res.data.error) {
+              return errorToast(res.data.error);
+            }
             const { message, ...rest } = res.data;
             auth?.logIn(rest);
-
+            successToast(message);
         } catch (e) {
             console.log(e)
         }
@@ -72,11 +76,13 @@ export default function Profile() {
                             />
                             {errors.email && <span className="danger">{errors.email.message}</span>}
                         </Form.Group>
-                        {errorData && <span className="danger">{errorData}</span>}
                     </div>
-                    <button className='M-btn btn-green center' onClick={onSubmit}>
-                        Edit profile
-                    </button>
+                    <div className='form-span-button'>
+                        {errorData && <span className="danger">{errorData}</span>}
+                        <button className='M-btn btn-green center' onClick={onSubmit}>
+                            Edit profile
+                        </button>
+                    </div>
                 </Form>
             </div>
         </div>

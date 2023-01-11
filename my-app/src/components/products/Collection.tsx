@@ -6,6 +6,7 @@ import Cards from './Cards';
 import { useForm } from 'react-hook-form';
 import { Form, FormCheck } from 'react-bootstrap';
 import { Product } from '../../TSType';
+import Spinner from 'react-bootstrap/Spinner';
 
 type FormType = {
     "men"?: boolean;
@@ -29,6 +30,7 @@ export default function Collection() {
     useEffect(() => {
         setChooseAll(true);
         getChooseCheckbox();
+        setIsLoaded(true);
         const getProduct = async () => {
             const res = await axios.get('/category', {
                 params: {
@@ -37,6 +39,7 @@ export default function Collection() {
             })
             setServerItems(res.data);
             setItems(res.data);
+            setIsLoaded(false);
         }
         getProduct();
     }, [CategoryId]);
@@ -47,7 +50,6 @@ export default function Collection() {
             .map(el => el[0]);
 
         let res: Product[] = [];
-
         serverItems.forEach((el: Product) => {
             if (entries.length === 1 && (entries.includes('women') || entries.includes('men'))) {
                 return el.category === entries[0] ? res.push(el) : null;
@@ -108,89 +110,101 @@ export default function Collection() {
                 <p className='text-center'>Type clothes</p>
                 <p className='invalid' onClick={handlerAll}>{chooseAll ? 'Clear all' : 'Choose all'}</p>
                 <Form onSubmit={onSubmitType} className="filter-form">
-                    {
-                        categoryTypeAll.includes(CategoryId as string)
-                        &&
-                        <>
-                            <Form.Group
-                                controlId="men"
-                            >
-                                <FormCheck id="men" label={getName("men", "Men`s")}
-                                    type="switch"
-                                    {...register("men")}
-                                />
-                            </Form.Group>
-                            <Form.Group
-                                controlId="women"
-                            >
-                                <FormCheck id="women" label={getName("women", "Women`s")}
-                                    type="switch"
-                                    {...register("women")}
-                                />
-                            </Form.Group>
-                            <hr />
-                        </>
-                    }
-                    {
-                        (CategoryId === 'women'
-                            ||
-                            (categoryTypeAll.includes(CategoryId as string) && watch('women')))
-                        &&
-                        <>
-                            <Form.Group
-                                controlId="dresses"
-                            >
-                                <FormCheck id="dresses" label={getName("dresses")}
-                                    {...register("dresses")}
-                                />
-                            </Form.Group>
-                            <Form.Group
-                                controlId="skirt"
-                            >
-                                <FormCheck id="skirt" label={getName("skirt")}
-                                    {...register("skirt")}
-                                />
-                            </Form.Group>
-                        </>
-                    }
-                    <Form.Group
-                        controlId="jacket"
-                    >
-                        <FormCheck id="jacket" label={getName("jacket")}
-                            {...register("jacket")}
-                        />
-                    </Form.Group>
-                    <Form.Group
-                        controlId="shorts"
-                    >
-                        <FormCheck id="shorts" label={getName("shorts")}
-                            {...register("shorts")}
-                        />
-                    </Form.Group>
-                    <Form.Group
-                        controlId="t-shirt"
-                    >
-                        <FormCheck id="t-shirt" label={getName("t-shirt")}
-                            {...register("t-shirt")}
-                        />
-                    </Form.Group>
-                    <button className='M-btn btn-green center' onClick={onSubmitType}>
+                    <div className='filter-form-check'>
+                        {
+                            categoryTypeAll.includes(CategoryId as string)
+                            &&
+                            <div>
+                                <Form.Group
+                                    controlId="men"
+                                >
+                                    <FormCheck id="men" label={getName("men", "Men`s")}
+                                        type="switch"
+                                        {...register("men")}
+                                    />
+                                </Form.Group>
+                                <Form.Group
+                                    controlId="women"
+                                >
+                                    <FormCheck id="women" label={getName("women", "Women`s")}
+                                        type="switch"
+                                        {...register("women")}
+                                    />
+                                </Form.Group>
+                                <hr />
+                            </div>
+                        }
+                        {
+                            (CategoryId === 'women'
+                                ||
+                                (categoryTypeAll.includes(CategoryId as string) && watch('women')))
+                            &&
+                            <div>
+                                <Form.Group
+                                    controlId="dresses"
+                                >
+                                    <FormCheck id="dresses" label={getName("dresses")}
+                                        {...register("dresses")}
+                                    />
+                                </Form.Group>
+                                <Form.Group
+                                    controlId="skirt"
+                                >
+                                    <FormCheck id="skirt" label={getName("skirt")}
+                                        {...register("skirt")}
+                                    />
+                                </Form.Group>
+                            </div>
+                        }
+                        <Form.Group
+                            controlId="jacket"
+                            className='main-chack'
+                        >
+                            <FormCheck id="jacket" label={getName("jacket")}
+                                {...register("jacket")}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            controlId="shorts"
+                            className='main-chack'
+                        >
+                            <FormCheck id="shorts" label={getName("shorts")}
+                                {...register("shorts")}
+                            />
+                        </Form.Group>
+                        <Form.Group
+                            controlId="t-shirt"
+                            className='main-chack'
+                        >
+                            <FormCheck id="t-shirt" label={getName("t-shirt")}
+                                {...register("t-shirt")}
+                            />
+                        </Form.Group>
+                    </div>
+                    <button className='M-btn btn-green' onClick={onSubmitType}>
                         Show
                     </button>
                 </Form>
             </div>
-            <div className='rating-cards-container'>
-                {
-                    items
-                        ?
-                    <Cards items={items} />
-                        :
-                    <div>
-                        <p>Sorry products not found.</p>
-                        <p>Choose a different category or type of clothing.</p>
-                    </div>
-                }
-            </div>
+            {isLoaded
+                ?
+                <div className='loading'>
+                    <Spinner animation="border" variant="success" />
+                </div>
+                :
+                <div className='rating-cards-container'>
+                    {
+                        items
+                            ?
+                            <Cards items={items} />
+                            :
+                            <div>
+                                <p>Sorry products not found.</p>
+                                <p>Choose a different category or type of clothing.</p>
+                            </div>
+                    }
+                </div>
+            }
         </div>
     )
 }

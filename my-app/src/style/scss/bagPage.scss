@@ -15,6 +15,7 @@ table{
     display: flex;
     gap:5%;
     justify-content: center;
+    flex-wrap: wrap;
     font-size: 14px;
 
     .M-btn{
@@ -25,13 +26,18 @@ table{
         padding: 0 15px;
     }
 }
-
+th{
+    div{
+        margin-top: 20px;
+    }
+}
 
 .bag-img{
     width: 80px;
     height: 110px;
 }
 .bag-name{
+    margin-top: 0!important;
     display: flex;
     gap: 10%;
     align-items: center;
@@ -42,4 +48,48 @@ table{
     padding: 10px 25px;
     line-height: 30px;
     max-height: 200px;
+}
+@media screen and (max-width: 950px) {
+    .result-card{
+        padding: 10px 15px;
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    // .bag-container{
+    //     flex-direction: column;
+    // }
+    .bag-img{
+        width: 5vw;
+        height: 8vw;
+    }
+    .mb-30{
+        margin: 30px 5%;
+    }
+
+}
+@media screen and (max-width: 435px) {
+    .mb-30{
+        margin: 30px 3%;
+    }
+    .bag-img{
+        display: none;
+    }
+    th{
+        font-size: 12px!important;
+
+    }
+    .M-btn {
+        margin-top: 10px;
+        line-height: 20px!important;
+        font-size: 12px!important;
+        text-align: center;
+        padding: 0 10px!important;
+    }
+    th{
+        div{
+            margin-top: 10px;
+        }
+    }
 }

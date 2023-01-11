@@ -7,13 +7,16 @@
 
     h2 {
         font-weight: 900;
+        max-width: 800px;
     }
 
     .card-product {
         display: flex;
-        gap: 30px;
+        gap: 20px;
         flex-direction: row;
         margin-top: 30px;
+        flex-wrap: wrap;
+        justify-content: center
     }
 
     .main-img {
@@ -48,6 +51,7 @@
 
     .header {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         gap: 30px;
         margin-bottom: 10px;
@@ -84,29 +88,28 @@
         color: #787A80;
     }
     .count-bag{
-        text-align: end;
         font-size: 13px;
         background-color: rgba(30, 230, 163, 0.502);
         padding: 5px 7px;
-        display: inline;
-        margin-left: 25vw;
+    
 
     }
 
     .bag-container,
     form {
         display: flex;
-        flex-wrap: wrap;
         gap: 20px;
+        align-items: flex-end;
         
     }
 
     .bag-container {
-        margin: 40px 0;
+        margin: 30px 0;
     }
 
     input {
         width: 80px;
+        max-height: 40px;
     }
 
     text {
@@ -137,11 +140,5 @@
 
 }
 @media screen and (max-width: 700px) {
-    .card-1 {
-        flex-direction: column;
-        .header{
-            flex-direction: column-reverse;
-        }
-
-}
+ 
 }

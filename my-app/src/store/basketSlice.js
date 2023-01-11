@@ -1,6 +1,5 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import routes from '../routes/routes';
 /* eslint-disable no-param-reassign */
 
 export const getDataBasket = createAsyncThunk('/basket/getMyBasket', async (payload) => {
@@ -9,7 +8,6 @@ export const getDataBasket = createAsyncThunk('/basket/getMyBasket', async (payl
         payload
     }
 });
-console.log(res.data)
   return res.data;
 });
 
@@ -36,13 +34,11 @@ const basketSlice = createSlice({
     builder
       .addCase(getDataBasket.fulfilled, (state, action) => {
         const {payload} = action;
-        console.log(payload)
         basketAdapter.setAll(state, payload?.map(v=>({id: v.product._id, product: v.product, quantity: v.quantity})))
         state.isLoading = false;
         state.loadingError = null;
       })
       .addCase(getDataBasket.pending, (state) => {
-        console.log(`загрузка: ${state.isLoading}`);
         state.isLoading = true;
         state.loadingError = null;
       })
@@ -53,12 +49,8 @@ const basketSlice = createSlice({
       });
   },
 });
-console.log(basketAdapter)
 export const selectors = basketAdapter.getSelectors((state) => state.basket);
 export const getBasket = (state) => selectors.selectAll(state);
-// export const getLikeId = (state) => selectors.selectIds(state);
-// export const getLoading = ((state) => state.channels.isLoading);
-// export const getActiveChannel = (state) => state.channels.id;
 
 export const {
   addProductToBasket, deleteProductToBasket, updateProductToBasket, deleteAllProductToBasket

@@ -56,9 +56,9 @@ class authController {
                 { fullName: fullName, email: email }
             )
             const user = await User.findOne({ _id: userId })
-            res.status(200).json({ message: 'user data changed successfully', ...user._doc })
+            res.status(200).json({ message: 'User changed successfully', ...user._doc })
         } catch (e) {
-            res.status(400).json({ message: 'UpdateUser error' })
+            res.status(400).json({ error: 'UpdateUser error' })
         }
     }
 }

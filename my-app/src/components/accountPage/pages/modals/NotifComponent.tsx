@@ -13,6 +13,7 @@ export default function NotifComponent({ show, setShowModal }: ModalProps) {
         setShowModal('');
         navigate('/');
     };
+    
     return (
         <Modal show={!!show} onHide={()=>setShowModal('')}>
             <Modal.Header closeButton>

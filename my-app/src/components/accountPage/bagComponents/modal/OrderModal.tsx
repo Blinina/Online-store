@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../../store/modalSlice";
+import { showModal } from "../../../../store/modalSlice";
 
 type ModalProps = {
     openOrderModal: any,
