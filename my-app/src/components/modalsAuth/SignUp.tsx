@@ -1,61 +1,61 @@
-import { Modal, Form } from 'react-bootstrap';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useAuth } from '../../context/authContext';
-import { EMAIL_REGEXP } from '../../helpers';
-import { closeModal } from '../../store/modalSlice';
-import { useDispatch } from 'react-redux';
+import { Modal, Form } from 'react-bootstrap'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useAuth } from '../../context/authContext'
+import { EMAIL_REGEXP } from '../../helpers'
+import { closeModal } from '../../store/modalSlice'
+import { useDispatch } from 'react-redux'
 
-type ModalProps = {
-    openSignUP: boolean,
-    setOpenSignUP: (value: boolean) => void,
-};
+interface ModalProps {
+  openSignUP: boolean
+  setOpenSignUP: (value: boolean) => void
+}
 
-type FormValues = {
-    fullName: string;
-    email: string;
-    password: string;
-    conformPassword: string;
-    role: string;
-};
+interface FormValues {
+  fullName: string
+  email: string
+  password: string
+  conformPassword: string
+  role: string
+}
 
-export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({});
-    const [errorAuth, setErrorAuth] = useState();
-    const auth = useAuth();
-    const dispatch = useDispatch();
+export default function SignUp ({ openSignUP, setOpenSignUP }: ModalProps) {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({})
+  const [errorAuth, setErrorAuth] = useState()
+  const auth = useAuth()
+  const dispatch = useDispatch()
 
-    const handleSignIn = () => {
-        setOpenSignUP(false);
-        dispatch(closeModal());
-    };
-    
-    const onSubmit = handleSubmit(async (data) => {
-        try {
-            const res = await fetch(`/user/registration`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data)
-            });
-            let result = await res.json();
-            if (result.message) {
-                setErrorAuth(result.message)
-            } else {
-                auth?.logIn(result);
-                setOpenSignUP(false);
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    });
+  const handleSignIn = () => {
+    setOpenSignUP(false)
+    dispatch(closeModal())
+  }
 
-    return (
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const res = await fetch('/user/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+      })
+      const result = await res.json()
+      if (result.message) {
+        setErrorAuth(result.message)
+      } else {
+        auth?.logIn(result)
+        setOpenSignUP(false)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  })
+
+  return (
         <>
-            <Modal show={openSignUP} onHide={() => setOpenSignUP(false)}>
+            <Modal show={openSignUP} onHide={() => { setOpenSignUP(false) }}>
                 <Modal.Header>
-                    <button type="button" className="btn-close" aria-label="Close" onClick={() => setOpenSignUP(false)}></button>
+                    <button type="button" className="btn-close" aria-label="Close" onClick={() => { setOpenSignUP(false) }}></button>
                     <div><h3>Sign up</h3></div>
                     <div><p className='form-decription'>Registration takes less than a minute but gives you full control over your orders.</p></div>
                 </Modal.Header>
@@ -66,33 +66,37 @@ export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Control size="sm"
                                 type="text"
                                 placeholder="Your name"
-                                className={(errorAuth || errors.fullName) && 'is-invalid'}
+                                className={(errorAuth || (errors.fullName != null)) && 'is-invalid'}
                                 autoFocus
-                                {...register("fullName", {
-                                    required: {
-                                        value: true,
-                                        message: 'Name is required'
-                                    },
+                                {...register('fullName', {
+                                  required: {
+                                    value: true,
+                                    message: 'Name is required'
+                                  },
+                                  maxLength: {
+                                    value: 8,
+                                    message: 'Max length 8'
+                                  }
                                 })} />
-                            {errors.fullName && <span className="danger">{errors.fullName.message}</span>}
+                            {(errors.fullName != null) && <span className="danger">{errors.fullName.message}</span>}
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control size="sm"
                                 type="email"
                                 placeholder="Your working email"
-                                className={(errorAuth || errors.email) && 'is-invalid'}
-                                {...register("email", {
-                                    required: {
-                                        value: true,
-                                        message: 'Email is required'
-                                    },
-                                    validate: {
-                                        value: v => EMAIL_REGEXP.test(v) || 'Invalid e-mail'
-                                    }
+                                className={(errorAuth || (errors.email != null)) && 'is-invalid'}
+                                {...register('email', {
+                                  required: {
+                                    value: true,
+                                    message: 'Email is required'
+                                  },
+                                  validate: {
+                                    value: v => EMAIL_REGEXP.test(v) || 'Invalid e-mail'
+                                  }
                                 })}
                             />
-                            {errors.email && <span className="danger">{errors.email.message}</span>}
+                            {(errors.email != null) && <span className="danger">{errors.email.message}</span>}
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -100,15 +104,15 @@ export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Label>Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                className={(errorAuth || errors.password) && 'is-invalid'}
-                                {...register("password", {
-                                    required: {
-                                        value: true,
-                                        message: 'Password is required'
-                                    },
+                                className={(errorAuth || (errors.password != null)) && 'is-invalid'}
+                                {...register('password', {
+                                  required: {
+                                    value: true,
+                                    message: 'Password is required'
+                                  }
                                 })}
                             />
-                            {errors.password && <span className="danger">{errors.password.message}</span>}
+                            {(errors.password != null) && <span className="danger">{errors.password.message}</span>}
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
@@ -116,25 +120,25 @@ export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                className={(errorAuth || errors.conformPassword) && 'is-invalid'}
-                                {...register("conformPassword", {
-                                    required: {
-                                        value: true,
-                                        message: 'Confirm Password is required'
-                                    },
-                                    validate: {
-                                        value: v => v === watch('password') || 'Password mismatch',
-                                    }
+                                className={(errorAuth || (errors.conformPassword != null)) && 'is-invalid'}
+                                {...register('conformPassword', {
+                                  required: {
+                                    value: true,
+                                    message: 'Confirm Password is required'
+                                  },
+                                  validate: {
+                                    value: v => v === watch('password') || 'Password mismatch'
+                                  }
                                 })}
                             />
-                            {errors.conformPassword && <span className="danger">{errors.conformPassword.message}</span>}
+                            {(errors.conformPassword != null) && <span className="danger">{errors.conformPassword.message}</span>}
                         </Form.Group>
                         <Form.Group
                             controlId="role"
                             className="mb-3">
                             <Form.Label>You role</Form.Label>
                             <Form.Select size="sm"
-                                {...register("role")} >
+                                {...register('role')} >
                                 <option>Customer</option>
                                 <option>Seller</option>
                             </Form.Select>
@@ -150,5 +154,5 @@ export default function SignUp({ openSignUP, setOpenSignUP }: ModalProps) {
                 </Modal.Footer>
             </Modal>
         </>
-    );
+  )
 }

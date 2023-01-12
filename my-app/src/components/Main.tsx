@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import women from "../assets/images/women.jpg";
-import men from "../assets/images/men.jpg";
+import { useNavigate } from 'react-router-dom'
+import women from '../assets/images/women.jpg'
+import men from '../assets/images/men.jpg'
 
-export default function Main() {
-  const navigate = useNavigate();
+export default function Main () {
+  const navigate = useNavigate()
   return (
     <>
       <section id="header" className="header bg">
@@ -13,7 +13,7 @@ export default function Main() {
             <h1 className="main-text">Wear 2023</h1>
             <button
               className="M-btn btn-green"
-              onClick={() => navigate("/collection/newColection")}
+              onClick={() => { navigate('/collection/newColection') }}
             >
               Shop now
             </button>
@@ -22,16 +22,16 @@ export default function Main() {
       </section>
       <section id="tree-category">
         <div className="tree-category">
-          <figure onClick={() => navigate("/collection/women")}>
+          <figure onClick={() => { navigate('/collection/women') }}>
             <img src={women} alt="womens" />
             <figcaption>Women’s</figcaption>
           </figure>
-          <figure onClick={() => navigate("/collection/men")}>
+          <figure onClick={() => { navigate('/collection/men') }}>
             <img src={men} alt="mens" />
             <figcaption>Men’s</figcaption>
           </figure>
         </div>
       </section>
     </>
-  );
+  )
 }

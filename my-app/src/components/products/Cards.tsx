@@ -1,138 +1,131 @@
-import like from "../../assets/images/Like.png";
-import blackLike from "../../assets/images/blackLike.png";
-import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
-import { ChangeEvent, useEffect, useState } from "react";
-import { buildName, getNewPrice } from "../../helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { addLikeStore, deleteLikeStore, getLike } from "../../store/likeSlice";
-import { addLikeAPI, deleteLikeAPI } from "../../http/likeAPI";
-import { Product } from "../../TSType";
+import like from '../../assets/images/Like.png'
+import blackLike from '../../assets/images/blackLike.png'
+import { Form } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/authContext'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { buildName, getNewPrice } from '../../helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import { addLikeStore, deleteLikeStore, getLike } from '../../store/likeSlice'
+import { addLikeAPI, deleteLikeAPI } from '../../http/likeAPI'
+import { Product } from '../../TSType'
 
-export interface CardProps {
-    [key: string]: any;
-}
-
-interface sortingType {
-    [key: string]: (elem: Product[]) => Product[];
-}
+type sortingType = Record<string, (elem: Product[]) => Product[]>
 
 const sortingVariant: sortingType = {
-    none: (elem: Product[]) => elem,
-    Rating: (elem: Product[]) =>
-        elem.sort((a: Product, b: Product) => b.rating - a.rating),
-    Price: (elem: Product[]) =>
-        elem.sort((a: Product, b: Product) => b.price - a.price),
-};
+  none: (elem: Product[]) => elem,
+  Rating: (elem: Product[]) =>
+    elem.sort((a: Product, b: Product) => b.rating - a.rating),
+  Price: (elem: Product[]) =>
+    elem.sort((a: Product, b: Product) => b.price - a.price)
+}
 
-export default function Cards({ items }: CardProps) {
-    const navigate = useNavigate();
-    const auth = useAuth();
+export default function Cards ({ items }: any) {
+  const navigate = useNavigate()
+  const auth = useAuth()
+  const dispatch = useDispatch()
+  const [products, setProducts] = useState(items)
+  const [sorting, setSorting] = useState('none')
 
-    const dispatch = useDispatch();
-    const [products, setProducts] = useState(items);
-    const [sorting, setSorting] = useState("none");
+  useEffect(() => {
+    setProducts(items)
+  }, [items])
 
-    useEffect(() => {
-        setProducts(items);
-    }, [items]);
+  const likeItems = useSelector(getLike)
+  const likeArr = likeItems?.map(({ id }) => id)
 
-    const likeItems = useSelector(getLike);
-    const likeArr = likeItems?.map(({ id }) => id);
+  const addLike = async (el: Product) => {
+    dispatch(addLikeStore({ id: el._id, product: el }))
+    ;((auth?.loggedIn) != null) && addLikeAPI(auth?.loggedIn._id, el._id)
+  }
 
-    const addLike = async (el: Product) => {
-        dispatch(addLikeStore({ id: el._id, product: el }));
-        auth?.loggedIn && addLikeAPI(auth?.loggedIn._id, el._id);
-    };
+  const deleteLike = async (el: Product) => {
+    dispatch(deleteLikeStore({ id: el._id }))
+    ;((auth?.loggedIn) != null) && deleteLikeAPI(auth?.loggedIn._id, el._id)
+  }
 
-    const deleteLike = async (el: Product) => {
-        dispatch(deleteLikeStore({ id: el._id }));
-        auth?.loggedIn && deleteLikeAPI(auth?.loggedIn._id, el._id);
-    };
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target
+    setSorting(value)
+    const result = sortingVariant[value](items)
+    setProducts(result)
+  }
 
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        const { value } = e.target;
-        console.log(value);
-        setSorting(value);
-        const result = sortingVariant[value as string](items);
-        setProducts(result);
-    };
-
-    return (
-        <>
-            <div className="sortind">
-                <Form>
-                    <Form.Group controlId="sortind">
-                        <Form.Label>Sort by</Form.Label>
-                        <Form.Select
-                            size="sm"
-                            value={sorting}
-                            onChange={(e) => handleChange(e)}
-                        >
-                            <option value="none" disabled>
-                                none
-                            </option>
-                            <option value="Rating">Rating</option>
-                            <option value="Price">Price</option>
-                        </Form.Select>
-                        <button type="submit" className="none"></button>
-                    </Form.Group>
-                </Form>
-            </div>
-            <div className="cards">
-                {products?.map((el: Product) => (
-                    <div className="card-collection" key={el._id}>
-                        <figure>
-                            <div className="images">
-                                <img
-                                    src={el.image[0]}
-                                    onClick={() => navigate(`/product/${el._id}`)}
-                                    onMouseOver={(e) => (e.currentTarget.src = el.image[1])}
-                                    onMouseOut={(e) => (e.currentTarget.src = el.image[0])}
-                                    alt={el.title}
-                                />
-                                {el.sales.sales && (
-                                    <div className="sales-banner">{el.sales.count} %</div>
-                                )}
-                                {el.newColection && (
-                                    <div
-                                        className="new-collection"
-                                        onClick={() => navigate("/collection/newColection")}
-                                    >
-                                        New collection
-                                    </div>
-                                )}
-                                <div className="container-card-like">
-                                    <img
-                                        src={likeArr.includes(el._id) ? blackLike : like}
-                                        alt="like"
-                                        onClick={() =>
-                                            likeArr.includes(el._id) ? deleteLike(el) : addLike(el)
-                                        }
-                                        className="card-like"
-                                    />
-                                </div>
-                            </div>
-                            <figcaption onClick={() => navigate(`/product/${el._id}`)}>
-                                <p className="card-title">{buildName(el.title)}</p>
-                                <div>
-                                    {el.sales.sales ? (
-                                        <div className="sales-price">
-                                            <p className="price new-price">
-                                                ${getNewPrice(el.price, el.sales.count)}
-                                            </p>
-                                            <p className="old-price">${el.price}</p>
-                                        </div>
-                                    ) : (
-                                        <p className="price static-price">${el.price}</p>
-                                    )}
-                                </div>
-                            </figcaption>
-                        </figure>
+  return (
+    <>
+      <div className="sortind">
+        <Form>
+          <Form.Group controlId="sortind">
+            <Form.Label>Sort by</Form.Label>
+            <Form.Select
+              size="sm"
+              value={sorting}
+              onChange={(e) => { handleChange(e) }}
+            >
+              <option value="none" disabled>
+                none
+              </option>
+              <option value="Rating">Rating</option>
+              <option value="Price">Price</option>
+            </Form.Select>
+            <button type="submit" className="none"></button>
+          </Form.Group>
+        </Form>
+      </div>
+      <div className="cards">
+        {products?.map((el: Product) => (
+          <div className="card-collection" key={el._id}>
+            <figure>
+              <div className="images">
+                <img
+                  src={el.image[0]}
+                  onClick={() => { navigate(`/product/${el._id}`) }}
+                  onMouseOver={(e) => (e.currentTarget.src = el.image[1])}
+                  onMouseOut={(e) => (e.currentTarget.src = el.image[0])}
+                  alt={el.title}
+                />
+                {el.sales.sales && (
+                  <div className="sales-banner">{el.sales.count} %</div>
+                )}
+                {el.newColection && (
+                  <div
+                    className="new-collection"
+                    onClick={() => { navigate('/collection/newColection') }}
+                  >
+                    New collection
+                  </div>
+                )}
+                <div className="container-card-like">
+                  <img
+                    src={likeArr.includes(el._id) ? blackLike : like}
+                    alt="like"
+                    onClick={async () => { likeArr.includes(el._id) ? await deleteLike(el) : await addLike(el) }
+                    }
+                    className="card-like"
+                  />
+                </div>
+              </div>
+              <figcaption onClick={() => { navigate(`/product/${el._id}`) }}>
+                <p className="card-title">{buildName(el.title)}</p>
+                <div>
+                  {el.sales.sales
+                    ? (
+                    <div className="sales-price">
+                      <p className="price new-price">
+                        ${getNewPrice(el.price, el.sales.count)}
+                      </p>
+                      <p className="old-price">${el.price}</p>
                     </div>
-                ))}
-            </div>
-        </>
-    );
+                      )
+                    : (
+                    <p className="price static-price">${el.price}</p>
+                      )}
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }

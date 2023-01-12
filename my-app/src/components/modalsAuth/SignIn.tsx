@@ -1,56 +1,57 @@
-import { useState } from "react";
-import { Modal, Form } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useAuth } from "../../context/authContext";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/modalSlice";
+import { useState } from 'react'
+import { Modal, Form } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { useAuth } from '../../context/authContext'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { closeModal } from '../../store/modalSlice'
+import store, { RootState } from '../../store/store'
 
-type ModalProps = {
-  setOpenSignUP: (value: boolean) => void;
-};
-type FormValues = {
-  email: string;
-  password: string;
-  role: string;
-};
+interface ModalProps {
+  setOpenSignUP: (value: boolean) => void
+}
+interface FormValues {
+  email: string
+  password: string
+  role: string
+}
 
-export default function SignIn({ setOpenSignUP }: ModalProps) {
-  const auth = useAuth();
-  const dispatch = useDispatch();
-  const [errorAuth, setErrorAuth] = useState();
+export default function SignIn ({ setOpenSignUP }: ModalProps) {
+  const auth = useAuth()
+  const dispatch = useDispatch()
+  const [errorAuth, setErrorAuth] = useState()
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({});
+    formState: { errors }
+  } = useForm<FormValues>({})
   const onSubmit = handleSubmit(async (data) => {
     try {
-      let res = await fetch(`/user/login`, {
-        method: "POST",
+      const res = await fetch('/user/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json;charset=utf-8",
+          'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(data),
-      });
-      let result = await res.json();
+        body: JSON.stringify(data)
+      })
+      const result = await res.json()
       if (result.message) {
-        setErrorAuth(result.message);
+        setErrorAuth(result.message)
       } else {
-        auth?.logIn(result);
-        dispatch(closeModal());
+        auth?.logIn(result)
+        dispatch(closeModal())
       }
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  });
+  })
 
   const handleSignUP = () => {
-    setOpenSignUP(true);
-    dispatch(closeModal());
-  };
+    setOpenSignUP(true)
+    dispatch(closeModal())
+  }
 
-  const sliceOpen = useSelector((store) => store.modal.show);
+  const sliceOpen = useSelector((store: RootState) => store.modal.show)
   return (
     <>
       <Modal show={sliceOpen} onHide={() => dispatch(closeModal())}>
@@ -79,16 +80,16 @@ export default function SignIn({ setOpenSignUP }: ModalProps) {
                 size="sm"
                 type="email"
                 placeholder="Your working email"
-                className={(errorAuth || errors.email) && "is-invalid"}
+                className={(errorAuth || (errors.email != null)) && 'is-invalid'}
                 autoFocus
-                {...register("email", {
+                {...register('email', {
                   required: {
                     value: true,
-                    message: "Email is required",
-                  },
+                    message: 'Email is required'
+                  }
                 })}
               />
-              {errors.email && (
+              {(errors.email != null) && (
                 <span className="danger">{errors.email.message}</span>
               )}
             </Form.Group>
@@ -97,21 +98,21 @@ export default function SignIn({ setOpenSignUP }: ModalProps) {
               <Form.Control
                 size="sm"
                 type="password"
-                className={(errorAuth || errors.password) && "is-invalid"}
-                {...register("password", {
+                className={(errorAuth || (errors.password != null)) && 'is-invalid'}
+                {...register('password', {
                   required: {
                     value: true,
-                    message: "Password is required",
-                  },
+                    message: 'Password is required'
+                  }
                 })}
               />
-              {errors.password && (
+              {(errors.password != null) && (
                 <span className="danger">{errors.password.message}</span>
               )}
             </Form.Group>
             <Form.Group controlId="role" className="mb-3">
               <Form.Label>You role</Form.Label>
-              <Form.Select size="sm" {...register("role", { required: true })}>
+              <Form.Select size="sm" {...register('role', { required: true })}>
                 <option>Customer</option>
                 <option>Seller</option>
               </Form.Select>
@@ -125,7 +126,7 @@ export default function SignIn({ setOpenSignUP }: ModalProps) {
           </button>
           <div>
             <p>
-              Don't have an account?{" "}
+              Don't have an account?{' '}
               <span className="go-modal" onClick={handleSignUP}>
                 Sign up
               </span>
@@ -134,5 +135,5 @@ export default function SignIn({ setOpenSignUP }: ModalProps) {
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }

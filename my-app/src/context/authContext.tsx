@@ -1,46 +1,45 @@
 import {
-  createContext, SetStateAction, useContext, useState,
-} from 'react';
+  createContext, ReactNode, SetStateAction, useContext, useState
+} from 'react'
 
-export type typeLoggedIn = {
-  fullName: string,
-  email: string,
-  password: string,
-  "role": string,
-  "_id": string,
-  __v: string,
-  token: string,
+export interface typeLoggedIn {
+  fullName: string
+  email: string
+  password: string
+  'role': string
+  '_id': string
+  __v: string
+  token: string
 }
-export type typeAuthContent = {
-  getUsername: () => string | null;
-  logIn: (data: any) => void;
-  logOut: () => void;
-  loggedIn: typeLoggedIn | null;
+export interface typeAuthContent {
+  getUsername: () => string | null
+  logIn: (data: any) => void
+  logOut: () => void
+  loggedIn: typeLoggedIn | null
 }
 
-const AuthContext = createContext<typeAuthContent | null>(null);
+const AuthContext = createContext<typeAuthContent | null>(null)
 
-export default function AuthProvider({ children }: any) {
-  const userLoggin: any = JSON.parse(localStorage.getItem('user') || '{}');
-  const [loggedIn, setLoggedIn] = useState<typeLoggedIn | null>(userLoggin !== '{}' ? { ...userLoggin } : null);
+export default function AuthProvider ({ children }: { children: ReactNode }) {
+  const userLoggin: any = JSON.parse(localStorage.getItem('user') || '{}')
+  const [loggedIn, setLoggedIn] = useState<typeLoggedIn | null>(userLoggin !== '{}' ? { ...userLoggin } : null)
 
   const logIn = (data: SetStateAction<typeLoggedIn | null>) => {
-    localStorage.setItem('user', JSON.stringify(data));
-    setLoggedIn({ ...data as typeLoggedIn });
-  };
+    localStorage.setItem('user', JSON.stringify(data))
+    setLoggedIn({ ...data as typeLoggedIn })
+  }
 
   const logOut = () => {
-    localStorage.removeItem('user');
-    setLoggedIn(null);
-  };
-
+    localStorage.removeItem('user')
+    setLoggedIn(null)
+  }
 
   const getUsername = () => {
     if (userLoggin) {
-      return userLoggin.fullName;
+      return userLoggin.fullName
     }
-    return null;
-  };
+    return null
+  }
 
   return (
     <AuthContext.Provider value={{
@@ -49,6 +48,6 @@ export default function AuthProvider({ children }: any) {
     >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext)

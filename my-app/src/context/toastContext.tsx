@@ -1,29 +1,29 @@
-import { createContext, useContext } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { createContext, ReactNode, useContext } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 
-type typeToastContent = {
-    successToast: (data: string) => void;
-    errorToast: (data: string) => void;
+interface TypeToastContent {
+  successToast: (data: string) => void
+  errorToast: (data: string) => void
 }
 
-const ToastifyContext = createContext<typeToastContent>({
-    successToast: function (data: string): void {
-        throw new Error('Function not implemented.');
-    },
-    errorToast: function (data: string): void {
-        throw new Error('Function not implemented.');
-    }
-});
+const ToastifyContext = createContext<TypeToastContent>({
+  successToast: function (data: string): void {
+    throw new Error('Function not implemented.')
+  },
+  errorToast: function (data: string): void {
+    throw new Error('Function not implemented.')
+  }
+})
 
-export function ToastifyProvider({ children }: any) {
-    const successToast = (message: string) => toast.success(message);
-    const errorToast = (message: string) => toast.error(message);
-    return (
+export function ToastifyProvider ({ children }: { children: ReactNode }) {
+  const successToast = (message: string) => toast.success(message)
+  const errorToast = (message: string) => toast.error(message)
+  return (
         <ToastifyContext.Provider value={{ successToast, errorToast }}>
             <ToastContainer />
             {children}
         </ToastifyContext.Provider>
-    );
+  )
 }
 
-export const useToastify = () => useContext(ToastifyContext);
+export const useToastify = () => useContext(ToastifyContext)
