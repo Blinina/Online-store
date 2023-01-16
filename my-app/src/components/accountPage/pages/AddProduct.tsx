@@ -64,7 +64,7 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="Product name"
-                className={((errors?.title) != null) && 'is-invalid'}
+                className={((errors?.title) != null) ? 'is-invalid' : ''}
                 autoFocus
                 {...register('title', {
                   required: {
@@ -83,7 +83,7 @@ export default function AddProduct () {
                 size="sm"
                 type="number"
                 min="0"
-                className={((errors?.price) != null) && 'is-invalid'}
+                className={((errors?.price) != null) ? 'is-invalid' : ''}
                 placeholder="Product price"
                 {...register('price', {
                   required: {
@@ -106,7 +106,7 @@ export default function AddProduct () {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 size="sm"
-                className={((errors?.category) != null) && 'is-invalid'}
+                className={((errors?.category) != null) ? 'is-invalid' : ''}
                 {...register('category', {
                   required: {
                     value: true,
@@ -129,7 +129,7 @@ export default function AddProduct () {
               <Form.Label>Type</Form.Label>
               <Form.Select
                 size="sm"
-                className={((errors?.type) != null) && 'is-invalid'}
+                className={((errors?.type) != null) ? 'is-invalid' : ''}
                 {...register('type', {
                   required: {
                     value: true,
@@ -162,7 +162,7 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="First image`s URL"
-                className={((errors?.image1) != null) && 'is-invalid'}
+                className={((errors?.image1) != null) ? 'is-invalid' : ''}
                 {...register('image1', {
                   required: {
                     value: true,
@@ -180,7 +180,7 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="Second image`s URL"
-                className={((errors?.image2) != null) && 'is-invalid'}
+                className={((errors?.image2) != null) ? 'is-invalid' : ''}
                 {...register('image2', {
                   required: {
                     value: true,
@@ -200,7 +200,7 @@ export default function AddProduct () {
               type="number"
               min="0"
               max="5"
-              className={((errors?.rating) != null) && 'is-invalid'}
+              className={((errors?.rating) != null) ? 'is-invalid' : ''}
               placeholder="LOL :) come up with"
               {...register('rating', {
                 required: {
@@ -235,7 +235,7 @@ export default function AddProduct () {
                 size="sm"
                 type="number"
                 disabled={!watch('sales.sales')}
-                className={((errors?.sales?.count) != null) && 'is-invalid'}
+                className={((errors?.sales?.count) != null) ? 'is-invalid' : ''}
                 defaultValue="0"
                 {...register('sales.count', {
                   min: {
@@ -264,7 +264,7 @@ export default function AddProduct () {
             <Form.Label>Description</Form.Label>
             <Form.Control
               as="textarea"
-              className={((errors?.description) != null) && 'is-invalid'}
+              className={((errors?.description) != null) ? 'is-invalid' : ''}
               size="sm"
               {...register('description', {
                 required: {

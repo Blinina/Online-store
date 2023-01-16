@@ -66,7 +66,7 @@ export default function SignUp ({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Control size="sm"
                                 type="text"
                                 placeholder="Your name"
-                                className={(errorAuth || (errors.fullName != null)) && 'is-invalid'}
+                                className={(errorAuth || (errors.fullName != null)) ? 'is-invalid' : ''}
                                 autoFocus
                                 {...register('fullName', {
                                   required: {
@@ -85,7 +85,7 @@ export default function SignUp ({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Control size="sm"
                                 type="email"
                                 placeholder="Your working email"
-                                className={(errorAuth || (errors.email != null)) && 'is-invalid'}
+                                className={(errorAuth || (errors.email != null)) ? 'is-invalid' : ''}
                                 {...register('email', {
                                   required: {
                                     value: true,
@@ -104,7 +104,7 @@ export default function SignUp ({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Label>Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                className={(errorAuth || (errors.password != null)) && 'is-invalid'}
+                                className={(errorAuth || (errors.password != null)) ? 'is-invalid' : ''}
                                 {...register('password', {
                                   required: {
                                     value: true,
@@ -120,7 +120,7 @@ export default function SignUp ({ openSignUP, setOpenSignUP }: ModalProps) {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control size="sm"
                                 type="password"
-                                className={(errorAuth || (errors.conformPassword != null)) && 'is-invalid'}
+                                className={(errorAuth || (errors.conformPassword != null)) ? 'is-invalid' : ''}
                                 {...register('conformPassword', {
                                   required: {
                                     value: true,

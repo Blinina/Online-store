@@ -5,7 +5,7 @@ import { useAuth } from '../../context/authContext'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from '../../store/modalSlice'
-import store, { RootState } from '../../store/store'
+import { RootState } from '../../store/store'
 
 interface ModalProps {
   setOpenSignUP: (value: boolean) => void
@@ -80,7 +80,7 @@ export default function SignIn ({ setOpenSignUP }: ModalProps) {
                 size="sm"
                 type="email"
                 placeholder="Your working email"
-                className={(errorAuth || (errors.email != null)) && 'is-invalid'}
+                className={(errorAuth || errors.email != null) ? 'is-invalid' : ''}
                 autoFocus
                 {...register('email', {
                   required: {
@@ -98,7 +98,7 @@ export default function SignIn ({ setOpenSignUP }: ModalProps) {
               <Form.Control
                 size="sm"
                 type="password"
-                className={(errorAuth || (errors.password != null)) && 'is-invalid'}
+                className={(errorAuth || errors.password != null) ? 'is-invalid' : ''}
                 {...register('password', {
                   required: {
                     value: true,

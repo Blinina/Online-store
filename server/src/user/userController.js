@@ -1,7 +1,7 @@
 const User = require('./User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { secret } = require("../config")
+const { secret } = require("../../config")
 
 const generateAccessToken = (id, role) => {
     const payload = {
@@ -15,8 +15,8 @@ class authController {
     async registration(req, res) {
         try {
             const { fullName, email, password, role } = req.body;
-            const candidate = await User.findOne({ email, role })
-            if (candidate) {
+            const isUserExist = await User.findOne({ email, role })
+            if (isUserExist) {
                 return res.status(400).json({ message: "Пользователь с таким email и role уже существует" })
             }
             const hashPassword = bcrypt.hashSync(password, 6);
@@ -32,16 +32,16 @@ class authController {
     async login(req, res) {
         try {
             const { email, password, role } = req.body
-            const user = await User.findOne({ email, role })
-            if (!user) {
+            const isUserExist = await User.findOne({ email, role })
+            if (!isUserExist) {
                 return res.status(400).json({ message: `User with email address ${email} and role ${role} does not exist` })
             }
-            const validPassword = bcrypt.compareSync(password, user.password)
+            const validPassword = bcrypt.compareSync(password, isUserExist.password)
             if (!validPassword) {
                 return res.status(400).json({ message: `The entered password is incorrect` })
             }
-            const token = generateAccessToken(user._id, user.role)
-            res.status(200).json({ token, ...user._doc });
+            const token = generateAccessToken(isUserExist._id, isUserExist.role)
+            res.status(200).json({ token, ...isUserExist._doc });
         } catch (e) {
             console.log(e)
             res.status(400).json({ message: 'Login error' })

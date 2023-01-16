@@ -28,6 +28,13 @@ body {
 	visibility: hidden;
 }
 
+.server-error {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 25% 0;
+}
+
 .none {
 	display: none;
 }

@@ -1,14 +1,14 @@
-const Wishlist = require('./LikeModel');
-const Product = require('../product/Product');
+const Wishlist = require('./LikeModel')
+const Product = require('../product/Product')
 
 class authController {
     async addProduct(req, res) {
         try {
             const { userId, product } = req.body;
-            const candidate = await Wishlist.findOne({ userId })
-            if (candidate) {
+            const isWishlistExist = await Wishlist.findOne({ userId })
+            if (isWishlistExist) {
                 await Wishlist.updateOne(
-                    { _id: candidate._id },
+                    { _id: isWishlistExist._id },
                     { $push: { products: product } }
                 )
                 res.status(200).json({ message: 'вишлист пополнен' })

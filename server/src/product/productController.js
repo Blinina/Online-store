@@ -4,12 +4,11 @@ class authController {
     async addProduct(req, res) {
         try {
             const { title } = req.body;
-            const candidate = await Product.findOne({ title })
-            if (candidate) {
+            const isProductExist = await Product.findOne({ title })
+            if (isProductExist) {
                 return res.status(400).json({ message: "Товар  с таким названием уже существует" })
             }
             const newProduct = new Product({ ...req.body })
-            console.log(newProduct)
             await newProduct.save()
             res.status(200).json({ message: 'продукт успешно добавлен' })
         } catch (e) {
@@ -20,8 +19,8 @@ class authController {
 
     async getCategory(req, res) {
         try {
-            let { CategoryId } = req.query;
-            let product;
+            const { CategoryId } = req.query;
+            let product; 
             if (CategoryId === 'sales') {
                 product = await Product.find({ 'sales.sales': true })
             } else if (CategoryId === 'newColection') {
@@ -38,8 +37,7 @@ class authController {
     }
     async getProduct(req, res) {
         try {
-            let { productId } = req.query;
-            const product = await Product.findOne({ _id: productId })
+            const product = await Product.findOne({ _id: req.query.productId })
             return res.json(product)
         } catch (e) {
             res.status(400).json({ message: 'r' })

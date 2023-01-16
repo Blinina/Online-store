@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { BasketClient, deleteProductToBasket, getBasket } from '../../../store/basketSlice'
 import { deleteProductToBasketAPI } from '../../../http/basketAPI'
-import { Product } from '../../../TSType'
 import { useState } from 'react'
 import OrderModal from './modal/OrderModal'
 import { buildName } from '../../../helpers'
@@ -41,7 +40,7 @@ export default function Bag () {
 
   const handleDelete = async (el: BasketClient) => {
     dispath(deleteProductToBasket({ id: el.product._id }))
-    ;((auth?.loggedIn) != null) && deleteProductToBasketAPI(auth?.loggedIn._id, el.product)
+    if (auth?.loggedIn != null) deleteProductToBasketAPI(auth?.loggedIn._id, el.product)
   }
 
   const handleComplit = () => {

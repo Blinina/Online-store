@@ -3,7 +3,7 @@ import logo from '../assets/images/VectorName.png'
 import like from '../assets/images/Like.png'
 import shop from '../assets/images/shop.png'
 import user from '../assets/images/blackUser.png'
-import { Dispatch, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import SignIn from './modalsAuth/SignIn'
 import SignUp from './modalsAuth/SignUp'
 import { useAuth } from '../context/authContext'
@@ -28,9 +28,8 @@ export default function Nav () {
 
   useEffect(() => {
     if (auth?.loggedIn?._id) {
-      const { _id } = auth?.loggedIn
-      dispatch(getDataLike(_id))
-      dispatch(getDataBasket(_id))
+      dispatch(getDataLike(auth?.loggedIn?._id))
+      dispatch(getDataBasket(auth?.loggedIn?._id))
     }
   }, [auth?.loggedIn?._id, dispatch])
 
