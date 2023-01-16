@@ -26,7 +26,7 @@ import ServerError from '../ServerError'
 interface FormValues {
   quantityValue: number
 }
-export default function Card() {
+export default function Card () {
   const [item, setItem] = useState<Product>()
   const [isLoaded, setIsLoaded] = useState(false)
   const [errorServer, setErrorServer] = useState(false)
@@ -84,32 +84,30 @@ export default function Card() {
           quantity: data.quantityValue
         })
       )
-       if((auth?.loggedIn) != null) addToBasketAPI(auth?.loggedIn._id, item as Product, data.quantityValue)
+    if ((auth?.loggedIn) != null) addToBasketAPI(auth?.loggedIn._id, item as Product, data.quantityValue)
   })
 
   const addLike = async (el: Product) => {
     dispatch(addLikeStore({ id: el._id, product: el }))
-    if((auth?.loggedIn) != null) addLikeAPI(auth?.loggedIn._id, el._id)
+    if ((auth?.loggedIn) != null) addLikeAPI(auth?.loggedIn._id, el._id)
   }
 
   const deleteLike = async (el: Product) => {
     dispatch(deleteLikeStore({ id: el._id }))
-    if((auth?.loggedIn) != null) deleteLikeAPI(auth?.loggedIn._id, el._id)
+    if ((auth?.loggedIn) != null) deleteLikeAPI(auth?.loggedIn._id, el._id)
   }
 
   return (
     <>
       {errorServer
-        ?
-        <ServerError />
-        :
-        <div className="card-1">
+        ? <ServerError />
+        : <div className="card-1">
           {isLoaded
             ? (
               <div className="loading mg-100">
                 <Spinner animation="border" variant="success" />
               </div>
-            )
+              )
             : (
               <>
                 <div>
@@ -147,10 +145,10 @@ export default function Card() {
                               <p className="old-price">${item.price}</p>
                               <div className="sales-banner">-{item.sales.count}%</div>
                             </div>
-                          )
+                            )
                           : (
                             <p className="price static-price">${item?.price}</p>
-                          )}
+                            )}
                       </div>
                       <div className="rating">
                         <div>{drawRating(item?.rating as number)}</div>
@@ -211,7 +209,7 @@ export default function Card() {
                   </div>
                 </div>
               </>
-            )}
+              )}
         </div>
       }
     </>

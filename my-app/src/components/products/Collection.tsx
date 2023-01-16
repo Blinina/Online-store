@@ -17,7 +17,7 @@ interface FormType {
   shorts: boolean
   't-shirt': boolean
 }
-export default function Collection() {
+export default function Collection () {
   const [items, setItems] = useState<Product[]>([])
   const [serverItems, setServerItems] = useState<Product[]>([])
   const [isLoaded, setIsLoaded] = useState(true)
@@ -57,35 +57,33 @@ export default function Collection() {
   }, [CategoryId])
 
   const onSubmitType = handleSubmit((data) => {
-    const entries = Object.entries(data)
+    const userСhoice = Object.entries(data)
       .filter((el) => el[1])
       .map((el) => el[0])
 
     const res = serverItems.map((el: Product) => {
       if (
-        entries.length === 1 &&
-        (entries.includes('women') || entries.includes('men'))
+        userСhoice.length === 1 &&
+        (userСhoice.includes('women') || userСhoice.includes('men'))
       ) {
-        if (el.category === entries[0]) return el
+        if (el.category === userСhoice[0]) return el
       }
       if (
-        entries.length === 2 &&
-        entries.includes('women') &&
-        entries.includes('men')
+        userСhoice.length === 2 &&
+        userСhoice.includes('women') &&
+        userСhoice.includes('men')
       ) {
         setChooseAll(true)
         handlerAll()
-        if (el.category === entries[0]) return el
+        if (el.category === userСhoice[0]) return el
       }
-      if (entries.includes('women') && !entries.includes('men')) {
-        if (el.category === 'women' && entries.includes(el.type)) return el
-
+      if (userСhoice.includes('women') && !userСhoice.includes('men')) {
+        if (el.category === 'women' && userСhoice.includes(el.type)) return el
       }
-      if (entries.includes('men') && !entries.includes('women')) {
-        if (el.category === 'men' && entries.includes(el.type)) return el
-
+      if (userСhoice.includes('men') && !userСhoice.includes('women')) {
+        if (el.category === 'men' && userСhoice.includes(el.type)) return el
       } else {
-        if (entries.includes(el.type)) return el
+        if (userСhoice.includes(el.type)) return el
       }
     })
       .filter(Boolean)
@@ -126,10 +124,8 @@ export default function Collection() {
   return (
     <>
       {errorServer
-        ?
-        <ServerError />
-        :
-        <div className="collection-page">
+        ? <ServerError />
+        : <div className="collection-page">
           <div className="filter-card">
             <div className="text-center">
               <b>Filters</b>
@@ -181,7 +177,7 @@ export default function Collection() {
                         />
                       </Form.Group>
                     </div>
-                  )}
+                )}
                 <Form.Group controlId="jacket" className="main-chack">
                   <FormCheck
                     id="jacket"
@@ -214,12 +210,12 @@ export default function Collection() {
               <div className="loading">
                 <Spinner animation="border" variant="success" />
               </div>
-            )
+              )
             : (
               <div className="rating-cards-container">
                 <Cards items={items} />
               </div>
-            )}
+              )}
         </div>
       }
     </>
