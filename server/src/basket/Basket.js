@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const Basket = new Schema({
   userId: { type: String, required: true },
@@ -13,7 +13,6 @@ const Basket = new Schema({
       },
     },
   ],
-},
-);
+})
 
-module.exports = model('Basket', Basket)
+module.exports = model("Basket", Basket)
