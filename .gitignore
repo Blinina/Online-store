@@ -1,0 +1,4 @@
+# Local Netlify folder
+.netlify
+images
+node_modules

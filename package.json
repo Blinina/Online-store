@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "railway": "^2.0.17"
+  },
+  "name": "online-store",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm run start",
+    "build": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinina/Online-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blinina/Online-store/issues"
+  },
+  "homepage": "https://github.com/Blinina/Online-store#readme"
+}

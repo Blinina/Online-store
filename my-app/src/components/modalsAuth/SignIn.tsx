@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { Modal, Form } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useAuth } from '../../context/authContext'
-import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-import { closeModal } from '../../store/modalSlice'
-import { RootState } from '../../store/store'
+import { useState } from "react"
+import { Modal, Form } from "react-bootstrap"
+import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from "react-redux"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { useAuth } from "../../context/authContext"
+import { closeModal } from "../../store/modalSlice"
+import { RootState } from "../../store/store"
 
 interface ModalProps {
   setOpenSignUP: (value: boolean) => void
@@ -16,23 +16,23 @@ interface FormValues {
   role: string
 }
 
-export default function SignIn ({ setOpenSignUP }: ModalProps) {
+export default function SignIn({ setOpenSignUP }: ModalProps) {
   const auth = useAuth()
   const dispatch = useDispatch()
   const [errorAuth, setErrorAuth] = useState()
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormValues>({})
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const res = await fetch('/user/login', {
-        method: 'POST',
+      const res = await fetch("/user/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json;charset=utf-8'
+          "Content-Type": "application/json;charset=utf-8",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
       const result = await res.json()
       if (result.message) {
@@ -67,8 +67,7 @@ export default function SignIn ({ setOpenSignUP }: ModalProps) {
           </div>
           <div>
             <p className="form-decription">
-              Sign in to your account using email and password provided during
-              registration.
+              Sign in to your account using email and password provided during registration.
             </p>
           </div>
         </Modal.Header>
@@ -80,39 +79,35 @@ export default function SignIn ({ setOpenSignUP }: ModalProps) {
                 size="sm"
                 type="email"
                 placeholder="Your working email"
-                className={(errorAuth || errors.email != null) ? 'is-invalid' : ''}
+                className={errorAuth || errors.email != null ? "is-invalid" : ""}
                 autoFocus
-                {...register('email', {
+                {...register("email", {
                   required: {
                     value: true,
-                    message: 'Email is required'
-                  }
+                    message: "Email is required",
+                  },
                 })}
               />
-              {(errors.email != null) && (
-                <span className="danger">{errors.email.message}</span>
-              )}
+              {errors.email != null && <span className="danger">{errors.email.message}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 size="sm"
                 type="password"
-                className={(errorAuth || errors.password != null) ? 'is-invalid' : ''}
-                {...register('password', {
+                className={errorAuth || errors.password != null ? "is-invalid" : ""}
+                {...register("password", {
                   required: {
                     value: true,
-                    message: 'Password is required'
-                  }
+                    message: "Password is required",
+                  },
                 })}
               />
-              {(errors.password != null) && (
-                <span className="danger">{errors.password.message}</span>
-              )}
+              {errors.password != null && <span className="danger">{errors.password.message}</span>}
             </Form.Group>
             <Form.Group controlId="role" className="mb-3">
               <Form.Label>You role</Form.Label>
-              <Form.Select size="sm" {...register('role', { required: true })}>
+              <Form.Select size="sm" {...register("role", { required: true })}>
                 <option>Customer</option>
                 <option>Seller</option>
               </Form.Select>
@@ -126,7 +121,7 @@ export default function SignIn ({ setOpenSignUP }: ModalProps) {
           </button>
           <div>
             <p>
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <span className="go-modal" onClick={handleSignUP}>
                 Sign up
               </span>

@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { Form, FormCheck } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
-import NotifComponent from './modals/NotifComponent'
+import axios from "axios"
+import { useState } from "react"
+import { Form, FormCheck } from "react-bootstrap"
+import { useForm } from "react-hook-form"
+import NotifComponent from "./modals/NotifComponent"
 interface FormValues {
   title: string
   price: number
@@ -19,26 +19,26 @@ interface FormValues {
   }
 }
 
-export default function AddProduct () {
+export default function AddProduct() {
   const {
     register,
     handleSubmit,
     watch,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormValues>({})
-  const [showModal, setShowModal] = useState('')
+  const [showModal, setShowModal] = useState("")
   const onSubmit = handleSubmit(async (data) => {
     const { image1, image2, type, category, ...rest } = data
     const newDate = {
       type: type.toLowerCase(),
       category: category.toLowerCase(),
       image: [image1, image2],
-      ...rest
+      ...rest,
     }
     try {
-      const res = await axios.post('/addProduct', {
-        newDate
+      const res = await axios.post("/addProduct", {
+        newDate,
       })
       console.log(res.data)
       setShowModal(res.data)
@@ -51,7 +51,12 @@ export default function AddProduct () {
   return (
     <div>
       <div>
-        <h2 className="home-title" onClick={() => { setShowModal('kek') }}>
+        <h2
+          className="home-title"
+          onClick={() => {
+            setShowModal("kek")
+          }}
+        >
           Add new product
         </h2>
       </div>
@@ -64,18 +69,16 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="Product name"
-                className={((errors?.title) != null) ? 'is-invalid' : ''}
+                className={errors?.title != null ? "is-invalid" : ""}
                 autoFocus
-                {...register('title', {
+                {...register("title", {
                   required: {
                     value: true,
-                    message: 'Name is required'
-                  }
+                    message: "Name is required",
+                  },
                 })}
               />
-              {(errors.title != null) && (
-                <span className="danger">{errors.title.message}</span>
-              )}
+              {errors.title != null && <span className="danger">{errors.title.message}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="price">
               <Form.Label>Price</Form.Label>
@@ -83,22 +86,20 @@ export default function AddProduct () {
                 size="sm"
                 type="number"
                 min="0"
-                className={((errors?.price) != null) ? 'is-invalid' : ''}
+                className={errors?.price != null ? "is-invalid" : ""}
                 placeholder="Product price"
-                {...register('price', {
+                {...register("price", {
                   required: {
                     value: true,
-                    message: 'Price is required'
+                    message: "Price is required",
                   },
                   min: {
                     value: 1,
-                    message: 'Field cannot be negative'
-                  }
+                    message: "Field cannot be negative",
+                  },
                 })}
               />
-              {(errors.price != null) && (
-                <span className="danger">{errors.price.message}</span>
-              )}
+              {errors.price != null && <span className="danger">{errors.price.message}</span>}
             </Form.Group>
           </div>
           <div className="field-form">
@@ -106,12 +107,12 @@ export default function AddProduct () {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 size="sm"
-                className={((errors?.category) != null) ? 'is-invalid' : ''}
-                {...register('category', {
+                className={errors?.category != null ? "is-invalid" : ""}
+                {...register("category", {
                   required: {
                     value: true,
-                    message: 'Category is required'
-                  }
+                    message: "Category is required",
+                  },
                 })}
               >
                 <option value="" disabled selected>
@@ -121,26 +122,24 @@ export default function AddProduct () {
                 <option>Men</option>
                 <option>Kids</option>
               </Form.Select>
-              {(errors.category != null) && (
-                <span className="danger">{errors.category.message}</span>
-              )}
+              {errors.category != null && <span className="danger">{errors.category.message}</span>}
             </Form.Group>
             <Form.Group controlId="type" className="mb-3">
               <Form.Label>Type</Form.Label>
               <Form.Select
                 size="sm"
-                className={((errors?.type) != null) ? 'is-invalid' : ''}
-                {...register('type', {
+                className={errors?.type != null ? "is-invalid" : ""}
+                {...register("type", {
                   required: {
                     value: true,
-                    message: 'Type is required'
-                  }
+                    message: "Type is required",
+                  },
                 })}
               >
                 <option value="" disabled selected>
-                  Select the type{' '}
+                  Select the type{" "}
                 </option>
-                {watch('category') !== 'Men' && (
+                {watch("category") !== "Men" && (
                   <>
                     <option>Dresses</option>
                     <option>Skirt</option>
@@ -150,9 +149,7 @@ export default function AddProduct () {
                 <option>Shorts</option>
                 <option>T-shirt</option>
               </Form.Select>
-              {(errors.type != null) && (
-                <span className="danger">{errors.type.message}</span>
-              )}
+              {errors.type != null && <span className="danger">{errors.type.message}</span>}
             </Form.Group>
           </div>
           <div className="field-form">
@@ -162,17 +159,15 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="First image`s URL"
-                className={((errors?.image1) != null) ? 'is-invalid' : ''}
-                {...register('image1', {
+                className={errors?.image1 != null ? "is-invalid" : ""}
+                {...register("image1", {
                   required: {
                     value: true,
-                    message: 'First Image is required'
-                  }
+                    message: "First Image is required",
+                  },
                 })}
               />
-              {(errors.image1 != null) && (
-                <span className="danger">{errors.image1.message}</span>
-              )}
+              {errors.image1 != null && <span className="danger">{errors.image1.message}</span>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="image2">
               <Form.Label>Second Image</Form.Label>
@@ -180,17 +175,15 @@ export default function AddProduct () {
                 size="sm"
                 type="text"
                 placeholder="Second image`s URL"
-                className={((errors?.image2) != null) ? 'is-invalid' : ''}
-                {...register('image2', {
+                className={errors?.image2 != null ? "is-invalid" : ""}
+                {...register("image2", {
                   required: {
                     value: true,
-                    message: 'Second Image is required'
-                  }
+                    message: "Second Image is required",
+                  },
                 })}
               />
-              {(errors.image2 != null) && (
-                <span className="danger">{errors.image2.message}</span>
-              )}
+              {errors.image2 != null && <span className="danger">{errors.image2.message}</span>}
             </Form.Group>
           </div>
           <Form.Group className="mb-3" controlId="rating">
@@ -200,80 +193,70 @@ export default function AddProduct () {
               type="number"
               min="0"
               max="5"
-              className={((errors?.rating) != null) ? 'is-invalid' : ''}
+              className={errors?.rating != null ? "is-invalid" : ""}
               placeholder="LOL :) come up with"
-              {...register('rating', {
+              {...register("rating", {
                 required: {
                   value: true,
-                  message: 'Rating is required'
+                  message: "Rating is required",
                 },
                 min: {
                   value: 1,
-                  message: 'Rating cannot be less than 1'
+                  message: "Rating cannot be less than 1",
                 },
                 max: {
                   value: 5,
-                  message: 'Rating cannot be greater than 99'
-                }
+                  message: "Rating cannot be greater than 99",
+                },
               })}
             />
-            {(errors.rating != null) && (
-              <span className="danger">{errors.rating.message}</span>
-            )}
+            {errors.rating != null && <span className="danger">{errors.rating.message}</span>}
           </Form.Group>
           <div className="field-form">
             <Form.Group className="mb-3" controlId="sales">
-              <FormCheck
-                id="sales"
-                label="Sales"
-                {...register('sales.sales')}
-              />
+              <FormCheck id="sales" label="Sales" {...register("sales.sales")} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="salesCount">
               <Form.Label>Sales count</Form.Label>
               <Form.Control
                 size="sm"
                 type="number"
-                disabled={!watch('sales.sales')}
-                className={((errors?.sales?.count) != null) ? 'is-invalid' : ''}
+                disabled={!watch("sales.sales")}
+                className={errors?.sales?.count != null ? "is-invalid" : ""}
                 defaultValue="0"
-                {...register('sales.count', {
+                {...register("sales.count", {
                   min: {
                     value: 1,
-                    message: 'Sales count cannot be less than 1'
+                    message: "Sales count cannot be less than 1",
                   },
                   max: {
                     value: 99,
-                    message: 'Sales count cannot be greater than 99'
-                  }
+                    message: "Sales count cannot be greater than 99",
+                  },
                 })}
               />
-              {((errors?.sales?.count) != null) && (
+              {errors?.sales?.count != null && (
                 <span className="danger">{errors?.sales?.count.message}</span>
               )}
             </Form.Group>
           </div>
           <Form.Group className="mb-3" controlId="newColection">
-            <FormCheck
-              id="newColection"
-              label="New colection"
-              {...register('newColection')}
-            />
+            <FormCheck id="newColection" label="New colection" {...register("newColection")} />
           </Form.Group>
           <Form.Group controlId="description" className="mb-3">
             <Form.Label>Description</Form.Label>
             <Form.Control
               as="textarea"
-              className={((errors?.description) != null) ? 'is-invalid' : ''}
+              className={errors?.description != null ? "is-invalid" : ""}
               size="sm"
-              {...register('description', {
+              {...register("description", {
                 required: {
                   value: true,
-                  message: 'Description is required'
-                }
+                  message: "Description is required",
+                },
               })}
             />
-            {(errors.description != null) && (
+            {errors.description != null && (
               <span className="danger">{errors.description.message}</span>
             )}
           </Form.Group>
@@ -282,9 +265,7 @@ export default function AddProduct () {
           </button>
         </Form>
       </div>
-      {!!showModal && (
-        <NotifComponent show={showModal} setShowModal={setShowModal} />
-      )}
+      {!!showModal && <NotifComponent show={showModal} setShowModal={setShowModal} />}
     </div>
   )
 }

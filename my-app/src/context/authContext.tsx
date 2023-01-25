@@ -1,13 +1,11 @@
-import {
-  createContext, ReactNode, SetStateAction, useContext, useState
-} from 'react'
+import { createContext, ReactNode, SetStateAction, useContext, useState } from "react"
 
 export interface typeLoggedIn {
   fullName: string
   email: string
   password: string
-  'role': string
-  '_id': string
+  role: string
+  _id: string
   __v: string
   token: string
 }
@@ -20,17 +18,19 @@ export interface typeAuthContent {
 
 const AuthContext = createContext<typeAuthContent | null>(null)
 
-export default function AuthProvider ({ children }: { children: ReactNode }) {
-  const userLoggin: any = JSON.parse(localStorage.getItem('user') || '{}')
-  const [loggedIn, setLoggedIn] = useState<typeLoggedIn | null>(userLoggin !== '{}' ? { ...userLoggin } : null)
+export default function AuthProvider({ children }: { children: ReactNode }) {
+  const userLoggin: any = JSON.parse(localStorage.getItem("user") || "{}")
+  const [loggedIn, setLoggedIn] = useState<typeLoggedIn | null>(
+    userLoggin !== "{}" ? { ...userLoggin } : null,
+  )
 
   const logIn = (data: SetStateAction<typeLoggedIn | null>) => {
-    localStorage.setItem('user', JSON.stringify(data))
-    setLoggedIn({ ...data as typeLoggedIn })
+    localStorage.setItem("user", JSON.stringify(data))
+    setLoggedIn({ ...(data as typeLoggedIn) })
   }
 
   const logOut = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem("user")
     setLoggedIn(null)
   }
 
@@ -42,9 +42,13 @@ export default function AuthProvider ({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{
-      loggedIn, logIn, logOut, getUsername
-    }}
+    <AuthContext.Provider
+      value={{
+        loggedIn,
+        logIn,
+        logOut,
+        getUsername,
+      }}
     >
       {children}
     </AuthContext.Provider>

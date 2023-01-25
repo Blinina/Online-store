@@ -1,27 +1,28 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import {
-  persistStore, persistReducer,
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import likeReduser from './likeSlice'
-import basketReduser from './basketSlice'
-import modalReduser from './modalSlice'
+  REGISTER,
+} from "redux-persist"
+import storage from "redux-persist/lib/storage"
+import likeReduser from "./likeSlice"
+import basketReduser from "./basketSlice"
+import modalReduser from "./modalSlice"
 
 const persistConfig = {
-  key: 'root',
-  storage
+  key: "root",
+  storage,
 }
 
 const rootReducers = combineReducers({
   like: likeReduser,
   basket: basketReduser,
-  modal: modalReduser
+  modal: modalReduser,
 })
 
 export type RootState = ReturnType<typeof store.getState>
@@ -33,9 +34,9 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-      }
-    })
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 })
 export const persistor = persistStore(store)
 export default store
